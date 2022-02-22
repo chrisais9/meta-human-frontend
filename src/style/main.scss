@@ -24,7 +24,6 @@ body {
 	color: #2d2d2d;
 	overflow: hidden;
 }
-
 ::-webkit-scrollbar {
 	width: 5px;
 	height: 5px;
@@ -53,5 +52,5 @@ input[type="number"] {
 }
 
 a {
-	color: $primary-color;
+	color: gray;
 }

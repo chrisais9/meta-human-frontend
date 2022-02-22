@@ -21,6 +21,7 @@ export default class GNB extends Vue {}
 
 <style lang="scss">
 #gnb {
+  @include clear-select;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,7 +29,7 @@ export default class GNB extends Vue {}
   padding: 28px 28px;
   height: 100px;
 
-  border-bottom: 1px solid #ff00e5;
+  border-bottom: 1px solid $primary-color;
   background: #040303;
 
   .gnb__content {
@@ -41,8 +42,7 @@ export default class GNB extends Vue {}
 
     .router-item {
       text-decoration: none;
-      color: #ff00e5;
-
+      color: $primary-color;
       padding: 1em;
 
       font-size: 1em;
