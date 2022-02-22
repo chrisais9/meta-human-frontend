@@ -11,16 +11,16 @@
     </div>
     <div class="gnb__right">
       <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon" src="@/assets/icon/facebook.png" />
+        <img class="social-icon" src="@/assets/icons/facebook.png" />
       </a>
       <a href="https://opensea.io" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon" src="@/assets/icon/opensea.svg" />
+        <img class="social-icon" src="@/assets/icons/opensea.svg" />
       </a>
       <a href="https://discord.com/branding" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon" src="@/assets/icon/discord.png" />
+        <img class="social-icon" src="@/assets/icons/discord.png" />
       </a>
       <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon" src="@/assets/icon/twitter.png" />
+        <img class="social-icon" src="@/assets/icons/twitter.png" />
       </a>
     </div>
   </div>
