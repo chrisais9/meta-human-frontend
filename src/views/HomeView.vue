@@ -6,12 +6,14 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
-@Options({
-  components: {
-    HelloWorld,
-  },
-})
+@Options({})
 export default class HomeView extends Vue {}
 </script>
+
+<style lang="scss">
+.home {
+  height: 1000px;
+  background: $background-color;
+}
+</style>
