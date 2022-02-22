@@ -1,7 +1,9 @@
 <template>
   <div id="gnb">
     <div class="gnb__left">
-      <img class="desktop" src="@/assets/logo.png" alt="" />
+      <div class="the-gnb__logo" @click="$router.push('/')">
+        <img class="desktop" src="@/assets/logo.png" alt="" />
+      </div>
       <nav>
         <router-link class="router-item" to="/">Home</router-link>
         <router-link class="router-item" to="/about">About</router-link>
@@ -42,7 +44,7 @@ export default class GNB extends Vue {}
   justify-content: space-between;
   align-items: center;
 
-  padding: 28px 28px;
+  padding: 28px 56px;
   height: 100px;
 
   border-bottom: 1px solid $primary-color;
@@ -51,6 +53,20 @@ export default class GNB extends Vue {}
   .gnb__left {
     display: flex;
     align-items: center;
+
+    .the-gnb__logo {
+      cursor: pointer;
+
+      display: flex;
+      height: 100%;
+
+      margin-right: 60px;
+
+      img {
+        @include clear-select;
+        height: 40px;
+      }
+    }
 
     .router-item {
       cursor: pointer;
