@@ -1,12 +1,23 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <GNB v-if="!isMobile"></GNB>
   <router-view />
 </template>
 
+<script lang="ts">
+import { Options, Vue } from "vue-class-component";
+import GNB from "./components/GNB.vue";
+
+@Options({
+  components: {
+    GNB,
+  },
+})
+export default class App extends Vue {}
+</script>
+
 <style lang="scss">
+@import "@/style/main.scss";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

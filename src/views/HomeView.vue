@@ -1,18 +1,17 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Playground NFT 세계에 오신것을 환영합니다." />
+    <p>플레이그라운드 NFT</p>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Options, Vue } from "vue-class-component";
 import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
-export default defineComponent({
-  name: "HomeView",
+@Options({
   components: {
     HelloWorld,
   },
-});
+})
+export default class HomeView extends Vue {}
 </script>
