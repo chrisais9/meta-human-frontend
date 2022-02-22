@@ -10,6 +10,7 @@
       </nav>
     </div>
   </div>
+  <div class="gnb__secondary-border"></div>
 </template>
 
 <script>
@@ -55,5 +56,11 @@ export default class GNB extends Vue {}
       }
     }
   }
+}
+
+.gnb__secondary-border {
+  background: #040303;
+  height: 4px;
+  border-bottom: 1px solid $primary-color;
 }
 </style>
