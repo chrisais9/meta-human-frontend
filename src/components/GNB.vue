@@ -22,6 +22,7 @@
       <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
         <img class="social-icon" src="@/assets/icons/twitter.png" />
       </a>
+      <AppButton class="the-gnb__action__connet-wallet" color="primary">Connect Wallet</AppButton>
     </div>
   </div>
   <div class="gnb__secondary-border"></div>
@@ -76,6 +77,11 @@ export default class GNB extends Vue {}
       width: 30px;
       height: 30px;
       margin-left: 1em;
+    }
+
+    .the-gnb__action__connet-wallet {
+      margin-left: 1em;
+      font-size: 16px;
     }
   }
 }
