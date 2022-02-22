@@ -40,6 +40,7 @@ export default class GNB extends Vue {}
     padding: 30px;
 
     .router-item {
+      text-decoration: none;
       color: #ff00e5;
 
       padding: 1em;
