@@ -1,5 +1,8 @@
 # playground-frontend
 
+Deployed via Vercel
+https://playground.party
+
 ## Project setup
 ```
 npm install
