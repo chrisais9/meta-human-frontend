@@ -6,8 +6,6 @@
 </template>
 
 <script lang="ts">
-declare var window: any;
-
 import { Web3Module } from "@/store/web3/Web3Module";
 import { Options, Vue } from "vue-class-component";
 import Web3 from "web3";
@@ -15,14 +13,7 @@ import Web3 from "web3";
 @Options({})
 export default class HomeView extends Vue {
   async mounted() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
-    }
+    await Web3Module.connectWallet();
   }
 }
 </script>
