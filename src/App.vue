@@ -1,5 +1,5 @@
 <template>
-  <GNB v-if="!isMobile"></GNB>
+  <GNB></GNB>
   <router-view />
 </template>
 

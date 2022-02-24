@@ -2,11 +2,10 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        additionalData: `
+        prependData: `
           @import "@/style/main.scss";
         `,
       },
     },
   },
-  transpileDependencies: true,
 };

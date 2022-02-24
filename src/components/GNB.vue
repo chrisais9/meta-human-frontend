@@ -30,8 +30,9 @@
   <div class="gnb__secondary-border"></div>
 </template>
 
-<script>
+<script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import AppButton from "./button/AppButton.vue";
 
 @Options({})
 export default class GNB extends Vue {}
