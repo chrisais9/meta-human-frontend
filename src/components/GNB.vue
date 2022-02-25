@@ -1,7 +1,7 @@
 <template>
   <div id="gnb">
     <div class="gnb__left">
-      <div class="the-gnb__logo" @click="$router.push('/')">
+      <div class="gnb__logo" @click="$router.push('/')">
         <img class="desktop" src="@/assets/logo.png" alt="" />
       </div>
       <nav>
@@ -24,7 +24,7 @@
       <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
         <img class="social-icon" src="@/assets/icons/twitter.png" />
       </a>
-      <AppButton class="the-gnb__action__connet-wallet" color="primary" @click="connectWallet"
+      <AppButton class="gnb__action__connet-wallet" color="primary" @click="connectWallet"
         >Connect Wallet</AppButton
       >
     </div>
@@ -61,7 +61,7 @@ export default class GNB extends Vue {
     display: flex;
     align-items: center;
 
-    .the-gnb__logo {
+    .gnb__logo {
       cursor: pointer;
 
       display: flex;
@@ -102,7 +102,7 @@ export default class GNB extends Vue {
       margin-left: 1em;
     }
 
-    .the-gnb__action__connet-wallet {
+    .gnb__action__connet-wallet {
       margin-left: 1em;
       font-size: 16px;
     }
