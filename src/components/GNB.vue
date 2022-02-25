@@ -24,18 +24,24 @@
       <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
         <img class="social-icon" src="@/assets/icons/twitter.png" />
       </a>
-      <AppButton class="the-gnb__action__connet-wallet" color="primary">Connect Wallet</AppButton>
+      <AppButton class="the-gnb__action__connet-wallet" color="primary" @click="connectWallet"
+        >Connect Wallet</AppButton
+      >
     </div>
   </div>
   <div class="gnb__secondary-border"></div>
 </template>
 
 <script lang="ts">
+import { Web3Module } from "@/store/web3/Web3Module";
 import { Options, Vue } from "vue-class-component";
-import AppButton from "./button/AppButton.vue";
 
 @Options({})
-export default class GNB extends Vue {}
+export default class GNB extends Vue {
+  async connectWallet() {
+    await Web3Module.connectWallet();
+  }
+}
 </script>
 
 <style lang="scss">
