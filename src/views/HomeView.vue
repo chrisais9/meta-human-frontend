@@ -11,6 +11,9 @@
           look familiar!
         </h1>
       </div>
+      <AppButton class="home__action__mint" color="primary" @click="$router.push('/mint')"
+        >Mint</AppButton
+      >
     </div>
     <p>플레이그라운드 NFT</p>
     <p>{{ walletAddress }}</p>

@@ -7,7 +7,7 @@
       <nav>
         <router-link class="router-item" to="/">Home</router-link>
         <router-link class="router-item" to="/about">About</router-link>
-        <router-link class="router-item" to="/claim">Claim</router-link>
+        <router-link class="router-item" to="/mint">Mint</router-link>
         <router-link class="router-item" to="/vote">Vote</router-link>
       </nav>
     </div>
