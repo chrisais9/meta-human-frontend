@@ -9,13 +9,15 @@ declare let window: any;
 
 interface IWeb3 {
   walletAddress: string;
-  contract: Contract | unknown;
+  contract: Contract;
+  collectionName: string;
 }
 
 @Module({ dynamic: true, store, name: "Web3" })
 class Web3Manager extends VuexModule implements IWeb3 {
   walletAddress = "";
-  contract = {};
+  contract = {} as any;
+  collectionName = "";
 
   @Mutation
   setWalletAddress(address: string) {
@@ -25,6 +27,11 @@ class Web3Manager extends VuexModule implements IWeb3 {
   @Mutation
   setContract(contract: Contract) {
     this.contract = contract;
+  }
+
+  @Mutation
+  setCollectionName(nameOfNFT: string) {
+    this.collectionName = nameOfNFT;
   }
 
   @Action
@@ -44,17 +51,25 @@ class Web3Manager extends VuexModule implements IWeb3 {
     this.setWalletAddress(address[0]);
 
     const networkId = await web3.eth.net.getId();
-    const networkData = (NFTCollection as any).networks[networkId];
+    const networkData = (NFTCollection.networks as any)[networkId];
 
     if (networkData) {
       const abi = NFTCollection.abi;
-      const address = (NFTCollection as any).networks[networkId].address as string;
+      const address = networkData.address as string;
 
       const contract = new web3.eth.Contract(abi as AbiItem[], address);
       this.setContract(contract);
+
+      await this.fetchCollectionName();
     } else {
       window.alert("Contract is not deployed to detected network.");
     }
+  }
+
+  @Action
+  async fetchCollectionName() {
+    const name = await this.contract.methods.name().call();
+    this.setCollectionName(name);
   }
 }
 

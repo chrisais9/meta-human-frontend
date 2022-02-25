@@ -2,6 +2,7 @@
   <div class="home">
     <p>플레이그라운드 NFT</p>
     <p>{{ walletAddress }}</p>
+    <p>{{ collectionName }}</p>
   </div>
 </template>
 
@@ -14,6 +15,10 @@ export default class HomeView extends Vue {
   get walletAddress(): string {
     return Web3Module.walletAddress;
   }
+
+  get collectionName(): string {
+    return Web3Module.collectionName;
+  }
 }
 </script>
 
@@ -21,5 +26,9 @@ export default class HomeView extends Vue {
 .home {
   height: 1000px;
   background: $background-color;
+
+  p {
+    color: white;
+  }
 }
 </style>
