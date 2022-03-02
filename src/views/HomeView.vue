@@ -12,8 +12,8 @@
         </h1>
       </div>
       <AppButton class="home__action__mint" color="primary" @click="$router.push('/mint')"
-        >Mint</AppButton
-      >
+        >Mint
+      </AppButton>
     </div>
     <p>플레이그라운드 NFT</p>
     <p>{{ walletAddress }}</p>
@@ -53,11 +53,9 @@ export default class HomeView extends Vue {
 
     .home__intro__content {
       box-sizing: border-box;
-      margin: 0;
       min-width: 0;
       width: 100%;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
       padding-left: 1rem;
       padding-right: 1rem;
       max-width: 75rem;
@@ -75,21 +73,16 @@ export default class HomeView extends Vue {
         display: block;
         margin-block-start: 0.67em;
         margin-block-end: 0.67em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
 
         box-sizing: border-box;
-        margin: 0;
         min-width: 0;
-        font-size: 3rem;
         color: white;
         font-size: 1rem;
         font-style: italic;
-        margin-top: -2rem;
-        margin-bottom: 0rem;
         max-width: 40em;
-        margin-left: auto;
-        margin-right: auto;
+        margin: -2rem auto 0rem;
         line-height: 1.55;
         background: radial-gradient(50% 50% at 50% 50%, #000000 20.62%, rgba(0, 0, 0, 0) 100%);
         padding: 4rem;
