@@ -1,14 +1,51 @@
 <template>
   <div>
-    <h1>This is a Mint view</h1>
-    <AppInputFile></AppInputFile>
+    <div class="mintform__container">
+      <div class="item">
+        <h3>NFT 이미지 등록</h3>
+        <AppInputFile v-model:file="tmpNFTImageFile"></AppInputFile>
+        <p>jpg, png 파일만 등록 가능해요.</p>
+      </div>
+    </div>
   </div>
 </template>
 
-<script>
-import { Vue } from "vue-class-component";
+<script lang="ts">
+import { Options, Vue } from "vue-class-component";
 
-export default class MintView extends Vue {}
+@Options({})
+export default class MintView extends Vue {
+  tmpNFTImageFile!: File;
+}
 </script>
 
-<style></style>
+<style lang="scss">
+.mintform__container {
+  padding-left: 10%;
+  padding-right: 10%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  .item {
+    width: 100%;
+
+    h5 {
+      font-weight: normal;
+      font-size: 16px;
+
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-weight: normal;
+      font-size: 13px;
+      color: $disabled-color;
+
+      margin-top: 10px;
+    }
+  }
+}
+</style>
