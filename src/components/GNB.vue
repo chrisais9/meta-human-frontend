@@ -2,7 +2,7 @@
   <div id="gnb">
     <div class="gnb__left">
       <div class="gnb__logo" @click="$router.push('/')">
-        <img class="desktop" src="@/assets/logo.png" alt="" />
+        <img alt="" class="desktop" src="@/assets/logo.png" />
       </div>
       <nav>
         <router-link class="router-item" to="/">Home</router-link>
@@ -12,21 +12,21 @@
       </nav>
     </div>
     <div class="gnb__right">
-      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+      <a href="https://facebook.com" rel="noopener noreferrer" target="_blank">
         <img class="social-icon" src="@/assets/icons/facebook.png" />
       </a>
-      <a href="https://opensea.io" target="_blank" rel="noopener noreferrer">
+      <a href="https://opensea.io" rel="noopener noreferrer" target="_blank">
         <img class="social-icon" src="@/assets/icons/opensea.svg" />
       </a>
-      <a href="https://discord.com/branding" target="_blank" rel="noopener noreferrer">
+      <a href="https://discord.com/branding" rel="noopener noreferrer" target="_blank">
         <img class="social-icon" src="@/assets/icons/discord.png" />
       </a>
-      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+      <a href="https://twitter.com" rel="noopener noreferrer" target="_blank">
         <img class="social-icon" src="@/assets/icons/twitter.png" />
       </a>
       <AppButton class="gnb__action__connet-wallet" color="primary" @click="connectWallet"
-        >Connect Wallet</AppButton
-      >
+        >Connect Wallet
+      </AppButton>
     </div>
   </div>
   <div class="gnb__secondary-border"></div>

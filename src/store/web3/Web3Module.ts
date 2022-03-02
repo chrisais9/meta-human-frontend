@@ -5,6 +5,7 @@ import { Contract } from "web3-eth-contract";
 import { AbiItem } from "web3-utils";
 
 import NFTCollection from "@/abis/NFTCollection.json";
+
 declare let window: any;
 
 interface IWeb3 {
@@ -49,6 +50,13 @@ class Web3Manager extends VuexModule implements IWeb3 {
 
     const address = await web3.eth.getAccounts();
     this.setWalletAddress(address[0]);
+
+    await this.establishContract();
+  }
+
+  @Action
+  async establishContract() {
+    const web3: Web3 = window.web3;
 
     const networkId = await web3.eth.net.getId();
     const networkData = (NFTCollection.networks as any)[networkId];
