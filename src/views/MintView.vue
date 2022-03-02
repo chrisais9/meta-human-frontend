@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>This is a Mint view</h1>
+    <AppInputFile></AppInputFile>
   </div>
 </template>
 
