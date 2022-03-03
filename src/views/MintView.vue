@@ -3,7 +3,7 @@
     <div class="mintform__container">
       <div class="item">
         <h3>NFT 이미지 등록</h3>
-        <AppInputFile v-model:file="tmpNFTImageFile"></AppInputFile>
+        <AppInputImageFile class="image" @update:file="tmpNFTImageFile"></AppInputImageFile>
         <p>jpg, png 파일만 등록 가능해요.</p>
       </div>
     </div>
@@ -26,11 +26,19 @@ export default class MintView extends Vue {
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  // align-items: flex-start;
+  // justify-content: space-between;
 
   .item {
+    flex: 1;
     width: 100%;
+    height: 100%;
+
+    .image {
+      height: 200px;
+    }
 
     h5 {
       font-weight: normal;
