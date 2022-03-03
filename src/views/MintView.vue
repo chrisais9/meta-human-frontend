@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import axios from "axios";
 
 @Options({})
 export default class MintView extends Vue {
@@ -26,7 +27,18 @@ export default class MintView extends Vue {
   async mint() {
     if (!this.nftImageFile || !this.nftName || !this.nftDescription) {
       window.alert("입력 필드를 확인해주세요");
+      return;
     }
+    const instance = axios.create({
+      baseURL: "https://api.pinata.cloud/",
+      headers: { Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}` },
+    });
+    let form = new FormData();
+
+    form.append("file", this.nftImageFile);
+
+    let result = (await instance.post(`pinning/pinFileToIPFS`, form)).data.data;
+    window.alert(result);
   }
 
   updateImage(file: File) {
