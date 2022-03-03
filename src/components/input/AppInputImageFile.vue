@@ -134,6 +134,7 @@ export default class AppInputImageFile extends Vue.with(Props) {
   cursor: pointer;
 
   display: flex;
+  flex-direction: column;
 
   transition: 0.1s;
 
@@ -174,7 +175,6 @@ export default class AppInputImageFile extends Vue.with(Props) {
 
     font-size: 13px;
 
-    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }

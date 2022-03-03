@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import AppButton from "./components/button/AppButton.vue";
 import AppInputImageFile from "./components/input/AppInputImageFile.vue";
+import AppInput from "./components/input/AppInput.vue";
 
 const Vue = createApp(App);
 
@@ -13,5 +14,6 @@ Vue.use(router);
 
 Vue.component("AppButton", AppButton);
 Vue.component("AppInputImageFile", AppInputImageFile);
+Vue.component("AppInput", AppInput);
 
 Vue.mount("#app");

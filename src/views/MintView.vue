@@ -3,8 +3,12 @@
     <div class="mintform__container">
       <div class="item">
         <h3>NFT 이미지 등록</h3>
-        <AppInputImageFile class="image" @update:file="tmpNFTImageFile"></AppInputImageFile>
-        <p>jpg, png 파일만 등록 가능해요.</p>
+        <AppInputImageFile class="image"></AppInputImageFile>
+        <h5>이름</h5>
+        <AppInput v-model="nftName" class="input"> </AppInput>
+        <h5>설명</h5>
+        <AppInput v-model="nftDescription" class="input"> </AppInput>
+        <AppButton class="action__connet-wallet" color="primary">민팅하기</AppButton>
       </div>
     </div>
   </div>
@@ -16,43 +20,57 @@ import { Options, Vue } from "vue-class-component";
 @Options({})
 export default class MintView extends Vue {
   tmpNFTImageFile!: File;
+
+  nftName = "";
+  nftDescription = "";
 }
 </script>
 
 <style lang="scss">
 .mintform__container {
-  padding-left: 10%;
-  padding-right: 10%;
+  width: 100%;
+  height: 100%;
+
+  background-color: white;
 
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  // align-items: flex-start;
-  // justify-content: space-between;
+
+  overflow-y: auto;
 
   .item {
-    flex: 1;
     width: 100%;
-    height: 100%;
+    max-width: 600px;
+    height: fit-content;
 
-    .image {
-      height: 200px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 200px;
+
+    h3 {
+      margin-top: 74px;
+
+      font-weight: normal;
+      font-size: 30px;
+
+      text-align: center;
     }
 
     h5 {
-      font-weight: normal;
-      font-size: 16px;
-
-      margin-bottom: 10px;
+      margin-top: 35px;
     }
 
-    p {
-      font-weight: normal;
-      font-size: 13px;
-      color: $disabled-color;
+    .image {
+      margin-top: 55px;
+      height: 200px;
+    }
 
-      margin-top: 10px;
+    .input {
+      @include input-field;
+    }
+
+    .action__connet-wallet {
+      margin-top: 55px;
     }
   }
 }
