@@ -2,7 +2,7 @@
   <div>
     <div class="mintform__container">
       <div class="item">
-        <h3>NFT 이미지 등록</h3>
+        <h3>NFT 등록 (테스트)</h3>
         <AppInputImageFile class="image"></AppInputImageFile>
         <h5>이름</h5>
         <AppInput v-model="nftName" class="input"> </AppInput>
@@ -50,7 +50,7 @@ export default class MintView extends Vue {
     h3 {
       margin-top: 74px;
 
-      font-weight: normal;
+      font-weight: bold;
       font-size: 30px;
 
       text-align: center;

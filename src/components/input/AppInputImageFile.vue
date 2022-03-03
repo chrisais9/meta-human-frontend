@@ -41,7 +41,7 @@ class Props {
   hideFileName = prop<boolean>({ default: false });
   type = prop<string>({ default: "normal" });
   accept = prop<string[]>({ default: ["image/png", "image/jpeg"] });
-  maxSize = prop<number>({ default: 1024 * 50 }); // 50KB
+  maxSize = prop<number>({ default: 1024 * 1000 }); // 1MB
 }
 
 @Options({
