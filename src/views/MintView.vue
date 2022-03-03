@@ -3,12 +3,12 @@
     <div class="mintform__container">
       <div class="item">
         <h3>NFT 등록 (테스트)</h3>
-        <AppInputImageFile class="image"></AppInputImageFile>
+        <AppInputImageFile class="image" @update:file="updateImage"></AppInputImageFile>
         <h5>이름</h5>
         <AppInput v-model="nftName" class="input"> </AppInput>
         <h5>설명</h5>
         <AppInput v-model="nftDescription" class="input"> </AppInput>
-        <AppButton class="action__connet-wallet" color="primary">민팅하기</AppButton>
+        <AppButton class="action__mint" color="primary" @click="mint">민팅하기</AppButton>
       </div>
     </div>
   </div>
@@ -19,10 +19,19 @@ import { Options, Vue } from "vue-class-component";
 
 @Options({})
 export default class MintView extends Vue {
-  tmpNFTImageFile!: File;
-
+  nftImageFile!: File;
   nftName = "";
   nftDescription = "";
+
+  async mint() {
+    if (!this.nftImageFile || !this.nftName || !this.nftDescription) {
+      window.alert("입력 필드를 확인해주세요");
+    }
+  }
+
+  updateImage(file: File) {
+    this.nftImageFile = file;
+  }
 }
 </script>
 
@@ -69,7 +78,7 @@ export default class MintView extends Vue {
       @include input-field;
     }
 
-    .action__connet-wallet {
+    .action__mint {
       margin-top: 55px;
     }
   }
