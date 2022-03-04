@@ -29,16 +29,39 @@ export default class MintView extends Vue {
       window.alert("입력 필드를 확인해주세요");
       return;
     }
-    const instance = axios.create({
-      baseURL: "https://api.pinata.cloud/",
-      headers: { Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}` },
-    });
+
+    let imageHash = await this.pinImageToIPFS(this.nftImageFile);
+    let nftHash = await this.pinNFTToIPFS(this.nftName, this.nftDescription, imageHash);
+
+    console.log(nftHash);
+  }
+
+  async pinImageToIPFS(image: File): Promise<string> {
     let form = new FormData();
 
-    form.append("file", this.nftImageFile);
+    form.append("file", image);
 
-    let result = (await instance.post(`pinning/pinFileToIPFS`, form)).data.data;
-    window.alert(result);
+    let response = await axios.post(`https://api.pinata.cloud/pinning/pinFileToIPFS`, form, {
+      headers: { Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}` },
+    });
+    return response.data.IpfsHash;
+  }
+
+  async pinNFTToIPFS(name: string, description: string, imageHash: string): Promise<string> {
+    let body = {
+      pinataMetadata: {
+        name: name,
+      },
+      pinataContent: {
+        description: description,
+        image: imageHash,
+        name: name,
+      },
+    };
+    let response = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, body, {
+      headers: { Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}` },
+    });
+    return response.data.IpfsHash;
   }
 
   updateImage(file: File) {
