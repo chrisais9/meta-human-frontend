@@ -17,6 +17,7 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import axios from "axios";
+import { IPFSModule } from "@/store/web3/IPFSModule";
 
 @Options({})
 export default class MintView extends Vue {
@@ -30,38 +31,10 @@ export default class MintView extends Vue {
       return;
     }
 
-    let imageHash = await this.pinImageToIPFS(this.nftImageFile);
-    let nftHash = await this.pinNFTToIPFS(this.nftName, this.nftDescription, imageHash);
+    let imageHash = await IPFSModule.pinImageToIPFS(this.nftImageFile);
+    let nftHash = await IPFSModule.pinNFTToIPFS(this.nftName, this.nftDescription, imageHash);
 
     console.log(nftHash);
-  }
-
-  async pinImageToIPFS(image: File): Promise<string> {
-    let form = new FormData();
-
-    form.append("file", image);
-
-    let response = await axios.post(`https://api.pinata.cloud/pinning/pinFileToIPFS`, form, {
-      headers: { Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}` },
-    });
-    return response.data.IpfsHash;
-  }
-
-  async pinNFTToIPFS(name: string, description: string, imageHash: string): Promise<string> {
-    let body = {
-      pinataMetadata: {
-        name: name,
-      },
-      pinataContent: {
-        description: description,
-        image: imageHash,
-        name: name,
-      },
-    };
-    let response = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, body, {
-      headers: { Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}` },
-    });
-    return response.data.IpfsHash;
   }
 
   updateImage(file: File) {
