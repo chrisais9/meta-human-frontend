@@ -88,6 +88,10 @@ export default class HomeView extends Vue {
         padding: 4rem;
       }
     }
+
+    .home__action__mint {
+      align-items: center;
+    }
   }
 }
 </style>
