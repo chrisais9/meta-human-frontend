@@ -14,8 +14,8 @@ interface IWeb3 {
   collectionName: string;
 }
 
-@Module({ dynamic: true, store, name: "Web3" })
-class Web3Manager extends VuexModule implements IWeb3 {
+@Module({ dynamic: true, store, name: "NFTContract" })
+class NFTContractManager extends VuexModule implements IWeb3 {
   walletAddress = "";
   contract = {} as any;
   collectionName = "";
@@ -81,4 +81,4 @@ class Web3Manager extends VuexModule implements IWeb3 {
   }
 }
 
-export const Web3Module = getModule(Web3Manager, store);
+export const NFTContractModule = getModule(NFTContractManager, store);

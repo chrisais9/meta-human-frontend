@@ -22,17 +22,17 @@
 </template>
 
 <script lang="ts">
-import { Web3Module } from "@/store/web3/Web3Module";
+import { NFTContractModule } from "@/store/web3/NFTContractModule";
 import { Options, Vue } from "vue-class-component";
 
 @Options({})
 export default class HomeView extends Vue {
   get walletAddress(): string {
-    return Web3Module.walletAddress;
+    return NFTContractModule.walletAddress;
   }
 
   get collectionName(): string {
-    return Web3Module.collectionName;
+    return NFTContractModule.collectionName;
   }
 }
 </script>

@@ -16,7 +16,6 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import axios from "axios";
 import { IPFSModule } from "@/store/web3/IPFSModule";
 
 @Options({})

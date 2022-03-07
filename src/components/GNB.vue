@@ -33,13 +33,13 @@
 </template>
 
 <script lang="ts">
-import { Web3Module } from "@/store/web3/Web3Module";
+import { NFTContractModule } from "@/store/web3/NFTContractModule";
 import { Options, Vue } from "vue-class-component";
 
 @Options({})
 export default class GNB extends Vue {
   async connectWallet() {
-    await Web3Module.connectWallet();
+    await NFTContractModule.connectWallet();
   }
 }
 </script>
