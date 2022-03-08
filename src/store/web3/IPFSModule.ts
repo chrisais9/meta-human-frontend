@@ -17,15 +17,19 @@ class IPFSManager extends VuexModule {
   }
 
   @Action({ rawError: true })
-  async pinNFTToIPFS(name: string, description: string, imageHash: string): Promise<string> {
+  async pinNFTToIPFS(data: {
+    name: string;
+    description: string;
+    imageHash: string;
+  }): Promise<string> {
     const body = {
       pinataMetadata: {
-        name: name,
+        name: data.name,
       },
       pinataContent: {
-        description: description,
-        image: imageHash,
-        name: name,
+        name: data.name,
+        description: data.description,
+        image: data.imageHash,
       },
     };
     const response = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, body, {

@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import { IPFSModule } from "@/store/web3/IPFSModule";
+import { NFTContractModule } from "@/store/web3/NFTContractModule";
 
 @Options({})
 export default class MintView extends Vue {
@@ -25,15 +25,20 @@ export default class MintView extends Vue {
   nftDescription = "";
 
   async mint() {
+    if (!NFTContractModule.walletAddress) {
+      window.alert("지갑을 먼저 연결해주세요");
+      return;
+    }
     if (!this.nftImageFile || !this.nftName || !this.nftDescription) {
       window.alert("입력 필드를 확인해주세요");
       return;
     }
-
-    let imageHash = await IPFSModule.pinImageToIPFS(this.nftImageFile);
-    let nftHash = await IPFSModule.pinNFTToIPFS(this.nftName, this.nftDescription, imageHash);
-
-    console.log(nftHash);
+    await NFTContractModule.mint({
+      imageFile: this.nftImageFile,
+      name: this.nftName,
+      description: this.nftDescription,
+    });
+    window.alert(`${this.nftName} 성공적으로 민트 되었습니다.`);
   }
 
   updateImage(file: File) {

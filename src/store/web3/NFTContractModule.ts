@@ -7,6 +7,7 @@ import { AbiItem } from "web3-utils";
 import NFTCollection from "@/abis/NFTCollection.json";
 import { INFT } from "@/schema/INFT";
 import axios from "axios";
+import { IPFSModule } from "./IPFSModule";
 
 declare let window: any;
 
@@ -51,7 +52,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
     this.collection = collection;
   }
 
-  @Action
+  @Action({ rawError: true })
   async connectWallet() {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
@@ -70,7 +71,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
     await this.establishContract();
   }
 
-  @Action
+  @Action({ rawError: true })
   async establishContract() {
     const web3: Web3 = window.web3;
 
@@ -92,25 +93,24 @@ class NFTContractManager extends VuexModule implements IWeb3 {
     }
   }
 
-  @Action
+  @Action({ rawError: true })
   async fetchCollectionName() {
     const name = await this.contract.methods.name().call();
     this.setCollectionName(name);
   }
 
-  @Action
+  @Action({ rawError: true })
   async fetchCollectionTotalSupply() {
     const totalSupply = await this.contract.methods.totalSupply().call();
     this.setTotalSupply(totalSupply);
   }
 
-  @Action
+  @Action({ rawError: true })
   async fetchNFTInCollection() {
     let collection: INFT[] = [];
 
     for (let i = 0; i < this.totalSupply; i++) {
       const hash = await this.contract.methods.tokenURIs(i).call();
-      console.log(hash);
       try {
         const response = await axios.get(`https://ipfs.infura.io/ipfs/${hash}?clear`);
         if (response.status != 200) {
@@ -122,17 +122,36 @@ class NFTContractManager extends VuexModule implements IWeb3 {
         collection = [
           {
             collection: "HoneyXBadger",
-            name: metadata.properties.name.description,
-            description: metadata.properties.description.description,
-            image: metadata.properties.image.description,
+            name: metadata?.properties?.name?.description ?? metadata.name,
+            description: metadata?.properties?.description?.description ?? metadata.description,
+            image: metadata?.properties?.image?.description ?? metadata.image,
           },
           ...collection,
         ];
-      } catch {
-        console.error("Something went wrong");
+      } catch (e) {
+        console.error("Something went wrong", e);
       }
     }
     this.setCollection(collection);
+  }
+
+  @Action({ rawError: true })
+  async mint(data: { imageFile: File; name: string; description: string }) {
+    const imageHash = await IPFSModule.pinImageToIPFS(data.imageFile);
+    const nftHash = await IPFSModule.pinNFTToIPFS({
+      name: data.name,
+      description: data.description,
+      imageHash: imageHash,
+    });
+
+    const web3: Web3 = window.web3;
+    const accounts = await web3.eth.getAccounts();
+    const account = accounts[0];
+
+    const response = await NFTContractModule.contract.methods
+      .safeMint(nftHash)
+      .send({ from: account });
+    console.log(response.data);
   }
 }
 
