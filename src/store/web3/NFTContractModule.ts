@@ -136,7 +136,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   }
 
   @Action({ rawError: true })
-  async mint(data: { imageFile: File; name: string; description: string }) {
+  async mint(data: { imageFile: File; name: string; description: string }): Promise<void> {
     const imageHash = await IPFSModule.pinImageToIPFS(data.imageFile);
     const nftHash = await IPFSModule.pinNFTToIPFS({
       name: data.name,

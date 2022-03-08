@@ -27,7 +27,7 @@ export default class MintView extends Vue {
 
   isMintInProgress = false;
 
-  async mint() {
+  async mint(): Promise<void> {
     if (!NFTContractModule.walletAddress) {
       window.alert("지갑을 먼저 연결해주세요");
       return;
@@ -49,7 +49,7 @@ export default class MintView extends Vue {
     window.alert(`${this.nftName} 성공적으로 민트 되었습니다.`);
   }
 
-  updateImage(file: File) {
+  updateImage(file: File): void {
     this.nftImageFile = file;
   }
 }

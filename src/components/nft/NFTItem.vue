@@ -16,7 +16,7 @@ class Props {
 
 @Options({})
 export default class NFTItem extends Vue.with(Props) {
-  get imageFromIPFS() {
+  get imageFromIPFS(): string {
     return `https://ipfs.infura.io/ipfs/${this.nft.image}`;
   }
 }

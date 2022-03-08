@@ -38,7 +38,7 @@ import { Options, Vue } from "vue-class-component";
 
 @Options({})
 export default class GNB extends Vue {
-  async connectWallet() {
+  async connectWallet(): Promise<void> {
     await NFTContractModule.connectWallet();
   }
 }
