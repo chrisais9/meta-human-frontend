@@ -11,9 +11,6 @@
           look familiar!
         </h1>
       </div>
-      <AppButton class="home__action__mint" color="primary" @click="$router.push('/mint')"
-        >Mint
-      </AppButton>
     </div>
     <p>플레이그라운드 NFT</p>
     <p>{{ walletAddress }}</p>
@@ -87,10 +84,6 @@ export default class HomeView extends Vue {
         background: radial-gradient(50% 50% at 50% 50%, #000000 20.62%, rgba(0, 0, 0, 0) 100%);
         padding: 4rem;
       }
-    }
-
-    .home__action__mint {
-      align-items: center;
     }
   }
 }
