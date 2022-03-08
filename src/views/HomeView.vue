@@ -13,15 +13,14 @@
       </div>
     </div>
     <p>플레이그라운드 NFT</p>
-    <p>{{ walletAddress }}</p>
-    <p>{{ collectionName }}</p>
-    <p>{{ totalSupply }}</p>
-    <p>{{ collectionSize }}</p>
+    <p>연결된 지갑주소: {{ walletAddress }}</p>
+    <p>콜렉션 이름: {{ collectionName }}</p>
+    <p>콜렉션내 NFT 수량: {{ totalSupply }}</p>
+    <p>불러온 NFT 수량: {{ collectionSize }}</p>
   </div>
 </template>
 
 <script lang="ts">
-import { INFT } from "@/schema/INFT";
 import { NFTContractModule } from "@/store/web3/NFTContractModule";
 import { Options, Vue } from "vue-class-component";
 

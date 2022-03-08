@@ -42,6 +42,7 @@ export default class NFTItem extends Vue.with(Props) {
 
   .nft-item__preview {
     margin-bottom: 10px;
+    height: 400px;
   }
 
   .nft-item__article {
