@@ -9,6 +9,7 @@
         <h5>설명</h5>
         <AppInput v-model="nftDescription" class="input"> </AppInput>
         <AppButton class="action__mint" color="primary" @click="mint">민팅하기</AppButton>
+        <h2 v-if="isMintInProgress">민트 진행중...(잠시후 메타마스크에 거래 승인 팝업이 뜹니다)</h2>
       </div>
     </div>
   </div>
@@ -24,6 +25,8 @@ export default class MintView extends Vue {
   nftName = "";
   nftDescription = "";
 
+  isMintInProgress = false;
+
   async mint() {
     if (!NFTContractModule.walletAddress) {
       window.alert("지갑을 먼저 연결해주세요");
@@ -33,11 +36,16 @@ export default class MintView extends Vue {
       window.alert("입력 필드를 확인해주세요");
       return;
     }
+    if (this.isMintInProgress) {
+      return;
+    }
+    this.isMintInProgress = true;
     await NFTContractModule.mint({
       imageFile: this.nftImageFile,
       name: this.nftName,
       description: this.nftDescription,
     });
+    this.isMintInProgress = false;
     window.alert(`${this.nftName} 성공적으로 민트 되었습니다.`);
   }
 
