@@ -5,6 +5,8 @@ import { Contract } from "web3-eth-contract";
 import { AbiItem } from "web3-utils";
 
 import NFTCollection from "@/abis/NFTCollection.json";
+import { INFT } from "@/schema/INFT";
+import axios from "axios";
 
 declare let window: any;
 
@@ -12,6 +14,8 @@ interface IWeb3 {
   walletAddress: string;
   contract: Contract;
   collectionName: string;
+  totalSupply: bigint;
+  collection: INFT[];
 }
 
 @Module({ dynamic: true, store, name: "NFTContract" })
@@ -19,6 +23,8 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   walletAddress = "";
   contract = {} as any;
   collectionName = "";
+  totalSupply = BigInt(0);
+  collection = [] as INFT[];
 
   @Mutation
   setWalletAddress(address: string) {
@@ -33,6 +39,16 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   @Mutation
   setCollectionName(nameOfNFT: string) {
     this.collectionName = nameOfNFT;
+  }
+
+  @Mutation
+  setTotalSupply(totalSupply: bigint) {
+    this.totalSupply = totalSupply;
+  }
+
+  @Mutation
+  setCollection(collection: INFT[]) {
+    this.collection = collection;
   }
 
   @Action
@@ -69,6 +85,8 @@ class NFTContractManager extends VuexModule implements IWeb3 {
       this.setContract(contract);
 
       await this.fetchCollectionName();
+      await this.fetchCollectionTotalSupply();
+      await this.fetchNFTInCollection();
     } else {
       window.alert("Contract is not deployed to detected network.");
     }
@@ -78,6 +96,43 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   async fetchCollectionName() {
     const name = await this.contract.methods.name().call();
     this.setCollectionName(name);
+  }
+
+  @Action
+  async fetchCollectionTotalSupply() {
+    const totalSupply = await this.contract.methods.totalSupply().call();
+    this.setTotalSupply(totalSupply);
+  }
+
+  @Action
+  async fetchNFTInCollection() {
+    let collection: INFT[] = [];
+
+    for (let i = 0; i < this.totalSupply; i++) {
+      const hash = await this.contract.methods.tokenURIs(i).call();
+      console.log(hash);
+      try {
+        const response = await axios.get(`https://ipfs.infura.io/ipfs/${hash}?clear`);
+        if (response.status != 200) {
+          throw new Error("Something went wrong");
+        }
+
+        const metadata = await response.data;
+
+        collection = [
+          {
+            collection: "HoneyXBadger",
+            name: metadata.properties.name.description,
+            description: metadata.properties.description.description,
+            image: metadata.properties.image.description,
+          },
+          ...collection,
+        ];
+      } catch {
+        console.error("Something went wrong");
+      }
+    }
+    this.setCollection(collection);
   }
 }
 

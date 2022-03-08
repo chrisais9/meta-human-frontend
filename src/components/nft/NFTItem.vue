@@ -1,6 +1,6 @@
 <template>
   <div class="nft-item">
-    <img class="nft-item__preview" :src="nft.image" />
+    <img class="nft-item__preview" :src="imageFromIPFS" />
     <h3 class="nft-item__article collection">{{ nft.collection }}</h3>
     <h3 class="nft-item__article title">{{ nft.name }}</h3>
   </div>
@@ -15,7 +15,11 @@ class Props {
 }
 
 @Options({})
-export default class NFTItem extends Vue.with(Props) {}
+export default class NFTItem extends Vue.with(Props) {
+  get imageFromIPFS() {
+    return `https://ipfs.infura.io/ipfs/${this.nft.image}`;
+  }
+}
 </script>
 
 <style lang="scss">
@@ -24,7 +28,7 @@ export default class NFTItem extends Vue.with(Props) {}
 
   position: relative;
 
-  width: 330px;
+  width: 400px;
 
   display: flex;
   flex-direction: column;
@@ -37,7 +41,6 @@ export default class NFTItem extends Vue.with(Props) {}
   padding-bottom: 10px;
 
   .nft-item__preview {
-    border-radius: 15px;
     margin-bottom: 10px;
   }
 

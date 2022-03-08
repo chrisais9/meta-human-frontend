@@ -15,10 +15,13 @@
     <p>플레이그라운드 NFT</p>
     <p>{{ walletAddress }}</p>
     <p>{{ collectionName }}</p>
+    <p>{{ totalSupply }}</p>
+    <p>{{ collectionSize }}</p>
   </div>
 </template>
 
 <script lang="ts">
+import { INFT } from "@/schema/INFT";
 import { NFTContractModule } from "@/store/web3/NFTContractModule";
 import { Options, Vue } from "vue-class-component";
 
@@ -30,6 +33,14 @@ export default class HomeView extends Vue {
 
   get collectionName(): string {
     return NFTContractModule.collectionName;
+  }
+
+  get totalSupply(): string {
+    return NFTContractModule.totalSupply.toString();
+  }
+
+  get collectionSize(): string {
+    return NFTContractModule.collection.length.toString();
   }
 }
 </script>
