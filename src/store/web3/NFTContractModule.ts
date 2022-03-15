@@ -2,12 +2,11 @@ import { Action, getModule, Module, Mutation, VuexModule } from "vuex-module-dec
 import store from "@/store";
 import Web3 from "web3";
 import { Contract } from "web3-eth-contract";
-import { AbiItem } from "web3-utils";
+import { AbiItem, toWei } from "web3-utils";
 
 import NFTCollection from "@/abis/NFTCollection.json";
 import { INFT } from "@/schema/INFT";
 import axios from "axios";
-import { IPFSModule } from "./IPFSModule";
 
 declare let window: any;
 
@@ -17,6 +16,8 @@ interface IWeb3 {
   collectionName: string;
   totalSupply: bigint;
   collection: INFT[];
+  isMintSaleActive: boolean;
+  maxMintAmount: bigint;
 }
 
 @Module({ dynamic: true, store, name: "NFTContract" })
@@ -26,6 +27,8 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   collectionName = "";
   totalSupply = BigInt(0);
   collection = [] as INFT[];
+  isMintSaleActive = false;
+  maxMintAmount = BigInt(0);
 
   @Mutation
   setWalletAddress(address: string) {
@@ -50,6 +53,16 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   @Mutation
   setCollection(collection: INFT[]) {
     this.collection = collection;
+  }
+
+  @Mutation
+  setIsMintSaleActive(isMintSaleActive: boolean) {
+    this.isMintSaleActive = isMintSaleActive;
+  }
+
+  @Mutation
+  setMaxMintAmount(maxMintAmount: bigint) {
+    this.maxMintAmount = maxMintAmount;
   }
 
   @Action({ rawError: true })
@@ -87,6 +100,8 @@ class NFTContractManager extends VuexModule implements IWeb3 {
 
       await this.fetchCollectionName();
       await this.fetchCollectionTotalSupply();
+      await this.fetchMintSaleStatus();
+      await this.fetchMaxMintAmount();
       await this.fetchNFTInCollection();
     } else {
       window.alert("Contract is not deployed to detected network.");
@@ -106,13 +121,25 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   }
 
   @Action({ rawError: true })
+  async fetchMintSaleStatus() {
+    const isMintSaleActive = await this.contract.methods.isMintSaleActive().call();
+    this.setIsMintSaleActive(isMintSaleActive);
+  }
+
+  @Action({ rawError: true })
+  async fetchMaxMintAmount() {
+    const maxMintAmount = await this.contract.methods.maxMintAmount().call();
+    this.setMaxMintAmount(maxMintAmount);
+  }
+
+  @Action({ rawError: true })
   async fetchNFTInCollection() {
     let collection: INFT[] = [];
 
     for (let i = 0; i < this.totalSupply; i++) {
       const hash = await this.contract.methods.tokenURIs(i).call();
       try {
-        const response = await axios.get(`https://ipfs.infura.io/ipfs/${hash}?clear`);
+        const response = await axios.get(`https://ipfs.io/ipfs/${hash}?clear`);
         if (response.status != 200) {
           throw new Error("Something went wrong");
         }
@@ -136,21 +163,15 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   }
 
   @Action({ rawError: true })
-  async mint(data: { imageFile: File; name: string; description: string }): Promise<void> {
-    const imageHash = await IPFSModule.pinImageToIPFS(data.imageFile);
-    const nftHash = await IPFSModule.pinNFTToIPFS({
-      name: data.name,
-      description: data.description,
-      imageHash: imageHash,
-    });
-
+  async mint(data: { mintAmount: number }): Promise<void> {
     const web3: Web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
     const account = accounts[0];
 
     const response = await NFTContractModule.contract.methods
-      .safeMint(nftHash)
-      .send({ from: account });
+      .mintHoneyBadger(data.mintAmount)
+      .send({ from: account, value: toWei("0.1") });
+
     console.log(response.data);
   }
 }

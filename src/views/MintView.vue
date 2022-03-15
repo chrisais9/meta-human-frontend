@@ -2,12 +2,10 @@
   <div>
     <div class="mintform__container">
       <div class="item">
-        <h3>NFT 등록 (테스트)</h3>
-        <AppInputImageFile class="image" @update:file="updateImage"></AppInputImageFile>
-        <h5>이름</h5>
-        <AppInput v-model="nftName" class="input"> </AppInput>
-        <h5>설명</h5>
-        <AppInput v-model="nftDescription" class="input"> </AppInput>
+        <h3>NFT 민팅 (테스트)</h3>
+        <h4>민팅 가능 여부: {{ isMintSaleActive }}</h4>
+        <h4>최대 민팅 수량: {{ maxMintAmount }}</h4>
+
         <AppButton class="action__mint" color="primary" @click="mint">민팅하기</AppButton>
         <h2 v-if="isMintInProgress">민트 진행중...(잠시후 메타마스크에 거래 승인 팝업이 뜹니다)</h2>
       </div>
@@ -27,24 +25,20 @@ export default class MintView extends Vue {
 
   isMintInProgress = false;
 
+  get isMintSaleActive(): string {
+    return String(NFTContractModule.isMintSaleActive);
+  }
+
+  get maxMintAmount(): string {
+    return String(NFTContractModule.maxMintAmount);
+  }
+
   async mint(): Promise<void> {
-    if (!NFTContractModule.walletAddress) {
-      window.alert("지갑을 먼저 연결해주세요");
-      return;
-    }
-    if (!this.nftImageFile || !this.nftName || !this.nftDescription) {
-      window.alert("입력 필드를 확인해주세요");
-      return;
-    }
     if (this.isMintInProgress) {
       return;
     }
     this.isMintInProgress = true;
-    await NFTContractModule.mint({
-      imageFile: this.nftImageFile,
-      name: this.nftName,
-      description: this.nftDescription,
-    });
+    await NFTContractModule.mint({ mintAmount: 1 });
     this.isMintInProgress = false;
     window.alert(`${this.nftName} 성공적으로 민트 되었습니다.`);
   }
