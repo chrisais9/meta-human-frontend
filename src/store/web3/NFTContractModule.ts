@@ -5,7 +5,7 @@ import { Contract } from "web3-eth-contract";
 import { AbiItem, toWei } from "web3-utils";
 
 import NFTCollection from "@/abis/NFTCollection.json";
-import { INFT } from "@/schema/INFT";
+import { IHoneyXBadger } from "@/schema/IHoneyXBadger";
 import axios from "axios";
 
 declare let window: any;
@@ -15,7 +15,7 @@ interface IWeb3 {
   contract: Contract;
   collectionName: string;
   totalSupply: bigint;
-  collection: INFT[];
+  collection: IHoneyXBadger[];
   isMintSaleActive: boolean;
   maxMintAmount: bigint;
 }
@@ -26,7 +26,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   contract = {} as any;
   collectionName = "";
   totalSupply = BigInt(0);
-  collection = [] as INFT[];
+  collection = [] as IHoneyXBadger[];
   isMintSaleActive = false;
   maxMintAmount = BigInt(0);
 
@@ -51,7 +51,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   }
 
   @Mutation
-  setCollection(collection: INFT[]) {
+  setCollection(collection: IHoneyXBadger[]) {
     this.collection = collection;
   }
 
@@ -134,24 +134,22 @@ class NFTContractManager extends VuexModule implements IWeb3 {
 
   @Action({ rawError: true })
   async fetchNFTInCollection() {
-    let collection: INFT[] = [];
+    let collection: IHoneyXBadger[] = [];
 
-    for (let i = 0; i < this.totalSupply; i++) {
-      const hash = await this.contract.methods.tokenURIs(i).call();
+    for (let i = 1; i <= this.totalSupply; i++) {
+      const hash = await this.contract.methods.tokenURI(i).call();
       try {
-        const response = await axios.get(`https://ipfs.io/ipfs/${hash}?clear`);
+        const response = await axios.get(hash);
         if (response.status != 200) {
           throw new Error("Something went wrong");
         }
 
         const metadata = await response.data;
-
+        const image = (metadata.image as string).split("//")[1]; // ipfs://something -> something
         collection = [
           {
-            collection: "HoneyXBadger",
-            name: metadata?.properties?.name?.description ?? metadata.name,
-            description: metadata?.properties?.description?.description ?? metadata.description,
-            image: metadata?.properties?.image?.description ?? metadata.image,
+            name: metadata.name,
+            image: image,
           },
           ...collection,
         ];

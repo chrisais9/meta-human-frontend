@@ -13,8 +13,8 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import NFTList from "@/components/nft/NFTList.vue";
-import { INFT } from "@/schema/INFT";
 import { NFTContractModule } from "@/store/web3/NFTContractModule";
+import { IHoneyXBadger } from "@/schema/IHoneyXBadger";
 
 @Options({
   components: {
@@ -22,7 +22,7 @@ import { NFTContractModule } from "@/store/web3/NFTContractModule";
   },
 })
 export default class StoreView extends Vue {
-  get nftList(): INFT[] {
+  get nftList(): IHoneyXBadger[] {
     return NFTContractModule.collection;
   }
 }

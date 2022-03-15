@@ -8,10 +8,10 @@
 import { Options, prop, Vue } from "vue-class-component";
 import ListTransition from "../transition/ListTransition.vue";
 import NFTItem from "../nft/NFTItem.vue";
-import { INFT } from "@/schema/INFT";
+import { IHoneyXBadger } from "@/schema/IHoneyXBadger";
 
 class Props {
-  nfts = prop<INFT[]>({ default: [] });
+  nfts = prop<IHoneyXBadger[]>({ default: [] });
 }
 
 @Options({

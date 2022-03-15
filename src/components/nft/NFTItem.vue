@@ -1,17 +1,16 @@
 <template>
   <div class="nft-item">
     <img class="nft-item__preview" :src="imageFromIPFS" />
-    <h3 class="nft-item__article collection">{{ nft.collection }}</h3>
     <h3 class="nft-item__article title">{{ nft.name }}</h3>
   </div>
 </template>
 
 <script lang="ts">
-import { INFT } from "@/schema/INFT";
+import { IHoneyXBadger } from "@/schema/IHoneyXBadger";
 import { Options, prop, Vue } from "vue-class-component";
 
 class Props {
-  nft = prop<INFT>({ required: true });
+  nft = prop<IHoneyXBadger>({ required: true });
 }
 
 @Options({})
