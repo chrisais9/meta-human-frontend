@@ -34,6 +34,10 @@ export default class MintView extends Vue {
   }
 
   async mint(): Promise<void> {
+    if (!NFTContractModule.walletAddress) {
+      window.alert("지갑을 연결해주세요");
+      return;
+    }
     if (this.isMintInProgress) {
       return;
     }
