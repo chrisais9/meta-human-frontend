@@ -24,7 +24,8 @@
       <a href="https://twitter.com" rel="noopener noreferrer" target="_blank">
         <img class="social-icon" src="@/assets/icons/twitter.png" />
       </a>
-      <AppButton class="gnb__action__connet-wallet" color="primary" @click="connectWallet"
+      <h3 class="gnb__right__wallet-address" v-if="walletAddress">{{ walletAddress }}</h3>
+      <AppButton v-else class="gnb__action__connet-wallet" color="primary" @click="connectWallet"
         >Connect Wallet
       </AppButton>
     </div>
@@ -40,6 +41,10 @@ import { Options, Vue } from "vue-class-component";
 export default class GNB extends Vue {
   async connectWallet(): Promise<void> {
     await NFTContractModule.connectWallet();
+  }
+
+  get walletAddress(): string {
+    return NFTContractModule.walletAddress;
   }
 }
 </script>
@@ -100,6 +105,11 @@ export default class GNB extends Vue {
       width: 30px;
       height: 30px;
       margin-left: 1em;
+    }
+
+    .gnb__right__wallet-address {
+      padding-left: 1em;
+      color: white;
     }
 
     .gnb__action__connet-wallet {
