@@ -28,9 +28,11 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import { NFTContractModule } from "@/store/web3/NFTContractModule";
+import { useToast } from "vue-toastification";
 
 @Options({})
 export default class MintView extends Vue {
+  toast = useToast();
   nftImageFile!: File;
   nftName = "";
   nftDescription = "";
@@ -68,10 +70,12 @@ export default class MintView extends Vue {
     if (this.isMintInProgress) {
       return;
     }
+    this.toast.success("민트 요청 되었습니다.");
     this.isMintInProgress = true;
     await NFTContractModule.mint({ mintAmount: this.mintAmount });
     this.isMintInProgress = false;
-    window.alert(`${this.nftName} 성공적으로 민트 되었습니다.`);
+
+    this.toast.success("성공적으로 민트 되었습니다");
   }
 
   updateImage(file: File): void {

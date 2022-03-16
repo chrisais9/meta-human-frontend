@@ -7,11 +7,17 @@ import AppButton from "./components/button/AppButton.vue";
 import AppInputImageFile from "./components/input/AppInputImageFile.vue";
 import AppInput from "./components/input/AppInput.vue";
 import AppSelect from "./components/input/AppSelect.vue";
+import Toast, { POSITION } from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 const Vue = createApp(App);
 
 Vue.use(store);
 Vue.use(router);
+
+Vue.use(Toast, {
+  position: POSITION.BOTTOM_RIGHT,
+});
 
 Vue.component("AppButton", AppButton);
 Vue.component("AppInputImageFile", AppInputImageFile);
