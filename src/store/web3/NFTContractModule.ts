@@ -72,6 +72,10 @@ class NFTContractManager extends VuexModule implements IWeb3 {
 
   @Action({ rawError: true })
   async connectWallet() {
+    if (!window.ethereum) {
+      window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
+      return;
+    }
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     await provider.send("eth_requestAccounts", []);
@@ -90,11 +94,10 @@ class NFTContractManager extends VuexModule implements IWeb3 {
 
   @Action({ rawError: true })
   async establishContract() {
-    if (!window.ethereum) {
-      window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
-      return;
-    }
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.providers.InfuraProvider(
+      "rinkeby",
+      "2b623591fbc84ad3a0f19ab893211159"
+    );
 
     const networkId = (await provider.getNetwork()).chainId;
     const networkData = (NFTCollection.networks as any)[networkId];
