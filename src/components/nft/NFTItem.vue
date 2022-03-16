@@ -1,7 +1,8 @@
 <template>
   <div class="nft-item">
     <img class="nft-item__preview" :src="imageFromIPFS" />
-    <h3 class="nft-item__article title">{{ nft.name }}</h3>
+    <h4 class="nft-item__article title">{{ nft.name }}</h4>
+    <h5 class="nft-item__article owner">{{ nft.owner }}</h5>
   </div>
 </template>
 
@@ -46,15 +47,6 @@ export default class NFTItem extends Vue.with(Props) {
 
   .nft-item__article {
     padding: 0 10px;
-
-    &.collection {
-      color: gray;
-      font-size: 13px;
-    }
-
-    &.title {
-      font-size: 13px;
-    }
   }
 }
 </style>

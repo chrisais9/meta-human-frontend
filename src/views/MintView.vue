@@ -70,7 +70,7 @@ export default class MintView extends Vue {
     if (this.isMintInProgress) {
       return;
     }
-    this.toast.success("민트 요청 되었습니다.");
+    this.toast.info("민트 요청 되었습니다.");
     this.isMintInProgress = true;
     await NFTContractModule.mint({ mintAmount: this.mintAmount });
     this.isMintInProgress = false;

@@ -163,6 +163,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
 
     for (let i = 1; i <= this.totalSupply; i++) {
       const hash = await this.contract.tokenURI(i);
+      const owner = await this.contract.ownerOf(i);
       try {
         const response = await axios.get(hash);
         if (response.status != 200) {
@@ -175,6 +176,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
           {
             name: metadata.name,
             image: image,
+            owner: owner,
           },
           ...collection,
         ];
