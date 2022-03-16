@@ -28,7 +28,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   totalSupply = BigInt(0);
   collection = [] as IHoneyXBadger[];
   isMintSaleActive = false;
-  maxMintAmount = BigInt(0);
+  maxMintAmount = BigInt(1);
 
   @Mutation
   setWalletAddress(address: string) {
@@ -174,7 +174,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   @Action({ rawError: true })
   async mint(data: { mintAmount: number }): Promise<void> {
     const response = await this.contract.mintHoneyBadger(data.mintAmount, {
-      value: ethers.utils.parseEther("0.1"),
+      value: ethers.utils.parseEther((0.1 * data.mintAmount).toString()),
     });
 
     await response.wait();

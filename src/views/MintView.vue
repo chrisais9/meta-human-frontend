@@ -5,7 +5,14 @@
         <h3>NFT 민팅 (테스트)</h3>
         <h4>민팅 가능 여부: {{ isMintSaleActive }}</h4>
         <h4>최대 민팅 수량: {{ maxMintAmount }}</h4>
-
+        <div class="item__mintAmount">
+          <h4>민트할 수량:</h4>
+          <AppSelect
+            :values="[...Array(6).keys()].slice(1)"
+            :items="[...Array(6).keys()].slice(1)"
+            v-model="mintAmount"
+          ></AppSelect>
+        </div>
         <AppButton class="action__mint" color="primary" @click="mint">민팅하기</AppButton>
         <h2 v-if="isMintInProgress">민트 진행중...(잠시후 메타마스크에 거래 승인 팝업이 뜹니다)</h2>
       </div>
@@ -22,6 +29,8 @@ export default class MintView extends Vue {
   nftImageFile!: File;
   nftName = "";
   nftDescription = "";
+
+  mintAmount = 1;
 
   isMintInProgress = false;
 
@@ -42,7 +51,7 @@ export default class MintView extends Vue {
       return;
     }
     this.isMintInProgress = true;
-    await NFTContractModule.mint({ mintAmount: 1 });
+    await NFTContractModule.mint({ mintAmount: this.mintAmount });
     this.isMintInProgress = false;
     window.alert(`${this.nftName} 성공적으로 민트 되었습니다.`);
   }
@@ -72,7 +81,6 @@ export default class MintView extends Vue {
 
     display: flex;
     flex-direction: column;
-    padding-bottom: 200px;
 
     h3 {
       margin-top: 74px;
@@ -83,21 +91,21 @@ export default class MintView extends Vue {
       text-align: center;
     }
 
+    .item__mintAmount {
+      margin-top: 20px;
+      display: flex;
+
+      h4 {
+        margin-right: 15px;
+      }
+    }
+
     h5 {
       margin-top: 35px;
     }
 
-    .image {
-      margin-top: 55px;
-      height: 200px;
-    }
-
-    .input {
-      @include input-field;
-    }
-
     .action__mint {
-      margin-top: 55px;
+      margin-top: 30px;
     }
   }
 }
