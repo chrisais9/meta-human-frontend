@@ -9,6 +9,7 @@ import { JsonRpcSigner } from "@ethersproject/providers";
 declare let window: any;
 
 interface IWeb3 {
+  isReady: boolean;
   walletAddress: string;
   contract: Contract;
   signer: JsonRpcSigner;
@@ -21,6 +22,7 @@ interface IWeb3 {
 
 @Module({ dynamic: true, store, name: "NFTContract" })
 class NFTContractManager extends VuexModule implements IWeb3 {
+  isReady = false;
   walletAddress = "";
   contract = {} as any;
   signer = {} as any;
@@ -29,6 +31,11 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   collection = [] as IHoneyXBadger[];
   isMintSaleActive = false;
   maxMintAmount = BigInt(1);
+
+  @Mutation
+  setIsReady(isReady: boolean) {
+    this.isReady = isReady;
+  }
 
   @Mutation
   setWalletAddress(address: string) {
@@ -109,11 +116,10 @@ class NFTContractManager extends VuexModule implements IWeb3 {
       const contract = new ethers.Contract(address, abi, provider);
       this.setContract(contract);
 
-      await this.fetchCollectionName();
-      await this.fetchCollectionTotalSupply();
-      await this.fetchMintSaleStatus();
-      await this.fetchMaxMintAmount();
-      await this.fetchNFTInCollection();
+      await this.fetchProperties();
+      this.setIsReady(true);
+
+      await this.fetchNFTs();
     } else {
       window.alert("Contract is not deployed to detected network.");
     }
@@ -144,7 +150,15 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   }
 
   @Action({ rawError: true })
-  async fetchNFTInCollection() {
+  async fetchProperties() {
+    await this.fetchCollectionName();
+    await this.fetchCollectionTotalSupply();
+    await this.fetchMintSaleStatus();
+    await this.fetchMaxMintAmount();
+  }
+
+  @Action({ rawError: true })
+  async fetchNFTs() {
     let collection: IHoneyXBadger[] = [];
 
     for (let i = 1; i <= this.totalSupply; i++) {

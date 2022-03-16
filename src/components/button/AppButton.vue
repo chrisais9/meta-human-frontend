@@ -1,5 +1,5 @@
 <template>
-  <button class="app-button" :class="{ [color]: true, active: active }">
+  <button class="app-button" :class="{ [color]: true, active: active }" :disabled="!isActive">
     <slot></slot>
   </button>
 </template>
@@ -19,7 +19,7 @@ enum ButtonColor {
 
 class Props {
   color = prop<ButtonColor>({ default: ButtonColor.MENU });
-  active = prop<boolean>({ default: false });
+  isActive = prop<boolean>({ default: true });
 }
 
 @Options({})

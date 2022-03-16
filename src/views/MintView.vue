@@ -3,17 +3,22 @@
     <div class="mintform__container">
       <div class="item">
         <h3>NFT 민팅 (테스트)</h3>
-        <h4>민팅 가능 여부: {{ isMintSaleActive }}</h4>
-        <h4>최대 민팅 수량: {{ maxMintAmount }}</h4>
+        <h4>민팅 가능 여부: {{ isMintSaleActive ? "민트 가능" : "민트 불가능" }}</h4>
+        <h4>최대 민팅 수량: {{ isReady ? maxMintAmount : "로딩중.." }}</h4>
         <div class="item__mintAmount">
           <h4>민트할 수량:</h4>
-          <AppSelect
-            :values="[...Array(6).keys()].slice(1)"
-            :items="[...Array(6).keys()].slice(1)"
-            v-model="mintAmount"
-          ></AppSelect>
+          <AppSelect v-if="isReady" :items="mintableAmountList" v-model="mintAmount"></AppSelect>
+          <h4 v-else>로딩중...</h4>
         </div>
-        <AppButton class="action__mint" color="primary" @click="mint">민팅하기</AppButton>
+
+        <AppButton
+          class="action__mint"
+          color="primary"
+          @click="mint"
+          :isActive="isReady && isWalletConnected"
+          >민팅하기</AppButton
+        >
+        <h5 v-if="!isWalletConnected">지갑을 연결해주세요</h5>
         <h2 v-if="isMintInProgress">민트 진행중...(잠시후 메타마스크에 거래 승인 팝업이 뜹니다)</h2>
       </div>
     </div>
@@ -34,12 +39,25 @@ export default class MintView extends Vue {
 
   isMintInProgress = false;
 
-  get isMintSaleActive(): string {
-    return String(NFTContractModule.isMintSaleActive);
+  get isReady(): boolean {
+    return NFTContractModule.isReady;
+  }
+
+  get isWalletConnected(): boolean {
+    return NFTContractModule.walletAddress != "";
+  }
+
+  get isMintSaleActive(): boolean {
+    return NFTContractModule.isMintSaleActive;
   }
 
   get maxMintAmount(): string {
     return String(NFTContractModule.maxMintAmount);
+  }
+
+  get mintableAmountList(): number[] {
+    // 1 to 5
+    return [...Array(6).keys()].slice(1);
   }
 
   async mint(): Promise<void> {
@@ -101,7 +119,7 @@ export default class MintView extends Vue {
     }
 
     h5 {
-      margin-top: 35px;
+      color: red;
     }
 
     .action__mint {
