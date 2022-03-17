@@ -9,6 +9,12 @@
         <router-link class="router-item" to="/about">About</router-link>
         <router-link class="router-item" to="/mint">Mint</router-link>
         <router-link class="router-item" to="/store">Store</router-link>
+        <a
+          class="router-item"
+          href="https://testnets.opensea.io/collection/honeyxbadger"
+          target="_blank"
+          >Opensea</a
+        >
       </nav>
     </div>
     <div class="gnb__right">
@@ -76,7 +82,7 @@ export default class GNB extends Vue {
 
       img {
         @include clear-select;
-        height: 40px;
+        height: 60px;
       }
     }
 
