@@ -3,7 +3,7 @@
     <div class="home__intro">
       <div class="home__intro__content">
         <div class="home__intro__content-logo">
-          <img src="@/assets/logo/logo_with_glow.png" />
+          <img src="@/assets/logo/logo_honeybadger.png" />
         </div>
         <h1>
           CyberKongz are unique and randomly generated 2D/3D NFT Social Avatars for your online
@@ -69,11 +69,13 @@ export default class HomeView extends Vue {
       position: relative;
 
       .home__intro__content-logo {
-        max-width: 75rem;
+        max-width: 33rem;
         position: relative;
         margin-left: auto;
         margin-right: auto;
-        width: 100%;
+        img {
+          width: 500px;
+        }
       }
 
       h1 {

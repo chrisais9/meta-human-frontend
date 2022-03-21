@@ -2,7 +2,7 @@
   <div id="gnb">
     <div class="gnb__left">
       <div class="gnb__logo" @click="$router.push('/')">
-        <img alt="" class="desktop" src="@/assets/logo.png" />
+        <img alt="" class="desktop" src="@/assets/logo/logo_honeybadger.png" />
       </div>
       <nav>
         <router-link class="router-item" to="/">Home</router-link>
