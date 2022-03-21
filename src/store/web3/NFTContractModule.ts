@@ -5,6 +5,7 @@ import NFTCollection from "@/abis/NFTCollection.json";
 import { IHoneyXBadger } from "@/schema/IHoneyXBadger";
 import axios from "axios";
 import { JsonRpcSigner } from "@ethersproject/providers";
+import { provide } from "vue";
 
 declare let window: any;
 
@@ -84,7 +85,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
       return;
     }
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-
+    await this.suggestToSwitchNetwork();
     await provider.send("eth_requestAccounts", []);
     this.setWalletAddress(await provider.getSigner().getAddress());
     this.setSigner(provider.getSigner());
@@ -97,6 +98,17 @@ class NFTContractManager extends VuexModule implements IWeb3 {
     const contract = new ethers.Contract(address, abi, provider.getSigner());
 
     this.setContract(contract);
+  }
+
+  @Action({ rawError: true })
+  async suggestToSwitchNetwork() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const rinkebyChainId = 4;
+    const chainId = (await provider.getNetwork()).chainId;
+    if (chainId != rinkebyChainId) {
+      console.log("change");
+      await provider.send("wallet_switchEthereumChain", [{ chainId: "0x4" }]);
+    }
   }
 
   @Action({ rawError: true })
