@@ -5,7 +5,6 @@ import NFTCollection from "@/abis/NFTCollection.json";
 import { IHoneyXBadger } from "@/schema/IHoneyXBadger";
 import axios from "axios";
 import { JsonRpcSigner } from "@ethersproject/providers";
-import { provide } from "vue";
 
 declare let window: any;
 
@@ -85,7 +84,8 @@ class NFTContractManager extends VuexModule implements IWeb3 {
       return;
     }
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    await this.suggestToSwitchNetwork();
+
+    this.watchAndSuggestNetwork();
     await provider.send("eth_requestAccounts", []);
     this.setWalletAddress(await provider.getSigner().getAddress());
     this.setSigner(provider.getSigner());
@@ -101,13 +101,21 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   }
 
   @Action({ rawError: true })
-  async suggestToSwitchNetwork() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const rinkebyChainId = 4;
-    const chainId = (await provider.getNetwork()).chainId;
-    if (chainId != rinkebyChainId) {
-      console.log("change");
-      await provider.send("wallet_switchEthereumChain", [{ chainId: "0x4" }]);
+  watchAndSuggestNetwork() {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+      const rinkebyChainId = "4";
+      provider.on("network", async (newNetwork, oldNetwork) => {
+        if (newNetwork.chainId != rinkebyChainId) {
+          await provider.send("wallet_switchEthereumChain", [{ chainId: "0x4" }]);
+        }
+        if (oldNetwork) {
+          console.log("reload");
+          window.location.reload();
+        }
+      });
+    } catch (e: any) {
+      console.log(e.code);
     }
   }
 
