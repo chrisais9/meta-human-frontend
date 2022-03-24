@@ -1,9 +1,9 @@
 <template>
-  <v-main>
-    <v-container class="ma-0" fluid>
-      <v-toolbar flat color="transparent">
-        <v-img :src="logo" />
-        <v-spacer></v-spacer>
+  <v-container fluid>
+    <v-toolbar flat color="transparent">
+      <v-img :src="logo" max-width="70" />
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
         <v-btn text>HOME</v-btn>
         <v-btn text>GALLERY</v-btn>
         <v-btn text>THE GARDEN</v-btn>
@@ -11,14 +11,16 @@
         <v-btn text>MANIFESTO</v-btn>
         <v-btn text>MINDMAP</v-btn>
         <v-btn text>SHOP</v-btn>
-      </v-toolbar>
-      <video autoplay loop id="myVideo">
-        <source src="https://azk.imgix.net/saturatedvideo.mp4" type="video/mp4" />
-      </video>
-    </v-container>
-
-    <v-container fluid> </v-container>
-  </v-main>
+      </v-toolbar-items>
+    </v-toolbar>
+    <v-row>
+      <v-col>
+        <video autoplay loop id="myVideo">
+          <source src="https://azk.imgix.net/saturatedvideo.mp4" type="video/mp4" />
+        </video>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
