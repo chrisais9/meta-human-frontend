@@ -26,12 +26,20 @@
         <v-row class="pt-lg-4">
           <v-col>
             <div class="text-h5">WELCOME TO THE BORED APE YACHT CLUB</div>
-            <v-btn color="green" class="mb-4" width="100%">ENTER</v-btn>
+            <v-btn
+              color="green"
+              class="mb-4"
+              block
+              @click="
+                $router.push('/home');
+                console.log('hello');
+              "
+              >ENTER</v-btn
+            >
           </v-col>
         </v-row>
       </v-col>
     </v-row>
-    <v-row> </v-row>
   </v-container>
 </template>
 

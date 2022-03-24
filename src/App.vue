@@ -1,21 +1,22 @@
 <template>
   <v-app>
     <v-main>
-      <LandingView />
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import LandingView from "@/views/LandingView.vue";
 
-@Options({
-  components: {
-    LandingView,
-  },
-})
-export default class App extends Vue {}
+@Options({})
+export default class App extends Vue {
+  mounted() {
+    this.$router.push("/landing");
+  }
+}
 </script>
 
 <style lang="scss" scoped>
