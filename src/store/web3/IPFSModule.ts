@@ -10,9 +10,15 @@ class IPFSManager extends VuexModule {
 
     form.append("file", image);
 
-    const response = await axios.post(`https://api.pinata.cloud/pinning/pinFileToIPFS`, form, {
-      headers: { Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}` },
-    });
+    const response = await axios.post(
+      `https://api.pinata.cloud/pinning/pinFileToIPFS`,
+      form,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}`,
+        },
+      }
+    );
     return response.data.IpfsHash;
   }
 
@@ -32,9 +38,15 @@ class IPFSManager extends VuexModule {
         image: data.imageHash,
       },
     };
-    const response = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, body, {
-      headers: { Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}` },
-    });
+    const response = await axios.post(
+      `https://api.pinata.cloud/pinning/pinJSONToIPFS`,
+      body,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.VUE_APP_PINATA_API_TOKEN}`,
+        },
+      }
+    );
     return response.data.IpfsHash;
   }
 }
