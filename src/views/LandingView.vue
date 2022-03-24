@@ -13,29 +13,18 @@
       </v-col>
 
       <v-col class="px-0" cols="12">
-        <v-container class="mb-4 mb-lg-5"
-          ><video autoplay loop id="myVideo">
-            <source
-              src="https://ik.imagekit.io/bayc/assets/club-landing.mp4"
-              type="video/mp4"
-            /></video
-        ></v-container>
+        <v-container class="mb-4 mb-lg-5">
+          <video autoplay loop id="myVideo">
+            <source src="https://ik.imagekit.io/bayc/assets/club-landing.mp4" type="video/mp4" />
+          </video>
+        </v-container>
       </v-col>
 
       <v-col lg="4">
         <v-row class="pt-lg-4">
           <v-col>
             <div class="text-h5">WELCOME TO THE BORED APE YACHT CLUB</div>
-            <v-btn
-              color="green"
-              class="mb-4"
-              block
-              @click="
-                $router.push('/home');
-                console.log('hello');
-              "
-              >ENTER</v-btn
-            >
+            <v-btn color="green" class="mb-4" block @click="$router.push('/home')">ENTER</v-btn>
           </v-col>
         </v-row>
       </v-col>
