@@ -13,14 +13,27 @@
             <v-icon class="px-4">mdi-discord</v-icon>
             <v-icon class="px-4">mdi-twitter</v-icon>
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <video autoplay loop id="myVideo">
-              <source src="https://ik.imagekit.io/bayc/assets/club-landing.mp4" type="video/mp4" />
-            </video>
+
+          <v-col class="px-0" cols="12">
+            <v-container class="mb-4 mb-lg-5"
+              ><video autoplay loop id="myVideo">
+                <source
+                  src="https://ik.imagekit.io/bayc/assets/club-landing.mp4"
+                  type="video/mp4"
+                /></video
+            ></v-container>
+          </v-col>
+
+          <v-col lg="4">
+            <v-row class="pt-lg-4">
+              <v-col>
+                <div class="text-h5">WELCOME TO THE BORED APE YACHT CLUB</div>
+                <v-btn color="green" class="mb-4" width="100%">ENTER</v-btn>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
+        <v-row> </v-row>
       </v-container>
     </v-main>
   </v-app>
