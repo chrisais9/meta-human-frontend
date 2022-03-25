@@ -1,18 +1,6 @@
 <template>
-  <v-container fluid>
-    <v-toolbar flat color="transparent">
-      <v-img :src="logo" max-width="70" />
-      <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn text>HOME</v-btn>
-        <v-btn text>GALLERY</v-btn>
-        <v-btn text>THE GARDEN</v-btn>
-        <v-btn text>CAREERS</v-btn>
-        <v-btn text>MANIFESTO</v-btn>
-        <v-btn text>MINDMAP</v-btn>
-        <v-btn text>SHOP</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
+  <v-container class="ma-0 pa-0" fluid>
+    <AppBar />
     <v-row>
       <v-col>
         <video autoplay loop id="myVideo">
@@ -25,18 +13,19 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import AppBar from "@/components/AppBar.vue";
 
-@Options({})
-export default class HomeView extends Vue {
-  get logo() {
-    return new URL(`../assets/logo_azuki.svg`, import.meta.url).href;
-  }
-}
+@Options({
+  components: {
+    AppBar,
+  },
+})
+export default class HomeView extends Vue {}
 </script>
 
 <style lang="scss" scoped>
 video {
   max-width: 100%;
-  max-height: 100%;
+  margin-top: -64px;
 }
 </style>
