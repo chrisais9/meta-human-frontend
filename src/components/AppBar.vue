@@ -1,13 +1,15 @@
 <template>
   <v-app-bar app flat color="transparent">
     <v-toolbar-title>
-      <a href="/">
-        <v-img :src="logo" max-width="100" />
+      <a class="w-min-content" href="/">
+        <div>
+          <img class="pa-2 bg-red rounded" width="80" :src="logo" />
+        </div>
       </a>
     </v-toolbar-title>
     <span class="router">
       <v-btn
-        selected-class="router_active"
+        class="mx-1 px-4"
         color="black"
         v-for="item in routers"
         :key="item.name"
@@ -56,23 +58,23 @@ export default class AppBar extends Vue {
       },
       {
         name: "THE GARDEN",
-        link: "/home",
+        link: "/x",
       },
       {
         name: "CAREERS",
-        link: "/home",
+        link: "/x",
       },
       {
         name: "MANIFESTO",
-        link: "/home",
+        link: "/x",
       },
       {
         name: "MINDMAP",
-        link: "/home",
+        link: "/x",
       },
       {
         name: "SHOP",
-        link: "/home",
+        link: "/x",
       },
     ];
   }
@@ -98,14 +100,14 @@ export default class AppBar extends Vue {
 
 <style lang="scss" scoped>
 .router {
-  .router_active {
-    background-color: black;
-  }
   .v-btn {
+    background-color: rgba(255, 255, 255, 0.3);
     font-size: 0.3em;
-    &:active {
-      text-decoration-line: underline;
-    }
+  }
+
+  .v-btn--active {
+    background-color: rgba(255, 255, 255, 0.7);
+    text-decoration: underline;
   }
 }
 

@@ -25,7 +25,9 @@ export default class HomeView extends Vue {}
 
 <style lang="scss" scoped>
 video {
-  max-width: 100%;
+  height: 100%;
+  width: 100%;
   margin-top: -64px;
+  object-fit: fill;
 }
 </style>
