@@ -4,14 +4,14 @@ import HomeView from "@/views/HomeView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: "/",
+    name: "home",
+    component: HomeView,
+  },
+  {
     path: "/landing",
     name: "landing",
     component: LandingView,
-  },
-  {
-    path: "/home",
-    name: "home",
-    component: HomeView,
   },
 ];
 

@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <AppBar />
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -8,13 +9,14 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import AppBar from "@/components/AppBar.vue";
 
-@Options({})
-export default class App extends Vue {
-  created() {
-    this.$router.push("/landing");
-  }
-}
+@Options({
+  components: {
+    AppBar,
+  },
+})
+export default class App extends Vue {}
 </script>
 
 <style lang="scss" scoped>

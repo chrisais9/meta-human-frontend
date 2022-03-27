@@ -54,7 +54,7 @@ export default class AppBar extends Vue {
     return [
       {
         name: "HOME",
-        link: "/home",
+        link: "/",
       },
       {
         name: "THE GARDEN",
