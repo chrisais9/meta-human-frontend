@@ -2,7 +2,7 @@
   <v-app>
     <AppBar />
     <v-main>
-      <router-view></router-view>
+      <router-view />
     </v-main>
   </v-app>
 </template>
@@ -19,9 +19,4 @@ import AppBar from "@/components/AppBar.vue";
 export default class App extends Vue {}
 </script>
 
-<style lang="scss" scoped>
-video {
-  max-width: 100%;
-  max-height: 100%;
-}
-</style>
+<style lang="scss" scoped></style>

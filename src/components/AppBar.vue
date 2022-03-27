@@ -1,12 +1,9 @@
 <template>
   <v-app-bar app flat color="transparent">
-    <v-toolbar-title>
-      <a class="w-min-content" href="/">
-        <div>
-          <img class="pa-2 bg-red rounded" width="80" :src="logo" />
-        </div>
-      </a>
-    </v-toolbar-title>
+    <a class="w-min-content" href="/">
+      <img class="pa-2 bg-red rounded" width="80" :src="logo" />
+    </a>
+    <v-spacer />
     <span class="router">
       <v-btn
         class="mx-1 px-4"

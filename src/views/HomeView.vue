@@ -1,12 +1,8 @@
 <template>
   <v-container class="ma-0 pa-0" fluid>
-    <v-row>
-      <v-col>
-        <video autoplay loop id="myVideo">
-          <source src="https://azk.imgix.net/saturatedvideo.mp4" type="video/mp4" />
-        </video>
-      </v-col>
-    </v-row>
+    <video class="d-lg-block" autoplay loop id="myVideo">
+      <source src="https://azk.imgix.net/saturatedvideo.mp4" type="video/mp4" />
+    </video>
   </v-container>
 </template>
 
@@ -24,9 +20,9 @@ export default class HomeView extends Vue {}
 
 <style lang="scss" scoped>
 video {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   margin-top: -64px;
-  object-fit: fill;
+  object-fit: cover;
 }
 </style>
