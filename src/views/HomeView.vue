@@ -8,13 +8,8 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import AppBar from "@/components/AppBar.vue";
 
-@Options({
-  components: {
-    AppBar,
-  },
-})
+@Options({})
 export default class HomeView extends Vue {}
 </script>
 

@@ -54,24 +54,28 @@ export default class AppBar extends Vue {
         link: "/",
       },
       {
+        name: "GALLERY",
+        link: "/gallery",
+      },
+      {
         name: "THE GARDEN",
-        link: "/x",
+        link: "/garden",
       },
       {
         name: "CAREERS",
-        link: "/x",
+        link: "/careers",
       },
       {
         name: "MANIFESTO",
-        link: "/x",
+        link: "/manifesto",
       },
       {
         name: "MINDMAP",
-        link: "/x",
+        link: "/mindmap",
       },
       {
         name: "SHOP",
-        link: "/x",
+        link: "/shop",
       },
     ];
   }
