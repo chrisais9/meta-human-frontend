@@ -15,11 +15,11 @@
           <div class="text-h4 font-weight-black">AZUKIS //10,000</div>
           <v-spacer />
           <v-btn class="d-flex" color="grey" elevation="0">
-            <v-icon class="pr-2">mdi-account-box-multiple</v-icon>
+            <v-icon left>mdi-account-box-multiple</v-icon>
             MY AZUKIS
           </v-btn>
           <v-btn class="d-flex ml-3" color="grey" elevation="0">
-            <v-icon class="pr-2">mdi-shuffle-variant</v-icon>
+            <v-icon left>mdi-shuffle-variant</v-icon>
             SHUFFLE
           </v-btn>
         </div>
