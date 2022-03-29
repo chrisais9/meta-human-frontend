@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <h1>This is Mindmap</h1>
+    <h1>This is Road Map</h1>
   </v-container>
 </template>
 
@@ -8,7 +8,7 @@
 import { Options, Vue } from "vue-class-component";
 
 @Options({})
-export default class MindmapView extends Vue {}
+export default class RoadMapView extends Vue {}
 </script>
 
 <style lang="scss" scoped></style>

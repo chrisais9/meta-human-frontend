@@ -2,11 +2,10 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import LandingView from "@/views/LandingView.vue";
 import HomeView from "@/views/HomeView.vue";
 import GalleryView from "@/views/GalleryView.vue";
-import GardenView from "@/views/GardenView.vue";
-import CareersView from "@/views/CareersView.vue";
-import ManifestoView from "@/views/ManifestoView.vue";
-import MindmapView from "@/views/MindmapView.vue";
+import TeamView from "@/views/TeamView.vue";
+import RoadMapView from "@/views/RoadMapView.vue";
 import ShopView from "@/views/ShopView.vue";
+import MintView from "@/views/MintView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,24 +19,19 @@ const routes: Array<RouteRecordRaw> = [
     component: GalleryView,
   },
   {
-    path: "/garden",
-    name: "garden",
-    component: GardenView,
+    path: "/roadmap",
+    name: "roadmap",
+    component: RoadMapView,
   },
   {
-    path: "/careers",
-    name: "careers",
-    component: CareersView,
-  },
-  {
-    path: "/manifesto",
+    path: "/mint",
     name: "manifesto",
-    component: ManifestoView,
+    component: MintView,
   },
   {
-    path: "/mindmap",
-    name: "mindmap",
-    component: MindmapView,
+    path: "/team",
+    name: "team",
+    component: TeamView,
   },
   {
     path: "/shop",

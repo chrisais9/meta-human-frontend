@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <h1>This is Careers</h1>
+    <h1>This is Mint view</h1>
   </v-container>
 </template>
 
@@ -8,7 +8,7 @@
 import { Options, Vue } from "vue-class-component";
 
 @Options({})
-export default class GalleryView extends Vue {}
+export default class MintView extends Vue {}
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <h1>This is The Garden</h1>
+    <h1>This is The Team</h1>
   </v-container>
 </template>
 
@@ -8,7 +8,7 @@
 import { Options, Vue } from "vue-class-component";
 
 @Options({})
-export default class GardenView extends Vue {}
+export default class TeamView extends Vue {}
 </script>
 
 <style lang="scss" scoped></style>

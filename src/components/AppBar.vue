@@ -20,6 +20,9 @@
         <v-icon>{{ item.icon }}</v-icon>
       </v-btn>
     </span>
+    <span class="router">
+      <v-btn disabled>SHOP</v-btn>
+    </span>
     <span class="language">
       <v-menu transition="slide-y-transition" bottom>
         <template v-slot:activator="{ props }">
@@ -54,28 +57,20 @@ export default class AppBar extends Vue {
         link: "/",
       },
       {
+        name: "BUY",
+        link: "/mint",
+      },
+      {
         name: "GALLERY",
         link: "/gallery",
       },
       {
-        name: "THE GARDEN",
-        link: "/garden",
+        name: "ROADMAP",
+        link: "/roadmap",
       },
       {
-        name: "CAREERS",
-        link: "/careers",
-      },
-      {
-        name: "MANIFESTO",
-        link: "/manifesto",
-      },
-      {
-        name: "MINDMAP",
-        link: "/mindmap",
-      },
-      {
-        name: "SHOP",
-        link: "/shop",
+        name: "TEAM",
+        link: "/team",
       },
     ];
   }
