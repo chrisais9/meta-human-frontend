@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row class="pa-12">
       <v-col cols="3">
         <v-form>
-          <div class="text-h4 font-weight-black">FILTER</div>
+          <div class="filter__header pb-3 text-h4 font-weight-black">FILTER</div>
           <v-switch v-model="isGoldenMode" label="Golden Mode"></v-switch>
           <v-text-field append-icon="mdi-magnify" @click:append="appendIconCallback">
             Default Slot
@@ -11,11 +11,22 @@
         </v-form>
       </v-col>
       <v-col cols="9">
-        <div class="text-h4 font-weight-black">AZUKIS //10,000</div>
+        <div class="d-flex grid__header pb-3">
+          <div class="text-h4 font-weight-black">AZUKIS //10,000</div>
+          <v-spacer />
+          <v-btn class="d-flex" color="grey" elevation="0">
+            <v-icon class="pr-2">mdi-account-box-multiple</v-icon>
+            MY AZUKIS
+          </v-btn>
+          <v-btn class="d-flex ml-3" color="grey" elevation="0">
+            <v-icon class="pr-2">mdi-shuffle-variant</v-icon>
+            SHUFFLE
+          </v-btn>
+        </div>
         <div class="text-subtitle-1 font-weight-black">FILTER</div>
         <v-row dense>
           <v-col cols="3" v-for="n in 12" :key="n">
-            <v-card max-width="250px">
+            <v-card>
               <v-img
                 class="rounded"
                 src="https://azk.imgix.net/images/13223978-547c-42de-9224-5efd4b56cc2a.png?fm=jpg&w=800"
@@ -39,4 +50,11 @@ export default class GalleryView extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.filter__header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.grid__header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+</style>
