@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row class="pa-12">
-      <v-col cols="3">
+      <v-col class="d-none d-lg-block" cols="3">
         <v-form>
           <div class="filter__header pb-3 text-h4 font-weight-black">FILTER</div>
           <v-switch v-model="isGoldenMode" label="Golden Mode"></v-switch>
@@ -10,7 +10,7 @@
           </v-text-field>
         </v-form>
       </v-col>
-      <v-col cols="9">
+      <v-col cols="12" lg="9">
         <div class="d-flex grid__header pb-3">
           <div class="text-h4 font-weight-black">AZUKIS //10,000</div>
           <v-spacer />
@@ -25,7 +25,7 @@
         </div>
         <div class="text-subtitle-1 font-weight-black">FILTER</div>
         <v-row dense>
-          <v-col cols="3" v-for="n in 12" :key="n">
+          <v-col lg="3" cols="6" v-for="n in 12" :key="n">
             <v-card>
               <v-img
                 class="rounded"
