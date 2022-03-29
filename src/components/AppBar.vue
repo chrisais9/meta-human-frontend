@@ -4,42 +4,46 @@
       <img class="pa-2 bg-red rounded" width="80" :src="logo" />
     </a>
     <v-spacer />
-    <span class="router">
-      <v-btn
-        class="mx-1 px-4"
-        color="black"
-        v-for="item in routers"
-        :key="item.name"
-        :to="item.link"
-      >
-        {{ item.name }}
-      </v-btn>
-    </span>
-    <span class="social">
-      <v-btn icon v-for="item in socials" :key="item.name" :href="item.to" target="_blank">
-        <v-icon>{{ item.icon }}</v-icon>
-      </v-btn>
-    </span>
-    <span class="shop mr-6">
-      <v-badge content="soon" overlap>
-        <v-btn disabled>SHOP</v-btn>
-      </v-badge>
-    </span>
-    <span class="language">
-      <v-menu transition="slide-y-transition" bottom>
-        <template v-slot:activator="{ props }">
-          <v-btn v-bind="props">LANGUAGE</v-btn>
-        </template>
-        <v-list>
-          <v-list-item @click="() => {}">
-            <v-list-item-title>English</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="() => {}">
-            <v-list-item-title>한국어</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </span>
+    <div class="d-none d-lg-flex">
+      <span class="router">
+        <v-btn
+          class="mx-1 px-4"
+          color="black"
+          v-for="item in routers"
+          :key="item.name"
+          :to="item.link"
+        >
+          {{ item.name }}
+        </v-btn>
+      </span>
+      <span class="social">
+        <v-btn icon v-for="item in socials" :key="item.name" :href="item.to" target="_blank">
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-btn>
+      </span>
+      <span class="shop mr-6">
+        <v-badge content="soon" overlap>
+          <v-btn disabled>SHOP</v-btn>
+        </v-badge>
+      </span>
+      <span class="language">
+        <v-menu transition="slide-y-transition" bottom>
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props">LANGUAGE</v-btn>
+          </template>
+          <v-list>
+            <v-list-item @click="() => {}">
+              <v-list-item-title>English</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="() => {}">
+              <v-list-item-title>한국어</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </span>
+    </div>
+
+    <v-app-bar-nav-icon class="d-flex d-lg-none"></v-app-bar-nav-icon>
   </v-app-bar>
 </template>
 
