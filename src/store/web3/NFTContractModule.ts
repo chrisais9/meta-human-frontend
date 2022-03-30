@@ -1,10 +1,4 @@
-import {
-  Action,
-  getModule,
-  Module,
-  Mutation,
-  VuexModule,
-} from "vuex-module-decorators";
+import { Action, getModule, Module, Mutation, VuexModule } from "vuex-module-decorators";
 import store from "@/store";
 import { ethers, Contract } from "ethers";
 import NFTCollection from "@/abis/NFTCollection.json";
@@ -86,9 +80,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   @Action({ rawError: true })
   async connectWallet() {
     if (!window.ethereum) {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
+      window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
       return;
     }
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -111,16 +103,11 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   @Action({ rawError: true })
   watchAndSuggestNetwork() {
     try {
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum,
-        "any"
-      );
+      const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
       const rinkebyChainId = "4";
       provider.on("network", async (newNetwork, oldNetwork) => {
         if (newNetwork.chainId != rinkebyChainId) {
-          await provider.send("wallet_switchEthereumChain", [
-            { chainId: "0x4" },
-          ]);
+          await provider.send("wallet_switchEthereumChain", [{ chainId: "0x4" }]);
         }
         if (oldNetwork) {
           console.log("reload");
