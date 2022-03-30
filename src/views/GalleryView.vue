@@ -2,13 +2,23 @@
   <v-container fluid>
     <v-row class="pa-12">
       <v-col class="d-none d-lg-block" cols="3">
-        <v-form>
+        <div class="sticky">
           <div class="filter__header pb-3 text-h4 font-weight-black">FILTER</div>
+          <v-divider />
           <v-switch v-model="isGoldenMode" label="Golden Mode"></v-switch>
           <v-text-field append-icon="mdi-magnify" @click:append="appendIconCallback">
             Default Slot
           </v-text-field>
-        </v-form>
+          <v-expansion-panels multiple variant="accordion">
+            <v-expansion-panel v-for="(filter, i) in filters" :key="i" :title="filter.name">
+              <v-expansion-panel-text>
+                <v-radio-group v-model="radioGroup">
+                  <v-radio v-for="n in 3" :key="n" :label="`Radio ${n}`" :value="n"></v-radio>
+                </v-radio-group>
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </div>
       </v-col>
       <v-col cols="12" lg="9">
         <div class="d-flex grid__header pb-3">
@@ -23,6 +33,8 @@
             SHUFFLE
           </v-btn>
         </div>
+
+        <v-divider />
         <div class="text-subtitle-1 font-weight-black">FILTER</div>
         <v-row dense>
           <v-col lg="3" cols="6" v-for="n in 12" :key="n">
@@ -47,14 +59,53 @@ import { Options, Vue } from "vue-class-component";
 @Options({})
 export default class GalleryView extends Vue {
   isGoldenMode = true;
+
+  get filters() {
+    return [
+      {
+        name: "TYPE",
+      },
+      {
+        name: "SPECIAL",
+      },
+      {
+        name: "CLOTHING",
+      },
+      {
+        name: "OFFHAND",
+      },
+      {
+        name: "HAIR",
+      },
+      {
+        name: "HEADGEAR",
+      },
+      {
+        name: "FACE",
+      },
+      {
+        name: "NECK",
+      },
+      {
+        name: "EYES",
+      },
+      {
+        name: "EAR",
+      },
+      {
+        name: "BACKGROUND",
+      },
+    ];
+  }
 }
 </script>
 
 <style lang="scss">
-.filter__header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-.grid__header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+.sticky {
+  height: 700px;
+  overflow-y: scroll;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 112px;
 }
 </style>
