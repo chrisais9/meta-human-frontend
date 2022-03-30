@@ -38,13 +38,37 @@
 
         <v-divider />
         <div class="text-subtitle-1 font-weight-black">FILTER</div>
-        <v-row dense>
-          <v-col lg="3" cols="6" v-for="n in 12" :key="n">
+        <v-row>
+          <v-col lg="3" cols="6" v-for="n in 4" :key="n">
             <v-card>
-              <v-img
-                class="rounded"
-                src="https://azk.imgix.net/images/13223978-547c-42de-9224-5efd4b56cc2a.png?fm=jpg&w=800"
-              ></v-img>
+              <v-img class="rounded" :src="hb0"></v-img>
+              <v-card-subtitle>Azuki</v-card-subtitle>
+              <v-card-title>Test</v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col lg="3" cols="6" v-for="n in 4" :key="n">
+            <v-card>
+              <v-img class="rounded" :src="hb1"></v-img>
+              <v-card-subtitle>Azuki</v-card-subtitle>
+              <v-card-title>Test</v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col lg="3" cols="6" v-for="n in 4" :key="n">
+            <v-card>
+              <v-img class="rounded" :src="hb2"></v-img>
+              <v-card-subtitle>Azuki</v-card-subtitle>
+              <v-card-title>Test</v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col lg="3" cols="6" v-for="n in 4" :key="n">
+            <v-card>
+              <v-img class="rounded" :src="hb3"></v-img>
               <v-card-subtitle>Azuki</v-card-subtitle>
               <v-card-title>Test</v-card-title>
             </v-card>
@@ -61,6 +85,22 @@ import { Options, Vue } from "vue-class-component";
 @Options({})
 export default class GalleryView extends Vue {
   isGoldenMode = true;
+
+  get hb0() {
+    return new URL(`../assets/hb/hb0.png`, import.meta.url).href;
+  }
+
+  get hb1() {
+    return new URL(`../assets/hb/hb1.png`, import.meta.url).href;
+  }
+
+  get hb2() {
+    return new URL(`../assets/hb/hb2.png`, import.meta.url).href;
+  }
+
+  get hb3() {
+    return new URL(`../assets/hb/hb3.png`, import.meta.url).href;
+  }
 
   get filters() {
     return [

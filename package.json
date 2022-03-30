@@ -1,6 +1,6 @@
 {
-  "name": "vite-vuetify3",
-  "version": "0.0.0",
+  "name": "playground-frontend",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vite preview",

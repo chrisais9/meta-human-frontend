@@ -1,6 +1,7 @@
 <template>
-  <v-container fluid>
-    <h1>This is Mint view</h1>
+  <v-container class="align-center justify-center" fill-height>
+    <div class="d-flex text-h3 justify-center mb-12">민팅 테스트</div>
+    <v-btn block>Connect Wallet</v-btn>
   </v-container>
 </template>
 
