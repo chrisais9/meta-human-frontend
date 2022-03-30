@@ -2,9 +2,11 @@
   <v-container fluid>
     <v-row class="pa-12">
       <v-col class="d-none d-lg-block" cols="3">
-        <div class="sticky">
+        <div class="sticky-fixed">
           <div class="filter__header pb-3 text-h4 font-weight-black">FILTER</div>
           <v-divider />
+        </div>
+        <div class="sticky">
           <v-switch v-model="isGoldenMode" label="Golden Mode"></v-switch>
           <v-text-field append-icon="mdi-magnify" @click:append="appendIconCallback">
             Default Slot
@@ -106,6 +108,12 @@ export default class GalleryView extends Vue {
   overflow-y: scroll;
   position: sticky;
   position: -webkit-sticky;
-  top: 112px;
+  top: 200px;
+}
+
+.sticky-fixed {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 130px;
 }
 </style>
