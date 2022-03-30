@@ -4,8 +4,8 @@
       <img class="pa-2 bg-red rounded" width="80" :src="logo" />
     </a>
     <v-spacer />
-    <div class="d-none d-lg-flex">
-      <span class="router">
+    <div class="d-none d-lg-flex align-center">
+      <div class="router">
         <v-btn
           class="mx-1 px-4"
           color="black"
@@ -15,18 +15,18 @@
         >
           {{ item.name }}
         </v-btn>
-      </span>
-      <span class="social">
+      </div>
+      <div class="social">
         <v-btn icon v-for="item in socials" :key="item.name" :href="item.to" target="_blank">
           <v-icon>{{ item.icon }}</v-icon>
         </v-btn>
-      </span>
-      <span class="shop mr-6">
+      </div>
+      <div class="shop mr-6">
         <v-badge content="soon" overlap>
           <v-btn disabled>SHOP</v-btn>
         </v-badge>
-      </span>
-      <span class="language">
+      </div>
+      <div class="language">
         <v-menu transition="slide-y-transition" bottom>
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props">LANGUAGE</v-btn>
@@ -40,7 +40,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
-      </span>
+      </div>
     </div>
 
     <v-app-bar-nav-icon class="d-flex d-lg-none"></v-app-bar-nav-icon>
