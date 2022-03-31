@@ -40,7 +40,7 @@
         <div class="text-subtitle-1 font-weight-black">FILTER</div>
         <v-row>
           <v-col lg="3" cols="12" v-for="n in 24" :key="n">
-            <v-card elevation="0">
+            <v-card elevation="0" @click="showDetailDialog(n % 4)">
               <v-img class="rounded" :src="image(n % 4)"></v-img>
               <v-card-title class="text-h6 justify-center font-weight-medium">
                 NO. 3122
@@ -50,6 +50,72 @@
         </v-row>
       </v-col>
     </v-row>
+
+    <v-dialog v-model="isDetailDialogShown">
+      <v-card class="overflow-auto" style="height: 500px">
+        <v-row>
+          <v-col cols="12">
+            <v-img width="300" :src="image(clickedDetailId)" />
+          </v-col>
+          <v-col cols="12">
+            <div class="text-caption">L.L.HB</div>
+          </v-col>
+          <v-col>
+            <div cols="6" class="d-flex justify-space-between">
+              <div class="text-h4">#3122</div>
+            </div>
+          </v-col>
+          <v-col cols="6">
+            <v-btn
+              href="https://testnets.opensea.io/assets/0x6e93f075d41dbb74c37dba9ba19a0b33c6545d4d/12"
+              target="_black"
+            >
+              오픈씨
+            </v-btn>
+          </v-col>
+
+          <v-col cols="4">
+            <v-sheet class="ma-4 pa-2" color="grey">
+              <v-row>
+                <v-col>
+                  <v-icon>mdi-human</v-icon>
+                </v-col>
+                <v-col>
+                  <div class="text-caption">TYPE:</div>
+                  <div class="text-body">GHOST</div>
+                </v-col>
+              </v-row>
+            </v-sheet>
+          </v-col>
+          <v-col cols="4">
+            <v-sheet class="ma-4 pa-2" color="grey">
+              <v-row>
+                <v-col>
+                  <v-icon cla>mdi-human</v-icon>
+                </v-col>
+                <v-col>
+                  <div class="text-caption">TYPE:</div>
+                  <div class="text-body">GHOST</div>
+                </v-col>
+              </v-row>
+            </v-sheet>
+          </v-col>
+          <v-col cols="4">
+            <v-sheet class="ma-4 pa-2" color="grey">
+              <v-row>
+                <v-col>
+                  <v-icon cla>mdi-human</v-icon>
+                </v-col>
+                <v-col>
+                  <div class="text-caption">TYPE:</div>
+                  <div class="text-body">GHOST</div>
+                </v-col>
+              </v-row>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -59,10 +125,8 @@ import { Options, Vue } from "vue-class-component";
 @Options({})
 export default class GalleryView extends Vue {
   isGoldenMode = true;
-
-  image(value: number) {
-    return new URL(`../assets/hb/hb${value}.png`, import.meta.url).href;
-  }
+  isDetailDialogShown = false;
+  clickedDetailId = 1;
 
   get filters() {
     return [
@@ -101,10 +165,19 @@ export default class GalleryView extends Vue {
       },
     ];
   }
+
+  image(value: number) {
+    return new URL(`../assets/hb/hb${value}.png`, import.meta.url).href;
+  }
+
+  showDetailDialog(id: number) {
+    this.clickedDetailId = id;
+    this.isDetailDialogShown = true;
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .sticky {
   height: 700px;
   overflow-y: scroll;
