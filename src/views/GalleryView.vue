@@ -39,11 +39,12 @@
         <v-divider />
         <div class="text-subtitle-1 font-weight-black">FILTER</div>
         <v-row>
-          <v-col lg="3" cols="6" v-for="n in 24" :key="n">
-            <v-card>
+          <v-col lg="3" cols="12" v-for="n in 24" :key="n">
+            <v-card elevation="0">
               <v-img class="rounded" :src="image(n % 4)"></v-img>
-              <v-card-subtitle>L.L.HB</v-card-subtitle>
-              <v-card-title>Test</v-card-title>
+              <v-card-title class="text-h6 justify-center font-weight-medium">
+                NO. 3122
+              </v-card-title>
             </v-card>
           </v-col>
         </v-row>

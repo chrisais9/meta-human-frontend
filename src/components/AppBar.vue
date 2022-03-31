@@ -6,18 +6,18 @@
     <v-spacer />
     <div class="d-none d-lg-flex align-center">
       <div class="router">
-        <v-btn
-          class="mx-1 px-4"
-          color="black"
-          v-for="item in routers"
-          :key="item.name"
-          :to="item.link"
-        >
+        <v-btn class="mx-1 px-4" v-for="item in routers" :key="item.name" :to="item.link">
           {{ item.name }}
         </v-btn>
       </div>
       <div class="social">
-        <v-btn icon v-for="item in socials" :key="item.name" :href="item.to" target="_blank">
+        <v-btn
+          class="mx-1 px-4"
+          v-for="item in socials"
+          :key="item.name"
+          :href="item.to"
+          target="_blank"
+        >
           <v-icon>{{ item.icon }}</v-icon>
         </v-btn>
       </div>
@@ -103,6 +103,7 @@ export default class AppBar extends Vue {
 <style lang="scss" scoped>
 .router {
   .v-btn {
+    height: 1.75rem;
     background-color: rgba(255, 255, 255, 0.3);
     font-size: 0.3em;
   }
@@ -115,12 +116,20 @@ export default class AppBar extends Vue {
 
 .social {
   .v-btn {
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 1.75rem;
     font-size: 0.7em;
+  }
+
+  .v-btn--active {
+    background-color: rgba(255, 255, 255, 0.7);
+    text-decoration: underline;
   }
 }
 
 .shop {
   .v-btn {
+    height: 1.75rem;
     background-color: rgba(255, 255, 255, 0.3);
     font-size: 0.3em;
   }
@@ -133,6 +142,7 @@ export default class AppBar extends Vue {
 
 .language {
   .v-btn {
+    height: 1.75rem;
     font-size: 0.3em;
   }
 }
