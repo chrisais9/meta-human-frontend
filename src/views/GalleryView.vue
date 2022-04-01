@@ -41,16 +41,41 @@
           FILTER
           <span class="px-2 bg-grey rounded">0</span>
         </div>
-        <v-row>
-          <v-col lg="3" cols="12" v-for="n in 24" :key="n">
-            <v-card elevation="0" @click="showDetailDialog(n % 4)">
-              <v-img class="rounded" :src="image(n % 4)"></v-img>
-              <v-card-title class="text-h6 justify-center font-weight-medium">
-                NO. 3122
-              </v-card-title>
-            </v-card>
-          </v-col>
-        </v-row>
+        <v-tabs v-model="tab" fixed-tabs>
+          <v-tab value="temp"> 디자인 시안 NFT(임시) </v-tab>
+          <v-tab value="contract"> 컨트랙트 NFT </v-tab>
+        </v-tabs>
+
+        <v-window v-model="tab">
+          <v-window-item value="temp">
+            <v-container fluid>
+              <v-row>
+                <v-col lg="3" cols="12" v-for="n in 24" :key="n">
+                  <v-card elevation="0" @click="showDetailDialog(n % 4)">
+                    <v-img class="rounded" :src="image(n % 4)"></v-img>
+                    <v-card-title class="text-h6 justify-center font-weight-medium">
+                      NO. 3122
+                    </v-card-title>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-window-item>
+          <v-window-item value="contract">
+            <v-container fluid>
+              <v-row>
+                <v-col lg="3" cols="12" v-for="n in 24" :key="n">
+                  <v-card elevation="0" @click="showDetailDialog(n % 4)">
+                    <v-img class="rounded" :src="image(n % 4)"></v-img>
+                    <v-card-title class="text-h6 justify-center font-weight-medium">
+                      NO. 3122
+                    </v-card-title>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-window-item>
+        </v-window>
       </v-col>
     </v-row>
 
@@ -130,6 +155,7 @@ export default class GalleryView extends Vue {
   isGoldenMode = true;
   isDetailDialogShown = false;
   clickedDetailId = 1;
+  tab = "temp";
 
   get filters() {
     return [
