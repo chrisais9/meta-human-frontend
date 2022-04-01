@@ -37,7 +37,10 @@
         </div>
 
         <v-divider />
-        <div class="text-subtitle-1 font-weight-black">FILTER</div>
+        <div class="mt-5 mb-2 text-subtitle-1 font-weight-medium text-medium-emphasis">
+          FILTER
+          <span class="px-2 bg-grey rounded">0</span>
+        </div>
         <v-row>
           <v-col lg="3" cols="12" v-for="n in 24" :key="n">
             <v-card elevation="0" @click="showDetailDialog(n % 4)">
