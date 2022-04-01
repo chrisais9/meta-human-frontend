@@ -1,12 +1,9 @@
 <template>
   <v-container class="align-center justify-center" fill-height>
     <div class="d-flex text-h3 justify-center mb-12">민팅 테스트</div>
-    <v-btn block @click="connectWallet" :disabled="!status || isWallectConnected">
-      {{ isWallectConnected ? walletAddress : "Connect Wallet" }}
-    </v-btn>
-    <v-divider class="my-4" />
+
     <v-card>
-      <v-card-title>NFT 정보</v-card-title>
+      <v-card-title>NFT 상태</v-card-title>
       <v-chip v-if="status" class="ma-2" color="green" text-color="white">
         <v-icon start icon="mdi-check" />
         블럭체인 연결됨
@@ -15,11 +12,32 @@
         <v-icon start icon="mdi-message-alert" />
         블럭체인 연결중..
       </v-chip>
+      <v-chip v-if="isWallectConnected" class="ma-2" color="green" text-color="white">
+        <v-icon start icon="mdi-check" />
+        지갑 연결됨
+      </v-chip>
       <v-card-text v-if="status">
-        <div>컨트랙트 주소: {{ contractAddress }}</div>
+        <div>
+          컨트랙트 주소:
+          <a :href="`https://rinkeby.etherscan.io/address/${contractAddress}`" target="_blank">{{
+            contractAddress
+          }}</a>
+        </div>
         <div>NFT 콜렉션 이름 {{ collectionName }}</div>
+        <div>총 민트된 NFT수: {{ totalSupply }}</div>
       </v-card-text>
     </v-card>
+    <v-divider class="my-4" />
+    <v-text-field
+      v-model.number="mintAmount"
+      label="민팅할 NFT 갯수"
+      variant="outlined"
+      clearable
+    ></v-text-field>
+    <v-btn v-if="!isWallectConnected" block @click="connectWallet" :disabled="!status">
+      {{ isWallectConnected ? walletAddress : "Connect Wallet" }}
+    </v-btn>
+    <v-btn v-else block text color="yellow" @click="mint(mintAmount)"> 민팅하기 </v-btn>
   </v-container>
 </template>
 
@@ -29,6 +47,8 @@ import { Options, Vue } from "vue-class-component";
 
 @Options({})
 export default class MintView extends Vue {
+  mintAmount = 1;
+
   get status() {
     return NFTContractModule.isReady;
   }
@@ -48,11 +68,17 @@ export default class MintView extends Vue {
   get collectionName() {
     return NFTContractModule.collectionName;
   }
-  mounted() {
-    NFTContractModule.establishContract();
+
+  get totalSupply() {
+    return NFTContractModule.totalSupply;
   }
+
   connectWallet() {
     NFTContractModule.connectWallet();
+  }
+
+  mint(mintAmount: number) {
+    NFTContractModule.mint({ mintAmount: mintAmount });
   }
 }
 </script>

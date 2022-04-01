@@ -64,11 +64,14 @@
           <v-window-item value="contract">
             <v-container fluid>
               <v-row>
-                <v-col lg="3" cols="12" v-for="n in 24" :key="n">
-                  <v-card elevation="0" @click="showDetailDialog(n % 4)">
-                    <v-img class="rounded" :src="image(n % 4)"></v-img>
+                <v-col lg="3" cols="12" v-for="nft in collection" :key="nft.image">
+                  <v-card elevation="0" @click="n">
+                    <v-img
+                      class="rounded"
+                      :src="`https://ipfs.io/ipfs/QmT31d9aS19gASPNVX3p9jN7mvEP1KxdLpqF8K5UbG8QNz`"
+                    ></v-img>
                     <v-card-title class="text-h6 justify-center font-weight-medium">
-                      NO. 3122
+                      {{ nft.name }}
                     </v-card-title>
                   </v-card>
                 </v-col>
@@ -88,6 +91,7 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import NFTDetailDialog from "@/components/NFTDetailDialog.vue";
+import { NFTContractModule } from "@/store/web3/NFTContractModule";
 @Options({
   components: {
     NFTDetailDialog,
@@ -136,6 +140,11 @@ export default class GalleryView extends Vue {
       },
     ];
   }
+
+  get collection() {
+    return NFTContractModule.collection;
+  }
+
   image(value: number) {
     return new URL(`../assets/hb/hb${value}.png`, import.meta.url).href;
   }
