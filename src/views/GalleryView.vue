@@ -43,7 +43,7 @@
         </div>
         <v-tabs v-model="tab" fixed-tabs>
           <v-tab value="temp"> 디자인 시안 NFT(임시) </v-tab>
-          <v-tab value="contract"> 컨트랙트 NFT </v-tab>
+          <v-tab value="contract"> 실제 민트된 NFT(총 {{ totalSupply }}개) </v-tab>
         </v-tabs>
 
         <v-window v-model="tab">
@@ -63,7 +63,15 @@
           </v-window-item>
           <v-window-item value="contract">
             <v-container fluid>
-              <v-row>
+              <v-row v-if="collection.length == 0" align-content="center" justify="center">
+                <v-col class="text-subtitle-1 text-center" cols="12">
+                  NFT 로딩중...(좀 걸려유)
+                </v-col>
+                <v-col cols="6">
+                  <v-progress-linear color="yellow" indeterminate rounded height="6" />
+                </v-col>
+              </v-row>
+              <v-row v-else>
                 <v-col lg="3" cols="12" v-for="nft in collection" :key="nft.image">
                   <v-card elevation="0" @click="n">
                     <v-img
@@ -92,6 +100,7 @@
 import { Options, Vue } from "vue-class-component";
 import NFTDetailDialog from "@/components/NFTDetailDialog.vue";
 import { NFTContractModule } from "@/store/web3/NFTContractModule";
+
 @Options({
   components: {
     NFTDetailDialog,
@@ -139,6 +148,10 @@ export default class GalleryView extends Vue {
         name: "BACKGROUND",
       },
     ];
+  }
+
+  get totalSupply() {
+    return NFTContractModule.totalSupply;
   }
 
   get collection() {
