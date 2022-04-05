@@ -18,7 +18,7 @@ import { NFTContractModule } from "./store/web3/NFTContractModule";
   },
 })
 export default class App extends Vue {
-  created() {
+  async created() {
     const lang = navigator.language;
 
     if (lang.indexOf("ko") != -1) {
@@ -27,7 +27,7 @@ export default class App extends Vue {
       this.$i18n.locale = "en";
     }
 
-    NFTContractModule.establishContract();
+    await NFTContractModule.establishContract();
   }
 }
 </script>
