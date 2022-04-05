@@ -17,6 +17,7 @@
           :key="item.name"
           :href="item.to"
           target="_blank"
+          icon
         >
           <v-icon>{{ item.icon }}</v-icon>
         </v-btn>
@@ -128,7 +129,6 @@ export default class AppBar extends Vue {
 .social {
   .v-btn {
     background-color: rgba(255, 255, 255, 0.3);
-    height: 1.75rem;
     font-size: 0.7em;
   }
 
