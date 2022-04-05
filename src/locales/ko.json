@@ -1,0 +1,15 @@
+{
+  "locales": {
+    "en": "English",
+    "ko": "한국어"
+  },
+  "router": {
+    "home": "홈",
+    "mint": "구매",
+    "gallery": "갤러리",
+    "roadmap": "로드맵",
+    "team": "팀 소개",
+    "shop": "샵",
+    "language": "언어"
+  }
+}

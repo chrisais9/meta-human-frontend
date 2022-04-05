@@ -1,0 +1,15 @@
+{
+  "locales": {
+    "en": "English",
+    "ko": "한국어"
+  },
+  "router": {
+    "home": "Home",
+    "mint": "Buy",
+    "gallery": "Gallery",
+    "roadmap": "Roadmap",
+    "team": "Team",
+    "shop": "Shop",
+    "language": "Language"
+  }
+}

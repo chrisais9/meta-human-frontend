@@ -23,20 +23,21 @@
       </div>
       <div class="shop mr-6">
         <v-badge content="soon" overlap>
-          <v-btn disabled>SHOP</v-btn>
+          <v-btn disabled>{{ $t("router.shop") }}</v-btn>
         </v-badge>
       </div>
       <div class="language">
         <v-menu transition="slide-y-transition" bottom>
           <template v-slot:activator="{ props }">
-            <v-btn v-bind="props">LANGUAGE</v-btn>
+            <v-btn v-bind="props">{{ $t("router.language") }}</v-btn>
           </template>
           <v-list>
-            <v-list-item @click="() => {}">
-              <v-list-item-title>English</v-list-item-title>
-            </v-list-item>
-            <v-list-item @click="() => {}">
-              <v-list-item-title>한국어</v-list-item-title>
+            <v-list-item
+              v-for="(locale, index) in locales"
+              :key="index"
+              @click="changeGlobalLocale(locale.val)"
+            >
+              <v-list-item-title>{{ locale.name }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -52,6 +53,12 @@ import { Options, Vue } from "vue-class-component";
 
 @Options({})
 export default class AppBar extends Vue {
+  get locales() {
+    return this.$i18n.availableLocales.map((locale) => {
+      return { name: this.$t("locales." + locale), val: locale };
+    });
+  }
+
   get logo() {
     return new URL(`../assets/logo_azuki.svg`, import.meta.url).href;
   }
@@ -59,23 +66,23 @@ export default class AppBar extends Vue {
   get routers() {
     return [
       {
-        name: "HOME",
+        name: this.$t("router.home"),
         link: "/",
       },
       {
-        name: "BUY",
+        name: this.$t("router.mint"),
         link: "/mint",
       },
       {
-        name: "GALLERY",
+        name: this.$t("router.gallery"),
         link: "/gallery",
       },
       {
-        name: "ROADMAP",
+        name: this.$t("router.roadmap"),
         link: "/roadmap",
       },
       {
-        name: "TEAM",
+        name: this.$t("router.team"),
         link: "/team",
       },
     ];
@@ -96,6 +103,10 @@ export default class AppBar extends Vue {
         to: "https://twitter.com",
       },
     ];
+  }
+
+  changeGlobalLocale(locale: string) {
+    this.$i18n.locale = locale;
   }
 }
 </script>

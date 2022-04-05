@@ -18,7 +18,15 @@ import { NFTContractModule } from "./store/web3/NFTContractModule";
   },
 })
 export default class App extends Vue {
-  mounted() {
+  created() {
+    const lang = navigator.language;
+
+    if (lang.indexOf("ko") != -1) {
+      this.$i18n.locale = "ko";
+    } else {
+      this.$i18n.locale = "en";
+    }
+
     NFTContractModule.establishContract();
   }
 }
