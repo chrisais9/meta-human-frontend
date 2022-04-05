@@ -11,5 +11,14 @@
     "team": "팀 소개",
     "shop": "샵",
     "language": "언어"
+  },
+  "mint": {
+    "header_title": "민팅 테스트",
+    "status_title": "NFT 상태",
+    "status_blockchain_connected": "블럭체인 연결됨",
+    "status_wallet_connected": "지갑 연결됨",
+    "status_contract_address": "컨트랙트 주소",
+    "status_collection_name": " NFT 콜렉션 이름",
+    "status_minted_amount": "총 민트된 NFT 수"
   }
 }

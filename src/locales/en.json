@@ -11,5 +11,14 @@
     "team": "Team",
     "shop": "Shop",
     "language": "Language"
+  },
+  "mint": {
+    "header_title": "Test Mint",
+    "status_title": "NFT Status",
+    "status_blockchain_connected": "Blockchain Connected",
+    "status_wallet_connected": "Blockchain Connected",
+    "status_contract_address": "Contract address",
+    "status_collection_name": " Name of NFT collection",
+    "status_minted_amount": " Amount of total minted NFT"
   }
 }
