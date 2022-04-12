@@ -12,7 +12,6 @@ interface IWeb3 {
   isReady: boolean;
   walletAddress: string;
   contract: Contract;
-  signer: JsonRpcSigner;
   collectionName: string;
   totalSupply: bigint;
   collection: IHoneyXBadger[];
@@ -25,7 +24,6 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   isReady = false;
   walletAddress = "";
   contract = {} as any;
-  signer = {} as any;
   collectionName = "";
   totalSupply = BigInt(0);
   collection = [] as IHoneyXBadger[];
@@ -45,11 +43,6 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   @Mutation
   setContract(contract: Contract) {
     this.contract = contract;
-  }
-
-  @Mutation
-  setSigner(signer: JsonRpcSigner) {
-    this.signer = signer;
   }
 
   @Mutation
@@ -80,7 +73,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   @Action({ rawError: true })
   async connectWallet() {
     if (!window.ethereum) {
-      window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
+      window.alert("Non-Klaytn browser detected. You should consider trying MetaMask!");
       return;
     }
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -88,7 +81,6 @@ class NFTContractManager extends VuexModule implements IWeb3 {
     this.watchAndSuggestNetwork();
     await provider.send("eth_requestAccounts", []);
     this.setWalletAddress(await provider.getSigner().getAddress());
-    this.setSigner(provider.getSigner());
 
     const networkId = (await provider.getNetwork()).chainId;
     const networkData = (NFTCollection.networks as any)[networkId];
@@ -96,6 +88,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
     const abi = NFTCollection.abi;
     const address = networkData.address as string;
     const contract = new ethers.Contract(address, abi, provider.getSigner());
+    // console.log(await provider.getSigner().getAddress());
 
     this.setContract(contract);
   }
@@ -104,10 +97,10 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   watchAndSuggestNetwork() {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-      const rinkebyChainId = "4";
+      const klaytnChainId = "1001";
       provider.on("network", async (newNetwork, oldNetwork) => {
-        if (newNetwork.chainId != rinkebyChainId) {
-          await provider.send("wallet_switchEthereumChain", [{ chainId: "0x4" }]);
+        if (newNetwork.chainId != klaytnChainId) {
+          await provider.send("wallet_switchEthereumChain", [{ chainId: "0x3E9" }]);
         }
         if (oldNetwork) {
           console.log("reload");
@@ -121,10 +114,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
 
   @Action({ rawError: true })
   async establishContract() {
-    const provider = new ethers.providers.InfuraProvider(
-      "rinkeby",
-      "2b623591fbc84ad3a0f19ab893211159"
-    );
+    const provider = new ethers.providers.JsonRpcProvider("https://api.baobab.klaytn.net:8651");
 
     const networkId = (await provider.getNetwork()).chainId;
     const networkData = (NFTCollection.networks as any)[networkId];
@@ -159,7 +149,7 @@ class NFTContractManager extends VuexModule implements IWeb3 {
 
   @Action({ rawError: true })
   async fetchMintSaleStatus() {
-    const isMintSaleActive = await this.contract.isMintSaleActive();
+    const isMintSaleActive = await this.contract.isPublicMintActive();
     this.setIsMintSaleActive(isMintSaleActive);
   }
 
@@ -211,6 +201,8 @@ class NFTContractManager extends VuexModule implements IWeb3 {
   async mint(data: { mintAmount: number }): Promise<void> {
     const response = await this.contract.mintHoneyBadger(data.mintAmount, {
       value: ethers.utils.parseEther((0.1 * data.mintAmount).toString()),
+      maxFeePerGas: 750000000000,
+      maxPriorityFeePerGas: 750000000000,
     });
 
     await response.wait();

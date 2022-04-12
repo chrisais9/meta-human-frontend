@@ -234,6 +234,25 @@
     {
       "inputs": [
         {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "claimed",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "uint256",
           "name": "tokenId",
           "type": "uint256"
@@ -276,7 +295,7 @@
     },
     {
       "inputs": [],
-      "name": "isMintSaleActive",
+      "name": "isPublicMintActive",
       "outputs": [
         {
           "internalType": "bool",
@@ -285,6 +304,45 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "isWhitelistMintActive",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "merkleProof",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "isWhitelisted",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "lockContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -322,6 +380,24 @@
         }
       ],
       "name": "mintHoneyBadger",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "merkleProof",
+          "type": "bytes32[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "mintAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "mintWhitelistHoneyBadger",
       "outputs": [],
       "stateMutability": "payable",
       "type": "function"
@@ -373,7 +449,14 @@
     },
     {
       "inputs": [],
-      "name": "pauseMintSale",
+      "name": "pausePublicMint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pauseWhitelistMint",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -493,7 +576,30 @@
           "type": "uint256"
         }
       ],
-      "name": "startMintSale",
+      "name": "startPublicMint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_maxMintAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_tokenPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_merkleRoot",
+          "type": "bytes32"
+        }
+      ],
+      "name": "startWhitelistMint",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -618,10 +724,11 @@
       "stateMutability": "nonpayable",
       "type": "function"
     }
-  ],
+  ]
+  ,
   "networks": {
-    "4": {
-      "address": "0x6E93F075D41dbb74C37Dba9BA19A0B33C6545d4D"
+    "1001": {
+      "address": "0xa4e0931470700187317B551B1c06733Df6645758"
     }
   }
 }
