@@ -1,31 +1,23 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { Link } from "react-router-dom";
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
-import Expenses from "./routes/expenses";
-import Invoices from "./routes/invoices";
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import MainNavbar from "./components/NavBar/MainNavbar";
+import HomeView from "./routes/homeView";
+import MintView from "./routes/mintView";
+import GalleryView from "./routes/galleryView";
+import RoadmapView from "./routes/roadmapView";
+import TeamView from "./routes/teamView";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <Navbar bg="transparent">
-        <Container>
-          <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
-          <Nav className="mx-auto">
-            <Nav.Link href="/expenses">Expenses</Nav.Link>
-            <Nav.Link href="/invoices">Invoices</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
+      <MainNavbar />
       <Routes>
-        <Route path="/" element={<Expenses />} />
-        <Route path="expenses" element={<Expenses />} />
-        <Route path="invoices" element={<Invoices />} />
+        <Route path="/" element={<HomeView />} />
+        <Route path="mint" element={<MintView />} />
+        <Route path="gallery" element={<GalleryView />} />
+        <Route path="roadmap" element={<RoadmapView />} />
+        <Route path="team" element={<TeamView />} />
       </Routes>
     </>
   );
