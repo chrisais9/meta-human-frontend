@@ -1,17 +1,19 @@
 import React from "react";
+import styled from "styled-components";
+
+const BackgroundVideo = styled.video`
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+`;
 
 export default function HomeView() {
   return (
-    <main style={{ padding: "1rem 0" }}>
-      <video
-        className="d-block"
-        autoPlay
-        muted
-        loop
-        style={{ height: "100vh", width: "100%", marginTop: "-90px", objectFit: "cover" }}
-      >
+    <main>
+      <BackgroundVideo autoPlay muted loop playsInline>
         <source src="https://azk.imgix.net/beanzwuzhere.mp4" type="video/mp4" />
-      </video>
+      </BackgroundVideo>
     </main>
   );
 }

@@ -4,7 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 
 export default function MainNavbar() {
   return (
-    <Navbar className="p-3 " collapseOnSelect expand="lg" bg="transparent">
+    <Navbar className="p-3 " collapseOnSelect expand="lg" bg="transparent" fixed="top">
       <Navbar.Brand href="/">META-HUMAN</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
