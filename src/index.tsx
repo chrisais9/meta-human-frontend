@@ -3,9 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-const Caver = require("caver-js");
+
+import Caver from "caver-js";
 const caver = new Caver("https://api.baobab.klaytn.net:8651/");
 
 async function testFunction() {

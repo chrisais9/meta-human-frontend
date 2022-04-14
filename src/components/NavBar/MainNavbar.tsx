@@ -1,31 +1,34 @@
 import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 
 export default function MainNavbar() {
   return (
-    <Navbar className="p-3 " collapseOnSelect expand="lg" bg="transparent" fixed="top">
-      <Navbar.Brand href="/">META-HUMAN</Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="ms-auto">
-          <LinkContainer to="/">
-            <Nav.Link>Home</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/mint">
-            <Nav.Link>Buy</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/gallery">
-            <Nav.Link>Gallery</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/roadmap">
-            <Nav.Link>Roadmap</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/team">
-            <Nav.Link>Team</Nav.Link>
-          </LinkContainer>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <nav className="container flex justify-between px-4 py-8 mx-auto bg-white">
+      <div>
+        <h3 className="text-2xl font-medium text-blue-500">META-HUMAN</h3>
+      </div>
+      <div className="hidden lg:flex space-x-8 ">
+        <a href="/">Home</a>
+        <a href="/mint">Buy</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/team">Team</a>
+        <a href="/roadmap">Roadmap</a>
+      </div>
+      <div className="flex lg:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </div>
+    </nav>
   );
 }
