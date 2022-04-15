@@ -4,10 +4,15 @@ import MainLayout from "../components/NavBar/MainLayout";
 const Home: NextPage = () => {
   return (
     <MainLayout>
-      <div className="flex h-full flex-col justify-center items-center">
-        <h1 className="text-4xl mb-5 font-bold">Home</h1>
-        <span className="text-7xl">🏡</span>
-      </div>
+      <video
+        className="w-full transform hidden lg:block h-screen object-cover"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/assets/video/beanzwuzhere.mp4" />
+      </video>
     </MainLayout>
   );
 };
