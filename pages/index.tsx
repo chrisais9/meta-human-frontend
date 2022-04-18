@@ -1,12 +1,6 @@
 import type { NextPage } from "next";
 import MainLayout from "../components/NavBar/MainLayout";
 
-declare global {
-  interface Window {
-    klaytn: any;
-  }
-}
-
 const Home: NextPage = () => {
   return (
     <MainLayout>

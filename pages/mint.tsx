@@ -1,15 +1,14 @@
 import Caver, { AbiItem } from "caver-js";
 import type { NextPage } from "next";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MainLayout from "../components/NavBar/MainLayout";
 import ABI from "../abi/abi.json";
-import caver from "../config/caver";
 import useContract from "../hooks/useContract";
 
 const Mint: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState("");
 
-  const { name: collectionName, totalSupply } = useContract();
+  const { name: collectionName, totalSupply, collection } = useContract();
 
   const [mintAmount, setMintAmount] = useState("1");
 
@@ -36,11 +35,13 @@ const Mint: NextPage = () => {
         "0xa4e0931470700187317B551B1c06733Df6645758"
       );
 
-      const receipt = await contract.methods.mintHoneyBadger("1").send({
-        from: walletAddress,
-        value: caver.utils.toPeb(+mintAmount * 0.1, "KLAY"),
-        gas: 1000000,
-      });
+      const receipt = await contract.methods
+        .mintHoneyBadger(caver.utils.toBN(mintAmount))
+        .send({
+          from: walletAddress,
+          value: caver.utils.toPeb(+mintAmount * 0.1, "KLAY"),
+          gas: 1000000,
+        });
       if (!receipt.txError) {
         window.alert("민팅 성공");
         window.location.reload();
@@ -61,6 +62,7 @@ const Mint: NextPage = () => {
           <hr className="my-6" />
           <div>콜렉션이름: {collectionName}</div>
           <div>민트된 NFT 수: {totalSupply}</div>
+          <div>불러온 NFT 수: {collection.length}</div>
           <hr className="my-6" />
           <div className="mb-6">
             <label className="block text-sm font-bold mb-2">민팅할 수량</label>

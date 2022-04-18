@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["ipfs.io"],
+  },
   webpack: (config) => {
     config.resolve.fallback = {
       fs: false,
