@@ -1,8 +1,9 @@
 import Caver, { AbiItem } from "caver-js";
 import type { NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import MainLayout from "../components/NavBar/MainLayout";
 import ABI from "../abi/abi.json";
+import caver from "../config/caver";
 
 const Mint: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState("");
@@ -21,7 +22,6 @@ const Mint: NextPage = () => {
   }, []);
 
   async function fetchCollectionName() {
-    const caver = new Caver(window.klaytn);
     const contract = new caver.klay.Contract(
       ABI as AbiItem[],
       "0xa4e0931470700187317B551B1c06733Df6645758"
@@ -32,7 +32,6 @@ const Mint: NextPage = () => {
   }
 
   async function fetchTotalSupply() {
-    const caver = new Caver(window.klaytn);
     const contract = new caver.klay.Contract(
       ABI as AbiItem[],
       "0xa4e0931470700187317B551B1c06733Df6645758"
@@ -43,26 +42,34 @@ const Mint: NextPage = () => {
   }
 
   async function connectWallet() {
-    const accounts = await window.klaytn.enable();
-    setWalletAddress(accounts[0]);
+    if (window.klaytn) {
+      const accounts = await window.klaytn.enable();
+      setWalletAddress(accounts[0]);
+    } else {
+      window.alert("카이카스 지갑을 설치해주세요");
+    }
   }
 
   async function mint() {
-    const caver = new Caver(window.klaytn);
-    const contract = new caver.klay.Contract(
-      ABI as AbiItem[],
-      "0xa4e0931470700187317B551B1c06733Df6645758"
-    );
+    if (window.klaytn) {
+      const caver = new Caver(window.klaytn);
+      const contract = new caver.klay.Contract(
+        ABI as AbiItem[],
+        "0xa4e0931470700187317B551B1c06733Df6645758"
+      );
 
-    const receipt = await contract.methods.mintHoneyBadger("1").send({
-      from: walletAddress,
-      value: caver.utils.toPeb("0.1", "KLAY"),
-      gas: 1000000,
-    });
-    console.log(receipt);
-    if (!receipt.txError) {
-      alert("민팅 성공");
-      window.location.reload();
+      const receipt = await contract.methods.mintHoneyBadger("1").send({
+        from: walletAddress,
+        value: caver.utils.toPeb("0.1", "KLAY"),
+        gas: 1000000,
+      });
+      console.log(receipt);
+      if (!receipt.txError) {
+        alert("민팅 성공");
+        window.location.reload();
+      }
+    } else {
+      window.alert("카이카스 지갑을 설치해주세요");
     }
   }
 
