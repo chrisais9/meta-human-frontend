@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import caver from "../config/caver";
-import ABI from "../abi/abi.json";
+import caver from "@/config/caver";
+import ABI from "@/abi/abi.json";
 import { AbiItem } from "caver-js";
-import INFT from "../schema/INFT";
+import INFT from "@/schema/INFT";
 import axios from "axios";
 
 declare global {

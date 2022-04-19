@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
-import MainLayout from "../components/NavBar/MainLayout";
-import useContract from "../hooks/useContract";
+import MainLayout from "@/components/NavBar/MainLayout";
+import useContract from "@/hooks/useContract";
 
 const Gallery: NextPage = () => {
   const { collection } = useContract();
