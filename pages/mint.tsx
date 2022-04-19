@@ -1,9 +1,11 @@
-import Caver, { AbiItem } from "caver-js";
+import Caver, { AbiItem, Errors, TransactionReceipt } from "caver-js";
 import type { NextPage } from "next";
 import React, { useState } from "react";
 import MainLayout from "../components/NavBar/MainLayout";
 import ABI from "../abi/abi.json";
 import useContract from "../hooks/useContract";
+import { toast } from "react-toastify";
+import caver from "../config/caver";
 
 const Mint: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState("");
@@ -35,20 +37,74 @@ const Mint: NextPage = () => {
         "0xa4e0931470700187317B551B1c06733Df6645758"
       );
 
-      const receipt = await contract.methods
+      contract.methods
         .mintHoneyBadger(caver.utils.toBN(mintAmount))
         .send({
           from: walletAddress,
-          value: caver.utils.toPeb(+mintAmount * 0.1, "KLAY"),
+          value: caver.utils.toPeb((+mintAmount * 0.1).toString(), "KLAY"),
           gas: 1000000,
+        })
+        .then((receipt: TransactionReceipt) => {
+          notifyMintSuccess(receipt.transactionHash);
+        })
+        .catch((err: any) => {
+          try {
+            var receipt = JSON.parse(
+              err.stack.substring(
+                err.stack.indexOf("{"),
+                err.stack.lastIndexOf("}") + 1
+              )
+            );
+            notifyMintFail(receipt.transactionHash);
+          } catch (error) {}
         });
-      if (!receipt.txError) {
-        window.alert("민팅 성공");
-        window.location.reload();
-      }
     } else {
       window.alert("카이카스 지갑을 설치해주세요");
     }
+  }
+
+  function notifyMintSuccess(txHash: string) {
+    toast.success(
+      <>
+        <div>🦄 민팅 성공</div>
+        <a
+          className="text-blue-600 underline"
+          href={`https://baobab.scope.klaytn.com/tx/${txHash}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          영수증 보기
+        </a>
+      </>,
+      {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+      }
+    );
+  }
+
+  function notifyMintFail(txHash: string) {
+    toast.error(
+      <>
+        <div>민팅 실패</div>
+        <a
+          className="text-blue-600 underline"
+          href={`https://baobab.scope.klaytn.com/tx/${txHash}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          영수증 보기
+        </a>
+      </>,
+      {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+      }
+    );
   }
 
   return (
