@@ -6,7 +6,7 @@ const Home: NextPage = () => {
   return (
     <MainLayout>
       <video
-        className="w-full transform hidden lg:block h-screen object-cover"
+        className="hidden h-screen w-full transform object-cover lg:block"
         autoPlay
         loop
         muted
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         <source src="/assets/video/beanzwuzhere.mp4" />
       </video>
       <Image
-        className="min-w-screen w-full lg:block bottom-0 transform h-screen object-cover absolute top-0 left-0 object-center overlay-item -z-10"
+        className="min-w-screen overlay-item absolute bottom-0 top-0 left-0 -z-10 h-screen w-full transform object-cover object-center lg:block"
         src="/assets/images/beanzwashere.jpg"
         layout="fill"
         alt="background"

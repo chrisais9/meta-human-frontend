@@ -54,7 +54,7 @@ const Mint: NextPage = () => {
   return (
     <MainLayout>
       <div className="container mx-auto mt-32">
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+        <div className="mb-4 flex flex-col rounded bg-white px-8 pt-6 pb-8 shadow-md">
           <div>
             카이카스 지갑주소:{" "}
             {walletAddress.length == 0 ? "로그인 필요" : walletAddress}
@@ -65,9 +65,9 @@ const Mint: NextPage = () => {
           <div>불러온 NFT 수: {collection.length}</div>
           <hr className="my-6" />
           <div className="mb-6">
-            <label className="block text-sm font-bold mb-2">민팅할 수량</label>
+            <label className="mb-2 block text-sm font-bold">민팅할 수량</label>
             <input
-              className="shadow appearance-none border border-blue-200 rounded w-full py-2 px-3 mb-3"
+              className="mb-3 w-full appearance-none rounded border border-blue-200 py-2 px-3 shadow"
               type="number"
               value={mintAmount}
               onChange={handleChangeMintAmount}
@@ -77,7 +77,7 @@ const Mint: NextPage = () => {
           <div className="flex items-center justify-center">
             {walletAddress.length == 0 ? (
               <button
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-600"
                 type="button"
                 onClick={connectWallet}
               >
@@ -85,7 +85,7 @@ const Mint: NextPage = () => {
               </button>
             ) : (
               <button
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-600"
                 type="button"
                 onClick={mint}
               >

@@ -9,7 +9,7 @@ const Gallery: NextPage = () => {
     <MainLayout>
       <div className="container mx-auto mt-32">
         <div>총 갯수: {collection.length}</div>
-        <div className="grid justify-items-center grid-cols-1 lg:grid-cols-4 gap-4 ">
+        <div className="grid grid-cols-1 justify-items-center gap-4 lg:grid-cols-4 ">
           {collection.map(({ id, name, image, owner }) => (
             <div key={id}>
               <Image
