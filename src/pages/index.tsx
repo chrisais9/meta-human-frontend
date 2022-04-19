@@ -4,7 +4,7 @@ import MainLayout from "@/components/NavBar/MainLayout";
 
 const Home: NextPage = () => {
   return (
-    <MainLayout>
+    <>
       <video
         className="hidden h-screen w-full transform object-cover lg:block"
         autoPlay
@@ -19,8 +19,8 @@ const Home: NextPage = () => {
         src="/assets/images/beanzwashere.jpg"
         layout="fill"
         alt="background"
-      ></Image>
-    </MainLayout>
+      />
+    </>
   );
 };
 
