@@ -55,12 +55,12 @@ export default function NavBar() {
     <nav className="fixed top-0 z-50 h-20 w-full px-6 pt-7">
       <div className="mx-auto flex h-full items-center justify-center">
         <Link href="/">
-          <span className="flex-grow cursor-pointer font-mono text-2xl font-bold">
+          <span className="flex-grow cursor-pointer font-mono text-2xl font-bold uppercase">
             META HUMAN
           </span>
         </Link>
         <div className="hidden items-center lg:flex" id="mobile-menu">
-          <ul className="flex space-x-6">
+          <ul className="flex space-x-6 uppercase">
             {routerItems.map(({ href, title }) => (
               <li
                 key={title}
@@ -70,9 +70,7 @@ export default function NavBar() {
                     : "bg-header-btn-background text-black"
                 }`}
               >
-                <Link href={href}>
-                  <a>{title}</a>
-                </Link>
+                <Link href={href}>{title}</Link>
               </li>
             ))}
             {socialItems.map(({ href, title }) => (
@@ -92,20 +90,20 @@ export default function NavBar() {
             ))}
             <li>
               <Switch
-                width={150}
+                width={100}
                 onChange={setIsWalletConnected}
                 checked={isWalletConnected}
                 offColor="#F5F6F8"
                 onColor="#000000"
                 offHandleColor="#000000"
                 uncheckedIcon={
-                  <div className="flex h-full items-center justify-end text-base">
-                    Connect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <div className="flex h-full items-center justify-end text-2xs">
+                    Connect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </div>
                 }
                 checkedIcon={
-                  <div className="flex h-full items-center justify-start text-base text-white">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Connected
+                  <div className="flex h-full items-center justify-start text-2xs text-white">
+                    &nbsp;&nbsp;&nbsp;&nbsp;Connected
                   </div>
                 }
               />
