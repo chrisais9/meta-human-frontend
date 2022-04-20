@@ -90,20 +90,20 @@ export default function NavBar() {
             ))}
             <li>
               <Switch
-                width={100}
+                width={110}
                 onChange={setIsWalletConnected}
                 checked={isWalletConnected}
                 offColor="#F5F6F8"
                 onColor="#000000"
                 offHandleColor="#000000"
                 uncheckedIcon={
-                  <div className="flex h-full items-center justify-end text-2xs">
-                    Connect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <div className="flex h-full w-0 items-center justify-center text-2xs">
+                    Connect
                   </div>
                 }
                 checkedIcon={
-                  <div className="flex h-full items-center justify-start text-2xs text-white">
-                    &nbsp;&nbsp;&nbsp;&nbsp;Connected
+                  <div className="flex h-full w-20 items-center justify-center text-2xs text-white">
+                    Connected
                   </div>
                 }
               />
