@@ -1,12 +1,12 @@
 import Head from "next/head";
 import { ReactNode } from "react";
-import NavBar from "./NavBar";
+import NavBar from "./NavBar/NavBar";
 
 type Props = {
   children?: ReactNode;
 };
 
-const MainLayout = ({ children }: Props) => {
+function MainLayout({ children }: Props) {
   return (
     <>
       <Head>
@@ -19,6 +19,6 @@ const MainLayout = ({ children }: Props) => {
       <main>{children}</main>
     </>
   );
-};
+}
 
 export default MainLayout;

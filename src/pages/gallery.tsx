@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import useContract from "@/hooks/useContract";
+import GalleryNFTCard from "@/components/Card/GalleryNFTCard";
 
 const Gallery: NextPage = () => {
   const { collection } = useContract();
@@ -28,18 +29,7 @@ const Gallery: NextPage = () => {
 
         <div className="grid grid-cols-3 gap-4 overflow-auto p-10">
           {collection.map(({ id, name, image, owner }) => (
-            <div
-              className="mx-auto flex w-52 rounded-2xl bg-white shadow-lg shadow-slate-200/60 hover:scale-105 hover:opacity-50"
-              key={id}
-            >
-              <Image
-                className="w-52 rounded-2xl"
-                src={`https://ipfs.io/ipfs/${image}`}
-                width={208}
-                height={208}
-                alt="??"
-              />
-            </div>
+            <GalleryNFTCard image={image} key={id} />
           ))}
         </div>
       </div>

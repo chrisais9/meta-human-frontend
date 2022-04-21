@@ -1,4 +1,4 @@
-export default interface IHoneyXBadger {
+export default interface INFT {
   id: number;
   name: string;
   image: string;

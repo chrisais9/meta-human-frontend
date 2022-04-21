@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import caver from "@/config/caver";
 import ABI from "@/abi/abi.json";
 import { AbiItem } from "caver-js";
@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-const useContract = () => {
+function useContract() {
   const [name, setName] = useState("");
   const [totalSupply, setTotalSupply] = useState(0);
   const [collection, setCollection] = useState([] as INFT[]);
@@ -24,7 +24,8 @@ const useContract = () => {
       const totalSupply = await fetchTotalSupply();
       setTotalSupply(totalSupply);
 
-      await fetchNFTs(totalSupply);
+      const collection = await fetchNFTs(totalSupply);
+      setCollection(collection);
     };
     fetchData();
   }, []);
@@ -48,7 +49,7 @@ const useContract = () => {
     return totalSupply;
   }
 
-  async function fetchNFTs(totalSupply: number) {
+  async function fetchNFTs(totalSupply: number): Promise<INFT[]> {
     const contract = new caver.klay.Contract(
       ABI as AbiItem[],
       "0xa4e0931470700187317B551B1c06733Df6645758"
@@ -78,10 +79,10 @@ const useContract = () => {
         console.error("Something went wrong", e);
       }
     }
-    setCollection(collection);
+    return collection;
   }
 
   return { name: name, totalSupply: totalSupply, collection: collection };
-};
+}
 
 export default useContract;

@@ -46,19 +46,28 @@ const socialItems = [
   },
 ];
 
-export default function NavBar() {
+function NavBar() {
   const router = useRouter();
 
   const [isWalletConnected, setIsWalletConnected] = useState(false);
 
+  async function onChangeWalletConnection(state: boolean) {
+    if (state) {
+      if (window.klaytn) {
+        await window.klaytn.enable();
+      } else {
+        window.alert("카이카스 지갑을 설치해주세요");
+      }
+    }
+    setIsWalletConnected(state);
+  }
+
   return (
     <nav className="fixed top-0 z-50 h-20 w-full px-6 pt-7">
       <div className="mx-auto flex h-full items-center justify-center">
-        <Link href="/">
-          <span className="flex-grow cursor-pointer font-mono text-2xl font-bold uppercase">
-            META HUMAN
-          </span>
-        </Link>
+        <div className="flex-grow cursor-pointer font-mono text-2xl font-bold uppercase">
+          <Link href="/">META HUMAN</Link>
+        </div>
         <div className="hidden items-center lg:flex" id="mobile-menu">
           <ul className="flex space-x-6 uppercase">
             {routerItems.map(({ href, title }) => (
@@ -91,7 +100,7 @@ export default function NavBar() {
             <li>
               <Switch
                 width={110}
-                onChange={setIsWalletConnected}
+                onChange={onChangeWalletConnection}
                 checked={isWalletConnected}
                 offColor="#F5F6F8"
                 onColor="#000000"
@@ -114,3 +123,5 @@ export default function NavBar() {
     </nav>
   );
 }
+
+export default NavBar;

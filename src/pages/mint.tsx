@@ -1,7 +1,6 @@
 import Caver, { AbiItem, TransactionReceipt } from "caver-js";
 import type { NextPage } from "next";
 import React, { useState } from "react";
-import MainLayout from "@/components/NavBar/MainLayout";
 import ABI from "@/abi/abi.json";
 import useContract from "@/hooks/useContract";
 import { toast } from "react-toastify";
