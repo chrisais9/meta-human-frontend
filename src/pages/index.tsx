@@ -3,21 +3,33 @@ import Image from "next/image";
 function Home() {
   return (
     <>
-      <video
-        className="hidden h-screen w-full transform object-cover lg:block"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/assets/video/beanzwuzhere.mp4" />
-      </video>
-      <Image
-        className="min-w-screen overlay-item absolute bottom-0 top-0 left-0 -z-10 h-screen w-full transform object-cover object-center lg:block"
-        src="/assets/images/beanzwashere.jpg"
-        layout="fill"
-        alt="background"
-      />
+      <div className="mx-auto mt-32">
+        <div className="fade-in flex h-full w-full items-end px-1">
+          <div className="h-full px-4 pb-6 lg:px-0">
+            <h3 className="font-800 top-0 pb-4 font-sans text-4xl font-black uppercase  tracking-tight lg:text-6xl">
+              Meta Human
+            </h3>
+            <div className="max-w-1/2 mx-auto max-w-6xl space-y-4 text-left font-mono text-xs lg:text-sm ">
+              <p className="font-300">
+                And you're made wonderful would never want you to feel like you
+                could never be rightAnd you're made wonderful would never want
+                you to feel like you could never be rightAnd you're made
+                wonderful would never want you to feel like you could never be
+                rightLove is all you want, I would never do you wrong Hold it
+                down and give me some time And you're made wonderful would never
+                want you to feel like you could never be rightAnd you're made
+                wonderful would never want you to feel like you could never be
+                rightAnd you're made wonderful would never want you to feel like
+                you could never be rightLove is all you want, I would never do
+                you wrong Hold it down and give me some time
+              </p>
+            </div>
+          </div>
+          <div className="hidden w-full justify-end lg:flex">
+            <img src="/assets/images/metahumanxx.png" alt="back" />
+          </div>
+        </div>
+      </div>
     </>
   );
 }
