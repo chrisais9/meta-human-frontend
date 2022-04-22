@@ -11,15 +11,15 @@ function Home() {
             </h3>
             <div className="max-w-1/2 mx-auto max-w-6xl space-y-4 text-left font-mono text-xs lg:text-sm ">
               <p className="font-300">
-                And you're made wonderful would never want you to feel like you
-                could never be rightAnd you're made wonderful would never want
-                you to feel like you could never be rightAnd you're made
+                And youre made wonderful would never want you to feel like you
+                could never be rightAnd youre made wonderful would never want
+                you to feel like you could never be rightAnd youre made
                 wonderful would never want you to feel like you could never be
                 rightLove is all you want, I would never do you wrong Hold it
-                down and give me some time And you're made wonderful would never
-                want you to feel like you could never be rightAnd you're made
+                down and give me some time And youre made wonderful would never
+                want you to feel like you could never be rightAnd youre made
                 wonderful would never want you to feel like you could never be
-                rightAnd you're made wonderful would never want you to feel like
+                rightAnd youre made wonderful would never want you to feel like
                 you could never be rightLove is all you want, I would never do
                 you wrong Hold it down and give me some time
               </p>
