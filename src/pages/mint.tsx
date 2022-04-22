@@ -1,12 +1,18 @@
 import Caver, { AbiItem, TransactionReceipt } from "caver-js";
 import type { NextPage } from "next";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import ABI from "@/abi/abi.json";
 import useContract from "@/hooks/useContract";
 import { toast } from "react-toastify";
+import { IState } from "@/store/modules";
+import { useSelector, useDispatch } from "react-redux";
+import * as walletActions from "@/store/modules/wallet";
 
 const Mint: NextPage = () => {
-  const [walletAddress, setWalletAddress] = useState("");
+  const dispatch = useDispatch();
+  const walletAddress = useSelector(
+    (state: IState) => state.wallet.walletAddress
+  );
 
   const { name: collectionName, totalSupply, collection } = useContract();
 
@@ -21,7 +27,7 @@ const Mint: NextPage = () => {
   async function connectWallet() {
     if (window.klaytn) {
       const accounts = await window.klaytn.enable();
-      setWalletAddress(accounts[0]);
+      dispatch(walletActions.connect(accounts[0]));
     } else {
       window.alert("카이카스 지갑을 설치해주세요");
     }

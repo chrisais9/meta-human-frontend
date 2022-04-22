@@ -1,8 +1,10 @@
+import { IState } from "@/store/modules";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Switch from "react-switch";
+import * as walletActions from "@/store/modules/wallet";
 
 const routerItems = [
   {
@@ -48,18 +50,21 @@ const socialItems = [
 
 function NavBar() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const walletAddress = useSelector(
+    (state: IState) => state.wallet.walletAddress
+  );
 
   async function onChangeWalletConnection(state: boolean) {
     if (state) {
       if (window.klaytn) {
-        await window.klaytn.enable();
+        const accounts = await window.klaytn.enable();
+        dispatch(walletActions.connect(accounts[0]));
       } else {
         window.alert("카이카스 지갑을 설치해주세요");
       }
     }
-    setIsWalletConnected(state);
   }
 
   return (
@@ -101,7 +106,7 @@ function NavBar() {
               <Switch
                 width={110}
                 onChange={onChangeWalletConnection}
-                checked={isWalletConnected}
+                checked={walletAddress.length !== 0}
                 offColor="#F5F6F8"
                 onColor="#000000"
                 offHandleColor="#000000"

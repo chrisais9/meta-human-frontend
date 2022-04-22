@@ -1,5 +1,4 @@
-import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IState } from ".";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = { value: 0 };
 
