@@ -1,6 +1,5 @@
 import Caver, { AbiItem, TransactionReceipt } from "caver-js";
-import type { NextPage } from "next";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import ABI from "@/abi/abi.json";
 import useContract from "@/hooks/useContract";
 import { toast } from "react-toastify";
@@ -8,13 +7,13 @@ import { IState } from "@/store/modules";
 import { useSelector, useDispatch } from "react-redux";
 import * as walletActions from "@/store/modules/wallet";
 
-const Mint: NextPage = () => {
+function Mint() {
   const dispatch = useDispatch();
   const walletAddress = useSelector(
     (state: IState) => state.wallet.walletAddress
   );
 
-  const { name: collectionName, totalSupply, collection } = useContract();
+  const { name: collectionName, totalSupply } = useContract();
 
   const [mintAmount, setMintAmount] = useState("1");
 
@@ -121,7 +120,6 @@ const Mint: NextPage = () => {
         <hr className="my-6" />
         <div>콜렉션이름: {collectionName}</div>
         <div>민트된 NFT 수: {totalSupply}</div>
-        <div>불러온 NFT 수: {collection.length}</div>
         <hr className="my-6" />
         <div className="mb-6">
           <label className="mb-2 block text-sm font-bold">민팅할 수량</label>
@@ -155,6 +153,6 @@ const Mint: NextPage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Mint;

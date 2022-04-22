@@ -1,9 +1,9 @@
 import Image from "next/image";
 import GalleryNFTCard from "@/components/Card/GalleryNFTCard";
 import INFT from "@/schema/INFT";
-import { fetchNFTs } from "./api/collection";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useState } from "react";
+import { fetchNFTs } from "@/lib/fetchNFTs";
 
 function Gallery({ collection }: { collection: INFT[] }) {
   const [items, setItems] = useState(collection.slice(0, 10));
@@ -23,13 +23,14 @@ function Gallery({ collection }: { collection: INFT[] }) {
 
     setItems(items.concat(collection.slice(start, end)));
   }
+
   return (
     <div className="container mx-auto mt-32">
       <div className="flex justify-between">
         <div className="sticky top-32 h-screen">
           <Image
             className=""
-            src={`https://ipfs.io/ipfs/${collection[0]?.image}`}
+            src={`https://ipfs.io/ipfs/${collection[0].image}`}
             width={400}
             height={400}
             alt="??"

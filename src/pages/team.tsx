@@ -1,10 +1,9 @@
 import { IState } from "@/store/modules";
-import type { NextPage } from "next";
 import { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as counterActions from "@/store/modules/counter";
 
-const Team: NextPage = () => {
+function Team() {
   const dispatch = useDispatch();
   const value = useSelector((state: IState) => state.counter.value);
 
@@ -42,6 +41,6 @@ const Team: NextPage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Team;
