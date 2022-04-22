@@ -52,12 +52,12 @@ function Gallery({ collection }: { collection: INFT[] }) {
           next={fetchMoreData}
           hasMore={hasMore}
           loader={
-            <div className="col-span-3 block flex justify-center bg-black text-white">
+            <div className="col-span-3 flex justify-center bg-black text-white">
               Load More..
             </div>
           }
           endMessage={
-            <div className="col-span-3 block flex justify-center bg-black text-white">
+            <div className="col-span-3 flex justify-center bg-black text-white">
               End
             </div>
           }
