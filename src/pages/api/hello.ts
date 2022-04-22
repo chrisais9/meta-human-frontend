@@ -1,4 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import caver from "@/config/caver";
+import { AbiItem } from "caver-js";
+import ABI from "@/abi/abi.json";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
