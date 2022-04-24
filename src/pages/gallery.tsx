@@ -27,27 +27,29 @@ function Gallery({ collection }: { collection: INFT[] }) {
   return (
     <div className="container mx-auto mt-32">
       <div className="flex justify-between">
-        <div className="sticky top-32 h-screen">
-          <Image
-            className=""
-            src={`https://ipfs.io/ipfs/${collection[0].image}`}
-            width={400}
-            height={400}
-            alt="??"
-          />
-          <div className="mb-4 text-xl font-black uppercase">#XX01</div>
-          <div className="grid grid-cols-2 text-xs uppercase">
-            <div className="font-bold">Type </div>
-            <div>Meta Human </div>
-            <div className="font-bold">sex</div>
-            <div>xx</div>
-            <div className="font-bold">background</div>
-            <div>pink</div>
+        <div className="flex w-1/2 justify-center">
+          <div className="sticky top-32 left-0 h-screen">
+            <Image
+              className=""
+              src={`https://ipfs.io/ipfs/${collection[0].image}`}
+              width={400}
+              height={400}
+              alt="??"
+            />
+            <div className="mb-4 text-xl font-black uppercase">#XX01</div>
+            <div className="grid grid-cols-2 text-xs uppercase">
+              <div className="font-bold">Type </div>
+              <div>Meta Human </div>
+              <div className="font-bold">sex</div>
+              <div>xx</div>
+              <div className="font-bold">background</div>
+              <div>pink</div>
+            </div>
           </div>
         </div>
 
         <InfiniteScroll
-          className="grid grid-cols-3 gap-4 overflow-auto p-10"
+          className="grid grid-cols-3 gap-4 overflow-auto"
           dataLength={items.length}
           next={fetchMoreData}
           hasMore={hasMore}
@@ -64,8 +66,7 @@ function Gallery({ collection }: { collection: INFT[] }) {
         >
           {items.map(({ id, name, image, owner }) => (
             <div key={id}>
-              <GalleryNFTCard image={image} />
-              <h1>{id}</h1>
+              <GalleryNFTCard name={name} image={image} />
             </div>
           ))}
         </InfiniteScroll>
