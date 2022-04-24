@@ -49,7 +49,7 @@ function Gallery({ collection }: { collection: INFT[] }) {
         </div>
 
         <InfiniteScroll
-          className="grid grid-cols-3 gap-4 overflow-auto"
+          className="grid grid-cols-3 gap-4 overflow-auto p-4"
           dataLength={items.length}
           next={fetchMoreData}
           hasMore={hasMore}
