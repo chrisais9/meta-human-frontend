@@ -2,8 +2,10 @@ import Image from "next/image";
 import GalleryNFTCard from "@/components/Card/GalleryNFTCard";
 import INFT from "@/schema/INFT";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { fetchNFTs } from "@/lib/fetchNFTs";
+import { Popover, Transition } from "@headlessui/react";
+import { PlusIcon } from "@heroicons/react/solid";
 
 const filters = [
   {
@@ -104,20 +106,84 @@ function Gallery({ collection }: { collection: INFT[] }) {
             </div>
           }
         >
-          <div className="col-span-3 flex gap-2 text-2xs">
+          <Popover.Group as="div" className="col-span-3 flex gap-2 text-2xs">
             {filters.map(({ title }) => (
-              <button
-                className={`rounded-lg p-2 ${
-                  selectedFilter === title
-                    ? "bg-black text-white"
-                    : "bg-[#F5F5F5]"
-                }`}
-                key={title}
-              >
-                {title}
-              </button>
+              <Popover className="relative " key={title}>
+                <Popover.Button
+                  className={`rounded-lg p-2 ${
+                    selectedFilter === title
+                      ? "bg-black text-white"
+                      : "bg-[#F5F5F5]"
+                  }`}
+                >
+                  {title}
+                  <PlusIcon
+                    className="ml-1 inline h-3 w-3 text-black"
+                    aria-hidden="true"
+                  />
+                </Popover.Button>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0 translate-y-1"
+                  enterTo="opacity-100 translate-y-0"
+                  leave="transition ease-in duration-150"
+                  leaveFrom="opacity-100 translate-y-0"
+                  leaveTo="opacity-0 translate-y-1"
+                >
+                  <Popover.Panel className="absolute z-10 mt-3 w-28 transform">
+                    <div className="grid grid-cols-1 gap-4 rounded-lg bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5">
+                      <div className="text-xs font-medium">{title}</div>
+                      <div className="flex items-center">
+                        <label className="h-full w-full cursor-pointer">
+                          Red
+                        </label>
+                        <input
+                          name="Type[]"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          value="Human"
+                        />
+                      </div>
+                      <div className="flex items-center">
+                        <label className="h-full w-full cursor-pointer">
+                          Blue
+                        </label>
+                        <input
+                          name="Type[]"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          value="Human"
+                        />
+                      </div>
+                      <div className="flex items-center">
+                        <label className="h-full w-full cursor-pointer">
+                          Black
+                        </label>
+                        <input
+                          name="Type[]"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          value="Human"
+                        />
+                      </div>
+                      <div className="flex items-center">
+                        <label className="h-full w-full cursor-pointer">
+                          Green
+                        </label>
+                        <input
+                          name="Type[]"
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          value="Human"
+                        />
+                      </div>
+                    </div>
+                  </Popover.Panel>
+                </Transition>
+              </Popover>
             ))}
-          </div>
+          </Popover.Group>
           {items.map(({ id, name, image, owner }) => (
             <div key={id}>
               <GalleryNFTCard name={name} image={image} />
