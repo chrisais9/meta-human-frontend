@@ -3,31 +3,36 @@ import Image from "next/image";
 function Home() {
   return (
     <>
-      <div className="mx-auto mt-32">
-        <div className="fade-in flex h-full w-full items-end px-1">
-          <div className="h-full px-4 pb-6 lg:px-0">
-            <h3 className="font-800 top-0 pb-4 font-sans text-4xl font-black uppercase  tracking-tight lg:text-6xl">
-              Meta Human
-            </h3>
-            <div className="max-w-1/2 mx-auto max-w-6xl space-y-4 text-left font-mono text-xs lg:text-sm ">
-              <p className="font-300">
-                And youre made wonderful would never want you to feel like you
-                could never be rightAnd youre made wonderful would never want
-                you to feel like you could never be rightAnd youre made
-                wonderful would never want you to feel like you could never be
-                rightLove is all you want, I would never do you wrong Hold it
-                down and give me some time And youre made wonderful would never
-                want you to feel like you could never be rightAnd youre made
-                wonderful would never want you to feel like you could never be
-                rightAnd youre made wonderful would never want you to feel like
-                you could never be rightLove is all you want, I would never do
-                you wrong Hold it down and give me some time
-              </p>
-            </div>
-          </div>
-          <div className="hidden w-full justify-end lg:flex">
-            <img src="/assets/images/metahumanxx.png" alt="back" />
-          </div>
+      <div className="flex h-screen items-center justify-between px-1">
+        <div className="w-1/2 max-w-6xl space-y-4 p-4 text-left text-sm">
+          <div className="text-6xl font-black">META HUMAN</div>
+          <p className="text-xs">
+            And you are made wonderful would never want you to feel like you
+            could never be rightAnd
+            <br /> you are made wonderful would never want you to feel like you
+            could never be rightAnd you are made wonderful would never want you
+            <br />
+            to feel like you could never be rightLove is all you want, I would
+            never do you wrong Hold it down and give me some time
+            <br />
+            <br />
+            And you are made wonderful would never want you to feel like you
+            <br />
+            could never be rightAnd you are made wonderful would never want you
+            to feel like you could never be rightAnd you are made wonderful
+            <br />
+            would never want you to feel like you could never be rightLove is
+            all you want, I would never do you wrong Hold it down and give me
+            some time
+          </p>
+        </div>
+        <div className="flex justify-center self-end">
+          <Image
+            src="/assets/images/metahumanxx.png"
+            height={646}
+            width={646}
+            alt="back"
+          />
         </div>
       </div>
     </>

@@ -36,6 +36,7 @@ function MainLayout({ children }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavBar />
+      <main>{children}</main>
       <div className="fixed bottom-9 right-9 flex w-6 flex-col gap-2">
         {socialItems.map(({ href, title }) => (
           <button
@@ -52,7 +53,6 @@ function MainLayout({ children }: Props) {
           </button>
         ))}
       </div>
-      <main>{children}</main>
     </>
   );
 }
