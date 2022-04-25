@@ -3,7 +3,7 @@ import Image from "next/image";
 function Home() {
   return (
     <>
-      <div className="flex h-screen items-center justify-between px-1">
+      <div className="flex h-screen items-center justify-between">
         <div className="w-1/2 max-w-6xl space-y-4 p-4 text-left text-sm">
           <div className="text-6xl font-black">META HUMAN</div>
           <p className="text-xs">
@@ -26,11 +26,11 @@ function Home() {
             some time
           </p>
         </div>
-        <div className="flex justify-center self-end">
+        <div className="relative h-full w-1/2">
           <Image
             src="/assets/images/metahumanxx.png"
-            height={646}
-            width={646}
+            layout="fill"
+            objectFit="cover"
             alt="back"
           />
         </div>
