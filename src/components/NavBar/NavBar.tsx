@@ -32,25 +32,6 @@ const routerItems = [
   },
 ];
 
-const socialItems = [
-  {
-    href: "https://www.twitter.com",
-    title: "twitter",
-  },
-  {
-    href: "https://www.instagram.com",
-    title: "instagram",
-  },
-  {
-    href: "https://www.discord.com",
-    title: "discord",
-  },
-  {
-    href: "https://opensea.io",
-    title: "opensea",
-  },
-];
-
 function NavBar() {
   const router = useRouter();
   const dispatch = useDispatch();
