@@ -62,7 +62,7 @@ function NavBar() {
             {routerItems.map(({ href, title }) => (
               <li
                 key={title}
-                className={`rounded-xl p-2 text-2xs ${
+                className={`rounded-full p-2 text-2xs ${
                   router.pathname == href
                     ? "bg-black text-header-btn-background"
                     : "text-black"
@@ -74,7 +74,6 @@ function NavBar() {
           </ul>
         </div>
         <div className="flex items-center">
-          <div className="pr-3 text-2xs">LAN</div>
           <Switch
             width={110}
             onChange={onChangeWalletConnection}
