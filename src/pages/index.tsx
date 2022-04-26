@@ -60,21 +60,23 @@ function Home() {
           </p>
         </div>
       </div>
-      <div className="flex h-screen items-center justify-between bg-red-300">
-        {[...Array(6)].map((e, i) => (
-          <div
-            key={i}
-            className="mx-auto flex w-52 rounded-2xl bg-white shadow-lg shadow-slate-200/60 hover:opacity-50"
-          >
-            <Image
-              className="w-52 rounded-2xl"
-              src="/assets/images/metahumanxx.png"
-              width={208}
-              height={208}
-              alt="??"
-            />
-          </div>
-        ))}
+      <div className="no-scrollbar flex h-screen items-center justify-between overflow-auto bg-red-300">
+        <div className="flex shrink-0 gap-4 overflow-x-auto pl-4">
+          {[...Array(10)].map((e, i) => (
+            <div
+              key={i}
+              className="flex w-52 rounded-2xl bg-white shadow-lg shadow-slate-200/60 hover:opacity-50"
+            >
+              <Image
+                className="w-52 rounded-2xl"
+                src="/assets/images/metahumanxx.png"
+                width={208}
+                height={208}
+                alt="??"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
