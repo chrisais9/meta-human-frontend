@@ -5,6 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import Switch from "react-switch";
 import * as walletActions from "@/store/modules/wallet";
 
+type Props = {
+  isShowing: boolean;
+};
+
 const routerItems = [
   {
     href: "/",
@@ -32,7 +36,7 @@ const routerItems = [
   },
 ];
 
-function NavBar() {
+function NavBar({ isShowing }: Props) {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -54,7 +58,11 @@ function NavBar() {
   }
 
   return (
-    <nav className="fixed top-0 z-50 h-20 w-full px-6 pt-7">
+    <nav
+      className={`fixed top-0 z-50 h-20 w-full px-6 pt-7 transition duration-300  ${
+        isShowing ? "traslate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="mx-auto flex h-full items-center justify-between">
         <div className="flex cursor-pointer font-mono text-2xl font-bold uppercase">
           <Link href="/">META HUMAN</Link>

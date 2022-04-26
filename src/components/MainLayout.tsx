@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { ReactNode } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import NavBar from "./NavBar/NavBar";
 
 type Props = {
@@ -27,6 +27,35 @@ const socialItems = [
 ];
 
 function MainLayout({ children }: Props) {
+  const [isNavBarShowing, setIsNavBarShowing] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const controlNavbar = useCallback(() => {
+    if (typeof window !== "undefined") {
+      const currentScrollPosition =
+        window.scrollY || document.documentElement.scrollTop;
+      if (currentScrollPosition < 0) {
+        return;
+      }
+      if (currentScrollPosition < 160) {
+        setLastScrollY(currentScrollPosition);
+        return;
+      }
+      setIsNavBarShowing(currentScrollPosition < lastScrollY);
+      setLastScrollY(currentScrollPosition);
+    }
+  }, [lastScrollY]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", controlNavbar);
+
+      return () => {
+        window.removeEventListener("scroll", controlNavbar);
+      };
+    }
+  }, [controlNavbar]);
+
   return (
     <>
       <Head>
@@ -35,7 +64,7 @@ function MainLayout({ children }: Props) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavBar />
+      <NavBar isShowing={isNavBarShowing} />
       <main>{children}</main>
       <div className="fixed bottom-9 right-9 flex w-6 flex-col gap-2">
         {socialItems.map(({ href, title }) => (
