@@ -59,7 +59,7 @@ function NavBar({ isShowing }: Props) {
 
   return (
     <nav
-      className={`fixed top-0 z-50 h-20 w-full px-6 pt-7 transition duration-300  ${
+      className={`fixed top-0 z-50 h-20 w-full px-6 pt-7 transition duration-300 ${
         isShowing ? "traslate-y-0" : "-translate-y-full"
       }`}
     >

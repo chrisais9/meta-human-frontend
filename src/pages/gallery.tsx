@@ -37,7 +37,7 @@ function Gallery({ collection }: { collection: INFT[] }) {
   const [items, setItems] = useState(collection.slice(0, 10));
   const [hasMore, setHasMore] = useState(true);
 
-  function fetchMoreData(amountToLoad: number = 10) {
+  function renderMoreData(amountToLoad: number = 10) {
     if (items.length >= collection.length) {
       setHasMore(false);
       return;
@@ -93,7 +93,7 @@ function Gallery({ collection }: { collection: INFT[] }) {
         <InfiniteScroll
           className="grid grid-cols-3 gap-6 overflow-auto p-4"
           dataLength={items.length}
-          next={fetchMoreData}
+          next={renderMoreData}
           hasMore={hasMore}
           loader={
             <div className="col-span-3 flex justify-center bg-black text-white">
