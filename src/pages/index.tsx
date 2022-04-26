@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 
 const tempBackgroundColor = [
   "#FF6942",
@@ -81,24 +81,25 @@ function Home() {
         <div className="flex justify-center pb-12 text-6xl font-black capitalize">
           line up
         </div>
-        <div className="w-full">
+        <div className="w-full overflow-hidden">
           <Slider {...settings}>
             {[...Array(10)].map((e, i) => (
-              <div
-                style={{
-                  backgroundColor: tempBackgroundColor[i % 6],
-                }}
-                key={i}
-                className="h-60 w-60 rounded-2xl shadow-xl shadow-slate-200/80"
-              >
-                <Image
-                  className="rounded-2xl"
-                  key={i}
-                  src="/assets/images/metahumanxx.png"
-                  width={240}
-                  height={240}
-                  alt="??"
-                />
+              <div key={i} className="-mx-10 pb-8">
+                <div
+                  style={{
+                    backgroundColor: tempBackgroundColor[i % 6],
+                  }}
+                  className="h-60 w-60 rounded-2xl shadow-xl shadow-slate-200/80"
+                >
+                  <Image
+                    className="rounded-2xl"
+                    key={i}
+                    src="/assets/images/metahumanxx.png"
+                    width={240}
+                    height={240}
+                    alt="??"
+                  />
+                </div>
               </div>
             ))}
           </Slider>
@@ -108,9 +109,9 @@ function Home() {
   );
 }
 
-var settings = {
+var settings: Settings = {
   infinite: true,
-  slidesToShow: 3,
+  slidesToShow: 6,
   slidesToScroll: 1,
   autoplay: true,
   speed: 5000,
