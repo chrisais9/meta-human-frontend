@@ -1,32 +1,66 @@
 import Image from "next/image";
 
+const tempBackgroundColor = [
+  "#FF6942",
+  "#FF964A",
+  "#1E4CC1",
+  "#3E237D",
+  "#57D181",
+  "#BFB344",
+];
+
 function Home() {
   return (
     <>
-      <div className="flex h-screen items-center justify-between bg-red-300">
-        <div className="w-1/2 max-w-6xl space-y-4 p-4 text-left text-sm">
-          <div className="text-6xl font-black">META HUMAN</div>
+      <div className="flex h-screen items-end justify-between">
+        <div className="relative mb-10 h-32 w-1/2">
+          <Image
+            src="/assets/icons/mhaf_full.svg"
+            layout="fill"
+            objectFit="contain"
+            alt="logo"
+          />
         </div>
         <div className="relative h-full w-1/2">
           <Image
-            src="/assets/images/metahumanxx.png"
+            src="/assets/images/metahuman_1.png"
             layout="fill"
             objectFit="cover"
-            alt="back"
+            alt="image"
           />
         </div>
       </div>
-      <div className="flex h-screen items-center justify-between bg-blue-300">
-        <div className="relative h-full w-1/2">
+      <div className="flex h-screen items-center justify-between">
+        <div className="relative h-full w-1/2 scale-x-[-1]">
           <Image
-            src="/assets/images/metahumanxx.png"
+            src="/assets/images/metahuman_2.png"
             layout="fill"
             objectFit="cover"
-            alt="back"
+            alt="image"
           />
         </div>
         <div className="w-1/2 max-w-6xl space-y-4 p-4 text-left text-sm">
-          <div className="text-6xl font-black">META HUMAN</div>
+          <div className="mb-14 text-6xl font-black">META HUMAN</div>
+          <p>
+            And you are made wonderful would never want you to feel like you
+            could never be rightAnd you are made wonderful would never want you
+            to feel like you could never be rightAnd you are made wonderful
+            would never want you to feel like you could never be rightLove is
+            all you want, I would never do you wrong Hold it down and give me
+            some time <br />
+            <br />
+            And you are made wonderful would never want you to feel like you
+            could never be rightAnd you are made wonderful would never want you
+            to feel like you could never be rightAnd you are made wonderful
+            would never want you to feel like you could never be rightLove is
+            all you want, I would never do you wrong Hold it down and give me
+            some time
+          </p>
+        </div>
+      </div>
+      <div className="flex h-screen items-center justify-center bg-[#A76BB4]">
+        <div className="w-full w-1/3 space-y-4 p-4 text-center text-sm text-white">
+          <div className="mb-14 text-6xl font-black">META HUMAN</div>
           <p>
             And you are made wonderful would never want you to feel like you
             could never be rightAnd you are made wonderful would never want you
@@ -42,36 +76,24 @@ function Home() {
           </p>
         </div>
       </div>
-      <div className="flex h-screen items-center justify-center bg-cyan-100">
-        <div className="w-full w-1/3 space-y-4 p-4 text-center text-sm">
-          <div className="text-6xl font-black">META HUMAN</div>
-          <p>
-            And you are made wonderful would never want you to feel like you
-            could never be rightAnd you are made wonderful would never want you
-            to feel like you could never be rightAnd you are made wonderful
-            would never want you to feel like you could never be rightLove is
-            all you want, I would never do you wrong Hold it down and give me
-            some time And you are made wonderful would never want you to feel
-            like you could never be rightAnd you are made wonderful would never
-            want you to feel like you could never be rightAnd you are made
-            wonderful would never want you to feel like you could never be
-            rightLove is all you want, I would never do you wrong Hold it down
-            and give me some time
-          </p>
+      <div className="grid h-screen grid-cols-1 place-content-center">
+        <div className="flex justify-center pb-12 text-6xl font-black capitalize">
+          line up
         </div>
-      </div>
-      <div className="flex h-screen items-center overflow-auto bg-red-300 no-scrollbar">
-        <div className="flex shrink-0 gap-4 overflow-x-auto pl-4">
+        <div className="gap-4 overflow-x-scroll whitespace-nowrap p-4 no-scrollbar">
           {[...Array(10)].map((e, i) => (
             <div
+              style={{
+                backgroundColor: tempBackgroundColor[i % 6],
+              }}
               key={i}
-              className="flex w-52 rounded-2xl bg-white shadow-lg shadow-slate-200/60 hover:opacity-50"
+              className="m-6 inline-block h-60 w-60 rounded-2xl shadow-xl shadow-slate-200/80"
             >
               <Image
-                className="w-52 rounded-2xl"
+                className="rounded-2xl"
                 src="/assets/images/metahumanxx.png"
-                width={208}
-                height={208}
+                width={240}
+                height={240}
                 alt="??"
               />
             </div>
