@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import Switch from "react-switch";
 import * as walletActions from "@/store/modules/wallet";
+import Image from "next/image";
 
 type Props = {
   isShowing: boolean;
@@ -64,8 +65,15 @@ function NavBar({ isShowing }: Props) {
       }`}
     >
       <div className="mx-auto flex h-full items-center justify-between">
-        <div className="flex cursor-pointer font-mono text-2xl font-bold uppercase">
-          <Link href="/">META HUMAN</Link>
+        <div className="relative h-6 w-40">
+          <Link href="/">
+            <Image
+              src="/assets/icons/mhaf.svg"
+              layout="fill"
+              objectFit="contain"
+              alt="back"
+            />
+          </Link>
         </div>
         <div className="hidden items-center lg:flex" id="mobile-menu">
           <ul className="flex space-x-6 uppercase">

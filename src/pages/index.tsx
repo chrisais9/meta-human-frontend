@@ -60,7 +60,7 @@ function Home() {
           </p>
         </div>
       </div>
-      <div className="no-scrollbar flex h-screen items-center justify-between overflow-auto bg-red-300">
+      <div className="flex h-screen items-center overflow-auto bg-red-300 no-scrollbar">
         <div className="flex shrink-0 gap-4 overflow-x-auto pl-4">
           {[...Array(10)].map((e, i) => (
             <div
