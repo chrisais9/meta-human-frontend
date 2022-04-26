@@ -48,6 +48,8 @@ function NavBar() {
       } else {
         window.alert("카이카스 지갑을 설치해주세요");
       }
+    } else {
+      dispatch(walletActions.connect(""));
     }
   }
 
