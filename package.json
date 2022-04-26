@@ -22,14 +22,17 @@
     "react-dom": "17.0.2",
     "react-infinite-scroll-component": "^6.1.0",
     "react-redux": "^8.0.1",
+    "react-slick": "^0.29.0",
     "react-switch": "^6.0.0",
     "react-toastify": "^8.2.0",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/node": "17.0.24",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.2",
+    "@types/react-slick": "^0.23.8",
     "@types/redux-logger": "^3.0.9",
     "assert": "^2.0.0",
     "autoprefixer": "^10.4.4",

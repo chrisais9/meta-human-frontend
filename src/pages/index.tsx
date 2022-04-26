@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Slider from "react-slick";
 
 const tempBackgroundColor = [
   "#FF6942",
@@ -76,32 +77,45 @@ function Home() {
           </p>
         </div>
       </div>
-      <div className="grid h-screen grid-cols-1 place-content-center">
+      <div className="flex h-screen flex-col items-center justify-center">
         <div className="flex justify-center pb-12 text-6xl font-black capitalize">
           line up
         </div>
-        <div className="gap-4 overflow-x-scroll whitespace-nowrap p-4 no-scrollbar">
-          {[...Array(10)].map((e, i) => (
-            <div
-              style={{
-                backgroundColor: tempBackgroundColor[i % 6],
-              }}
-              key={i}
-              className="m-6 inline-block h-60 w-60 rounded-2xl shadow-xl shadow-slate-200/80"
-            >
-              <Image
-                className="rounded-2xl"
-                src="/assets/images/metahumanxx.png"
-                width={240}
-                height={240}
-                alt="??"
-              />
-            </div>
-          ))}
+        <div className="w-full">
+          <Slider {...settings}>
+            {[...Array(10)].map((e, i) => (
+              <div
+                style={{
+                  backgroundColor: tempBackgroundColor[i % 6],
+                }}
+                key={i}
+                className="h-60 w-60 rounded-2xl shadow-xl shadow-slate-200/80"
+              >
+                <Image
+                  className="rounded-2xl"
+                  key={i}
+                  src="/assets/images/metahumanxx.png"
+                  width={240}
+                  height={240}
+                  alt="??"
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       </div>
     </>
   );
 }
+
+var settings = {
+  infinite: true,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  speed: 5000,
+  autoplaySpeed: 5000,
+  cssEase: "linear",
+};
 
 export default Home;
