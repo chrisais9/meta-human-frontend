@@ -6,6 +6,7 @@ import { Fragment, useState } from "react";
 import { fetchNFTs } from "@/lib/fetchNFTs";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
+import NFTDetailCard from "@/components/Card/NFTDetailCard";
 
 type Props = {
   collection: INFT[];
@@ -36,6 +37,7 @@ const filters = [
 ];
 
 function Gallery({ collection }: Props) {
+  const [selectedNFT, setSelectedNFT] = useState(collection[0]);
   const [selectedFilter, setSelectedFilter] = useState("ALL");
 
   const [items, setItems] = useState(collection.slice(0, 10));
@@ -60,37 +62,8 @@ function Gallery({ collection }: Props) {
     <div className="container mx-auto mt-32">
       <div className="flex justify-between">
         <div className="flex w-1/2 justify-center">
-          <div className="sticky top-32 left-0 h-screen">
-            <div className="mb-4 rounded-2xl shadow-lg shadow-slate-200/60">
-              <Image
-                src={collection[0].image}
-                width={400}
-                height={400}
-                alt="??"
-              />
-            </div>
-            <div className="mb-4 flex items-center justify-between">
-              <div className="text-xl font-black uppercase">#XX01</div>
-              <button
-                className="flex rounded-full bg-black p-1"
-                onClick={() => window.open("https://opensea.io")}
-              >
-                <Image
-                  src="/assets/icons/opensea_white.svg"
-                  width={12}
-                  height={12}
-                  alt="opensea"
-                />
-              </button>
-            </div>
-            <div className="grid grid-cols-2 text-xs uppercase">
-              <div className="font-bold">Type </div>
-              <div>Meta Human </div>
-              <div className="font-bold">sex</div>
-              <div>xx</div>
-              <div className="font-bold">background</div>
-              <div>pink</div>
-            </div>
+          <div className="sticky top-40 left-0 h-screen">
+            <NFTDetailCard nft={selectedNFT} />
           </div>
         </div>
 
@@ -188,9 +161,14 @@ function Gallery({ collection }: Props) {
               </Popover>
             ))}
           </Popover.Group>
-          {items.map(({ id, name, image }) => (
-            <div key={id}>
-              <GalleryNFTCard id={id} name={name} image={image} />
+          {items.map((nft) => (
+            <div key={nft.id} onClick={() => setSelectedNFT(nft)}>
+              <GalleryNFTCard
+                id={nft.id}
+                name={nft.name}
+                image={nft.image}
+                selected={selectedNFT === nft}
+              />
             </div>
           ))}
         </InfiniteScroll>
@@ -201,7 +179,7 @@ function Gallery({ collection }: Props) {
 
 export async function getStaticProps() {
   let collection: INFT[] = [];
-  for (let i = 1; i <= 18; i++) {
+  for (let i = 1; i <= 10000; i++) {
     try {
       collection = [
         ...collection,

@@ -4,6 +4,7 @@ type Props = {
   id: number;
   name: string;
   image: string;
+  selected: boolean;
 };
 
 const backgroundColor = [
@@ -18,7 +19,7 @@ const backgroundColor = [
   "#3E237D",
 ];
 
-function GalleryNFTCard({ id, name, image }: Props) {
+function GalleryNFTCard({ id, name, image, selected }: Props) {
   return (
     <div className="transition hover:-translate-y-1 hover:scale-105">
       <div className="text-xs font-black">{name}</div>
@@ -26,7 +27,9 @@ function GalleryNFTCard({ id, name, image }: Props) {
         style={{
           backgroundColor: backgroundColor[(id - 1) % backgroundColor.length],
         }}
-        className="mx-auto flex w-52 flex-col rounded-2xl bg-red-100 shadow-lg shadow-slate-200/60 hover:brightness-75"
+        className={`mx-auto flex w-52 flex-col rounded-2xl bg-red-100 shadow-lg shadow-slate-200/60 hover:brightness-75 ${
+          selected ? "ring-2 ring-black" : ""
+        }`}
       >
         <Image
           className="w-52 rounded-2xl"
