@@ -26,8 +26,7 @@ export async function fetchNFTs(): Promise<INFT[]> {
         {
           id: i,
           name: metadata.name,
-          image: image,
-          owner: owner,
+          image: `https://ipfs.io/ipfs/${image}`,
         },
       ];
     } catch (e) {
@@ -35,5 +34,5 @@ export async function fetchNFTs(): Promise<INFT[]> {
     }
   }
 
-  return [...collection];
+  return collection;
 }

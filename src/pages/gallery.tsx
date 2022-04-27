@@ -7,6 +7,10 @@ import { fetchNFTs } from "@/lib/fetchNFTs";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
 
+type Props = {
+  collection: INFT[];
+};
+
 const filters = [
   {
     title: "ALL",
@@ -31,7 +35,7 @@ const filters = [
   },
 ];
 
-function Gallery({ collection }: { collection: INFT[] }) {
+function Gallery({ collection }: Props) {
   const [selectedFilter, setSelectedFilter] = useState("ALL");
 
   const [items, setItems] = useState(collection.slice(0, 10));
@@ -59,7 +63,7 @@ function Gallery({ collection }: { collection: INFT[] }) {
           <div className="sticky top-32 left-0 h-screen">
             <div className="mb-4 rounded-2xl shadow-lg shadow-slate-200/60">
               <Image
-                src={`https://ipfs.io/ipfs/${collection[0].image}`}
+                src={collection[0].image}
                 width={400}
                 height={400}
                 alt="??"
@@ -184,9 +188,9 @@ function Gallery({ collection }: { collection: INFT[] }) {
               </Popover>
             ))}
           </Popover.Group>
-          {items.map(({ id, name, image, owner }) => (
+          {items.map(({ id, name, image }) => (
             <div key={id}>
-              <GalleryNFTCard name={name} image={image} />
+              <GalleryNFTCard id={id} name={name} image={image} />
             </div>
           ))}
         </InfiniteScroll>
@@ -196,9 +200,26 @@ function Gallery({ collection }: { collection: INFT[] }) {
 }
 
 export async function getStaticProps() {
-  const collection = await fetchNFTs();
+  let collection: INFT[] = [];
+  for (let i = 1; i <= 18; i++) {
+    try {
+      collection = [
+        ...collection,
+        {
+          id: i,
+          name: `#XX${zeroPad(i, 5)}`,
+          image: `https://ipfs.io/ipfs/Qme42XjH7tBpvqyCqQFoa6UmbXehnRbwk5NDVATCSVQvf3`,
+        },
+      ];
+    } catch (e) {
+      console.error("Something went wrong", e);
+    }
+  }
 
   return { props: { collection } };
 }
+
+const zeroPad = (num: number, places: number) =>
+  String(num).padStart(places, "0");
 
 export default Gallery;
