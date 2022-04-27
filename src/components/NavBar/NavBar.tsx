@@ -80,11 +80,9 @@ function NavBar({ isShowing }: Props) {
             {routerItems.map(({ href, title }) => (
               <li
                 key={title}
-                className={`rounded-full p-2 text-2xs ${
-                  router.pathname == href
-                    ? "bg-black text-header-btn-background"
-                    : "text-black"
-                }`}
+                className={
+                  router.pathname === href ? "btn-router-active" : "btn-router"
+                }
               >
                 <Link href={href}>{title}</Link>
               </li>

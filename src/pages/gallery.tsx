@@ -1,9 +1,8 @@
 import Image from "next/image";
-import GalleryNFTCard from "@/components/Card/GalleryNFTCard";
+import NFTSimpleCard from "@/components/Card/NFTSimpleCard";
 import INFT from "@/schema/INFT";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Fragment, useState } from "react";
-import { fetchNFTs } from "@/lib/fetchNFTs";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
 import NFTDetailCard from "@/components/Card/NFTDetailCard";
@@ -73,19 +72,19 @@ function Gallery({ collection }: Props) {
           next={renderMoreData}
           hasMore={hasMore}
           loader={
-            <div className="col-span-3 flex justify-center bg-black text-white">
+            <div className="col-span-3 flex justify-center rounded-full bg-black text-white">
               Load More..
             </div>
           }
           endMessage={
-            <div className="col-span-3 flex justify-center bg-black text-white">
+            <div className="col-span-3 flex justify-center rounded-full bg-black text-white">
               End
             </div>
           }
         >
           <Popover.Group as="div" className="col-span-3 flex gap-2 text-2xs">
             {filters.map(({ title }) => (
-              <Popover className="relative " key={title}>
+              <Popover className="relative" key={title}>
                 <Popover.Button
                   className={`rounded-lg p-2 ${
                     selectedFilter === title
@@ -109,7 +108,7 @@ function Gallery({ collection }: Props) {
                   leaveTo="opacity-0 translate-y-1"
                 >
                   <Popover.Panel className="absolute z-10 mt-3 w-28 transform">
-                    <div className="grid grid-cols-1 gap-4 rounded-lg bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5">
+                    <div className="grid grid-cols-1 gap-4 rounded-xl bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5">
                       <div className="text-xs font-medium">{title}</div>
                       <div className="flex items-center">
                         <label className="h-full w-full cursor-pointer">
@@ -163,7 +162,7 @@ function Gallery({ collection }: Props) {
           </Popover.Group>
           {items.map((nft) => (
             <div key={nft.id} onClick={() => setSelectedNFT(nft)}>
-              <GalleryNFTCard
+              <NFTSimpleCard
                 id={nft.id}
                 name={nft.name}
                 image={nft.image}
@@ -185,7 +184,7 @@ export async function getStaticProps() {
         ...collection,
         {
           id: i,
-          name: `#XX${zeroPad(i, 5)}`,
+          name: `#XX${String(i).padStart(5, "0")}`,
           image: `https://ipfs.io/ipfs/Qme42XjH7tBpvqyCqQFoa6UmbXehnRbwk5NDVATCSVQvf3`,
         },
       ];
@@ -196,8 +195,5 @@ export async function getStaticProps() {
 
   return { props: { collection } };
 }
-
-const zeroPad = (num: number, places: number) =>
-  String(num).padStart(places, "0");
 
 export default Gallery;

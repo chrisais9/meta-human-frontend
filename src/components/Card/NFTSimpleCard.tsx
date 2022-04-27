@@ -19,10 +19,10 @@ const backgroundColor = [
   "#3E237D",
 ];
 
-function GalleryNFTCard({ id, name, image, selected }: Props) {
+function NFTSimpleCard({ id, name, image, selected }: Props) {
   return (
     <div className="transition hover:-translate-y-1 hover:scale-105">
-      <div className="text-xs font-black">{name}</div>
+      <div className="mb-3 text-xs font-black">{name}</div>
       <div
         style={{
           backgroundColor: backgroundColor[(id - 1) % backgroundColor.length],
@@ -43,4 +43,4 @@ function GalleryNFTCard({ id, name, image, selected }: Props) {
   );
 }
 
-export default GalleryNFTCard;
+export default NFTSimpleCard;

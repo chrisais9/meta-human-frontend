@@ -14,7 +14,15 @@ module.exports = {
     },
   },
   plugins: [
-    plugin(function ({ addUtilities }) {
+    plugin(function ({ addUtilities, addComponents }) {
+      addComponents({
+        ".btn-router": {
+          "@apply rounded-full p-2 text-2xs text-black": {},
+        },
+        ".btn-router-active": {
+          "@apply btn-router bg-black text-header-btn-background": {},
+        },
+      });
       addUtilities({
         ".no-scrollbar": {
           "-ms-overflow-style": "none" /* IE and Edge */,
