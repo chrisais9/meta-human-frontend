@@ -24,6 +24,7 @@ function Home() {
         </div>
         <div className="relative h-full w-1/2">
           <Image
+            priority
             src="/assets/images/metahuman_1.png"
             layout="fill"
             objectFit="cover"

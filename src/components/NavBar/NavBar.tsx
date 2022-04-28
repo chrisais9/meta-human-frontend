@@ -65,16 +65,16 @@ function NavBar({ isShowing }: Props) {
       }`}
     >
       <div className="mx-auto flex h-full items-center justify-between">
-        <div className="relative h-6 w-40">
-          <Link href="/">
+        <Link href="/">
+          <a>
             <Image
               src="/assets/icons/mhaf.svg"
-              layout="fill"
-              objectFit="contain"
+              width={156}
+              height={24}
               alt="back"
             />
-          </Link>
-        </div>
+          </a>
+        </Link>
         <div className="hidden items-center lg:flex" id="mobile-menu">
           <ul className="flex space-x-6 uppercase">
             {routerItems.map(({ href, title }) => (
