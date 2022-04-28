@@ -11,6 +11,19 @@ module.exports = {
       fontSize: {
         "2xs": ".5rem",
       },
+      keyframes: {
+        "fade-in": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 1s ease-in-out",
+      },
     },
   },
   plugins: [
@@ -30,6 +43,13 @@ module.exports = {
           "&::-webkit-scrollbar": {
             display: "none",
           },
+        },
+        ".fade-in": {
+          animation: "fadeIn 1s ease-in-out",
+          "-webkit-animation": "fadeIn 1s ease-in-out",
+          "-moz-animation": "fadeIn 1s ease-in-out",
+          "-o-animation": "fadeIn 1s ease-in-out",
+          "-ms-animation": "fadeIn 1s ease-in-out",
         },
       });
     }),
