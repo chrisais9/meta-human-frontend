@@ -59,7 +59,10 @@ function Gallery({ collection }: Props) {
             </div>
           }
         >
-          <GalleryFilter />
+          <div className="col-span-3 flex items-center justify-between">
+            <GalleryFilter />
+            <div className="text-xs">{collection.length}</div>
+          </div>
           {items.map((nft) => (
             <div key={nft.id} onClick={() => setSelectedNFT(nft)}>
               <NFTSimpleCard

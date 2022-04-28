@@ -107,7 +107,7 @@ function GalleryFilter() {
   }
 
   return (
-    <Popover.Group as="div" className="col-span-3 flex gap-2 text-2xs">
+    <Popover.Group as="div" className="flex gap-2 text-2xs">
       {filters.map(({ label, items }) => {
         const isItemEmpty = items.length === 0;
         const activeFilters = Object.keys(selectedFilters) as string[];
