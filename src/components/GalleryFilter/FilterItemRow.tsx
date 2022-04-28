@@ -11,6 +11,7 @@ function FilterItemRow({ label, isSelected, onSelect }: Props) {
       <input
         type="radio"
         checked={isSelected}
+        onChange={() => {}} // noop
         value={label}
         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
       />
