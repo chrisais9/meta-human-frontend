@@ -1,17 +1,13 @@
 import { IState } from "@/store/modules";
-import { addFilter } from "@/store/modules/filter";
+import { addFilter, resetFilter } from "@/store/modules/filter";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import FilterItemRow from "./FilterItemRow";
 
 const filters = [
-  {
-    label: "ALL",
-    items: [],
-  },
   {
     label: "Background",
     items: [
@@ -100,14 +96,27 @@ const filters = [
 
 function GalleryFilter() {
   const selectedFilters = useSelector((state: IState) => state.filter.filters);
+  const isFilterEmpty = Object.keys(selectedFilters).length == 0;
   const dispatch = useDispatch();
 
   function handleItemSelect(filter: string, item: string) {
     dispatch(addFilter({ filter: filter, item: item }));
   }
 
+  function handleItemReset() {
+    dispatch(resetFilter());
+  }
+
   return (
     <Popover.Group as="div" className="flex gap-2 text-2xs">
+      <button
+        className={`rounded-full p-3 py-2 ${
+          isFilterEmpty ? "bg-black text-white" : "bg-[#F5F5F5]"
+        }`}
+        onClick={() => handleItemReset()}
+      >
+        All
+      </button>
       {filters.map(({ label, items }) => {
         const isItemEmpty = items.length === 0;
         const activeFilters = Object.keys(selectedFilters) as string[];
@@ -121,11 +130,12 @@ function GalleryFilter() {
               }`}
             >
               {label}
-              {isItemEmpty ? null : (
-                <PlusIcon
-                  className="ml-1 inline h-3 w-3 text-black"
-                  aria-hidden="true"
-                />
+              {selectedFilters[label] && selectedFilters[label].length != 0 ? (
+                <div className="ml-1 inline">
+                  {selectedFilters[label].length}
+                </div>
+              ) : (
+                <PlusIcon className="ml-1 inline h-3 w-3" />
               )}
             </Popover.Button>
             {isItemEmpty ? null : (
@@ -141,15 +151,18 @@ function GalleryFilter() {
                 <Popover.Panel className="absolute z-10 mt-3 w-32 transform">
                   <div className="grid grid-cols-1 gap-4 rounded-xl bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="text-xs font-medium">{label}</div>
-                    {items.map((value) => {
-                      const isItemSelected = selectedFilters[label] === value;
+                    {items.map((item) => {
+                      const isItemSelected = !!(
+                        selectedFilters[label] &&
+                        selectedFilters[label].find((value) => value === item)
+                      );
                       return (
                         <FilterItemRow
-                          key={value}
-                          label={value}
+                          key={item}
+                          label={item}
                           isSelected={isItemSelected}
                           onSelect={() => {
-                            handleItemSelect(label, value);
+                            handleItemSelect(label, item);
                           }}
                         />
                       );
