@@ -1,5 +1,5 @@
 import { IState } from "@/store/modules";
-import { addFilter, resetFilter } from "@/store/modules/filter";
+import { addFilter, removeFilter, resetFilter } from "@/store/modules/filter";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
 import { Fragment, useEffect } from "react";
@@ -99,8 +99,12 @@ function GalleryFilter() {
   const isFilterEmpty = Object.keys(selectedFilters).length == 0;
   const dispatch = useDispatch();
 
-  function handleItemSelect(filter: string, item: string) {
-    dispatch(addFilter({ filter: filter, item: item }));
+  function handleItemSelect(isSelected: boolean, filter: string, item: string) {
+    if (isSelected) {
+      dispatch(removeFilter({ filter: filter, item: item }));
+    } else {
+      dispatch(addFilter({ filter: filter, item: item }));
+    }
   }
 
   function handleItemReset() {
@@ -162,7 +166,7 @@ function GalleryFilter() {
                           label={item}
                           isSelected={isItemSelected}
                           onSelect={() => {
-                            handleItemSelect(label, item);
+                            handleItemSelect(isItemSelected, label, item);
                           }}
                         />
                       );
