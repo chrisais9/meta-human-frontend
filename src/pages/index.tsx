@@ -61,7 +61,7 @@ function Home() {
         </div>
       </div>
       <div className="flex h-screen items-center justify-center bg-[#A76BB4]">
-        <div className="w-full w-1/3 space-y-4 p-4 text-center text-sm text-white">
+        <div className="w-1/3 space-y-4 p-4 text-center text-sm text-white">
           <div className="mb-14 text-6xl font-black">META HUMAN</div>
           <p>
             And you are made wonderful would never want you to feel like you

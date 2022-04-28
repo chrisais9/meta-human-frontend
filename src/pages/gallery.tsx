@@ -81,7 +81,7 @@ function Gallery({ collection }: Props) {
 
 export async function getStaticProps() {
   let collection: INFT[] = [];
-  for (let i = 1; i <= 10000; i++) {
+  for (let i = 1; i <= 1000; i++) {
     try {
       collection = [
         ...collection,
