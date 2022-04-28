@@ -13,7 +13,7 @@ const tempBackgroundColor = [
 function Home() {
   return (
     <>
-      <div className="flex h-screen items-end justify-between">
+      <div className="flex h-screen items-end justify-center">
         <div className="relative mb-10 h-32 w-1/2">
           <Image
             src="/assets/icons/mhaf_full.svg"
@@ -22,7 +22,7 @@ function Home() {
             alt="logo"
           />
         </div>
-        <div className="relative h-full w-1/2">
+        <div className="relative hidden h-full w-1/2 lg:flex">
           <Image
             priority
             src="/assets/images/metahuman_1.png"
@@ -32,8 +32,8 @@ function Home() {
           />
         </div>
       </div>
-      <div className="flex h-screen items-center justify-between">
-        <div className="relative h-full w-1/2 scale-x-[-1]">
+      <div className="grid h-screen grid-cols-1 items-center justify-between lg:grid-cols-2">
+        <div className="relative h-full scale-x-[-1]">
           <Image
             src="/assets/images/metahuman_2.png"
             layout="fill"
@@ -41,7 +41,7 @@ function Home() {
             alt="image"
           />
         </div>
-        <div className="w-1/2 max-w-6xl space-y-4 p-4 text-left text-sm">
+        <div className="max-w-6xl space-y-4 p-4 text-left text-sm">
           <div className="mb-14 text-6xl font-black">META HUMAN</div>
           <p>
             And you are made wonderful would never want you to feel like you
