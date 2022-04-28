@@ -35,7 +35,7 @@ function Gallery({ collection }: Props) {
   }
 
   return (
-    <div className="container mx-auto mt-32">
+    <div className="mx-16 mt-32">
       <div className="flex justify-between">
         <div className="flex w-1/2 justify-center">
           <div className="sticky top-40 left-0 h-screen">
