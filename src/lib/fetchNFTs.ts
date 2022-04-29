@@ -21,14 +21,14 @@ export async function fetchNFTs(): Promise<INFT[]> {
 
       const metadata = await response.data;
       const image = (metadata.image as string).split("//")[1]; // ipfs://something -> something
-      collection = [
-        ...collection,
-        {
-          id: i,
-          name: metadata.name,
-          image: `https://ipfs.io/ipfs/${image}`,
-        },
-      ];
+      // collection = [
+      //   ...collection,
+      //   {
+      //     id: i,
+      //     name: metadata.name,
+      //     image: `https://ipfs.io/ipfs/${image}`,
+      //   },
+      // ];
     } catch (e) {
       console.error("Something went wrong", e);
     }
