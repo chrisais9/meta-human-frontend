@@ -1,9 +1,11 @@
 import NFTSimpleCard from "@/components/Card/NFTSimpleCard";
 import INFT from "@/schema/INFT";
 import InfiniteScroll from "react-infinite-scroll-component";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NFTDetailCard from "@/components/Card/NFTDetailCard";
 import GalleryFilter from "@/components/GalleryFilter";
+import { IState } from "@/store/modules";
+import { useSelector } from "react-redux";
 
 type Props = {
   collection: INFT[];
@@ -12,22 +14,41 @@ type Props = {
 function Gallery({ collection }: Props) {
   const [selectedNFT, setSelectedNFT] = useState(collection[0]);
 
-  const [items, setItems] = useState(collection.slice(0, 10));
+  const selectedFilters = useSelector((state: IState) => state.filter.filters);
+  const [filteredCollection, setFilteredCollection] = useState([] as INFT[]);
+
+  const [items, setItems] = useState([] as INFT[]);
   const [hasMore, setHasMore] = useState(true);
 
+  useEffect(() => {
+    const isFilterEmpty =
+      Object.values(selectedFilters).flatMap((value) => value).length === 0;
+
+    const filterdCollection = isFilterEmpty
+      ? collection
+      : collection.filter(
+          (nft) =>
+            selectedFilters["Background"] &&
+            selectedFilters["Background"].includes(nft.attributes[0].value)
+        );
+    setFilteredCollection(filterdCollection);
+    console.log(filterdCollection);
+    setItems(filterdCollection.slice(0, 10));
+  }, [collection, selectedFilters]);
+
   function renderMoreData(amountToLoad: number = 10) {
-    if (items.length >= collection.length) {
+    if (items.length >= filteredCollection.length) {
       setHasMore(false);
       return;
     }
 
     const start = items.length;
     const end =
-      items.length + amountToLoad > collection.length
-        ? collection.length
+      items.length + amountToLoad > filteredCollection.length
+        ? filteredCollection.length
         : items.length + amountToLoad;
 
-    setItems(items.concat(collection.slice(start, end)));
+    setItems(items.concat(filteredCollection.slice(start, end)));
   }
 
   return (
@@ -38,7 +59,6 @@ function Gallery({ collection }: Props) {
             <NFTDetailCard nft={selectedNFT} />
           </div>
         </div>
-
         <InfiniteScroll
           className="grid grid-cols-3 gap-6 overflow-auto p-4"
           dataLength={items.length}
@@ -65,6 +85,7 @@ function Gallery({ collection }: Props) {
                 id={nft.id}
                 name={nft.name}
                 image={nft.image}
+                color={nft.color}
                 selected={selectedNFT === nft}
               />
             </div>
@@ -74,6 +95,30 @@ function Gallery({ collection }: Props) {
     </div>
   );
 }
+
+const backgroundColor = [
+  "#8BCDE8",
+  "#EB6FCC",
+  "#637C6D",
+  "#BFB344",
+  "#57D181",
+  "#FF6942",
+  "#FF964A",
+  "#1E4CC1",
+  "#3E237D",
+];
+
+const background = [
+  "Sky Blue",
+  "Pink",
+  "Olive Green",
+  "Mustard",
+  "Light Green",
+  "Dark Orange",
+  "Orange",
+  "Blue",
+  "Purple",
+];
 
 export async function getStaticProps() {
   let collection: INFT[] = [];
@@ -85,6 +130,13 @@ export async function getStaticProps() {
           id: i,
           name: `#XX${String(i).padStart(5, "0")}`,
           image: `https://ipfs.io/ipfs/Qme42XjH7tBpvqyCqQFoa6UmbXehnRbwk5NDVATCSVQvf3`,
+          color: backgroundColor[(i - 1) % backgroundColor.length],
+          attributes: [
+            {
+              trait_type: "Background",
+              value: background[(i - 1) % background.length],
+            },
+          ],
         },
       ];
     } catch (e) {
