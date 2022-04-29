@@ -21,8 +21,7 @@ function Gallery({ collection }: Props) {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    const isFilterEmpty =
-      Object.values(selectedFilters).flatMap((value) => value).length === 0;
+    const isFilterEmpty = Object.values(selectedFilters).flat().length === 0;
 
     const filterdCollection = isFilterEmpty
       ? collection
