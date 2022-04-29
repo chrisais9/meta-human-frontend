@@ -1,12 +1,8 @@
-import Image from "next/image";
 import NFTSimpleCard from "@/components/Card/NFTSimpleCard";
 import INFT from "@/schema/INFT";
 import InfiniteScroll from "react-infinite-scroll-component";
-import React, { Fragment, useState } from "react";
-import { Popover, Transition } from "@headlessui/react";
-import { PlusIcon } from "@heroicons/react/solid";
+import React, { useState } from "react";
 import NFTDetailCard from "@/components/Card/NFTDetailCard";
-import FilterItemRow from "@/components/GalleryFilter/FilterItemRow";
 import GalleryFilter from "@/components/GalleryFilter";
 
 type Props = {

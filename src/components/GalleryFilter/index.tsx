@@ -96,7 +96,8 @@ const filters = [
 
 function GalleryFilter() {
   const selectedFilters = useSelector((state: IState) => state.filter.filters);
-  const isFilterEmpty = Object.keys(selectedFilters).length == 0;
+  const isFilterEmpty =
+    Object.values(selectedFilters).flatMap((value) => value).length === 0;
   const dispatch = useDispatch();
 
   function handleItemSelect(isSelected: boolean, filter: string, item: string) {
@@ -128,13 +129,15 @@ function GalleryFilter() {
           <Popover className="relative" key={label}>
             <Popover.Button
               className={`rounded-full p-3 py-2 ${
-                activeFilters.find((key) => key === label)
+                activeFilters.find(
+                  (key) => key === label && selectedFilters[key].length !== 0
+                )
                   ? "bg-black text-white"
                   : "bg-[#F5F5F5]"
               }`}
             >
               {label}
-              {selectedFilters[label] && selectedFilters[label].length != 0 ? (
+              {selectedFilters[label] && selectedFilters[label].length !== 0 ? (
                 <div className="ml-1 inline">
                   {selectedFilters[label].length}
                 </div>
