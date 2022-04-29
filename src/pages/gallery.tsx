@@ -17,7 +17,7 @@ function Gallery({ collection }: Props) {
   const selectedFilters = useSelector((state: IState) => state.filter.filters);
   const [filteredCollection, setFilteredCollection] = useState([] as INFT[]);
 
-  const [items, setItems] = useState([] as INFT[]);
+  const [renderedItems, setRenderedItems] = useState([] as INFT[]);
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
@@ -33,22 +33,24 @@ function Gallery({ collection }: Props) {
         );
     setFilteredCollection(filterdCollection);
     console.log(filterdCollection);
-    setItems(filterdCollection.slice(0, 10));
+    setRenderedItems(filterdCollection.slice(0, 10));
   }, [collection, selectedFilters]);
 
   function renderMoreData(amountToLoad: number = 10) {
-    if (items.length >= filteredCollection.length) {
+    if (renderedItems.length >= filteredCollection.length) {
       setHasMore(false);
       return;
     }
 
-    const start = items.length;
+    const start = renderedItems.length;
     const end =
-      items.length + amountToLoad > filteredCollection.length
+      renderedItems.length + amountToLoad > filteredCollection.length
         ? filteredCollection.length
-        : items.length + amountToLoad;
+        : renderedItems.length + amountToLoad;
 
-    setItems(items.concat(filteredCollection.slice(start, end)));
+    setRenderedItems(
+      renderedItems.concat(filteredCollection.slice(start, end))
+    );
   }
 
   return (
@@ -61,7 +63,7 @@ function Gallery({ collection }: Props) {
         </div>
         <InfiniteScroll
           className="grid grid-cols-3 gap-6 overflow-auto p-4"
-          dataLength={items.length}
+          dataLength={renderedItems.length}
           next={renderMoreData}
           hasMore={hasMore}
           loader={
@@ -75,11 +77,11 @@ function Gallery({ collection }: Props) {
             </div>
           }
         >
-          <div className="col-span-3 flex items-center justify-between">
+          <div className="renderedItems-center col-span-3 flex justify-between">
             <GalleryFilter />
-            <div className="text-xs">{collection.length}</div>
+            <div className="text-xs">{filteredCollection.length}</div>
           </div>
-          {items.map((nft) => (
+          {renderedItems.map((nft) => (
             <div key={nft.id} onClick={() => setSelectedNFT(nft)}>
               <NFTSimpleCard
                 id={nft.id}

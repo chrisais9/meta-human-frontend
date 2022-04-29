@@ -82,7 +82,7 @@ function Home() {
         <div className="flex justify-center pb-12 text-6xl font-black capitalize">
           line up
         </div>
-        <div className="w-full overflow-hidden">
+        <div className="w-screen overflow-hidden">
           <Slider {...settings}>
             {[...Array(10)].map((e, i) => (
               <div key={i} className="-mx-10 pb-8">
@@ -112,11 +112,12 @@ function Home() {
 
 var settings: Settings = {
   infinite: true,
-  slidesToShow: 6,
+  draggable: false,
+  slidesToShow: 5,
   slidesToScroll: 1,
   autoplay: true,
   speed: 5000,
-  autoplaySpeed: 5000,
+  autoplaySpeed: 0,
   cssEase: "linear",
 };
 
