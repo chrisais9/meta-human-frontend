@@ -15,9 +15,13 @@ function Gallery({ collection }: Props) {
   const [selectedNFT, setSelectedNFT] = useState(collection[0]);
 
   const selectedFilters = useSelector((state: IState) => state.filter.filters);
-  const [filteredCollection, setFilteredCollection] = useState([] as INFT[]);
+  const [filteredCollection, setFilteredCollection] = useState(
+    collection.slice(0, 10)
+  );
 
-  const [renderedItems, setRenderedItems] = useState([] as INFT[]);
+  const [renderedItems, setRenderedItems] = useState(
+    filteredCollection.slice(0, 10)
+  );
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
