@@ -62,10 +62,7 @@ function GalleryFilter() {
   }
 
   return (
-    <Popover.Group
-      as="div"
-      className="flex gap-2 overflow-x-auto text-2xs no-scrollbar"
-    >
+    <Popover.Group className="flex gap-2 overflow-x-auto text-2xs no-scrollbar">
       <button
         className={`rounded-full p-3 py-2 ${
           isFilterEmpty ? "bg-black text-white" : "bg-[#F5F5F5]"
