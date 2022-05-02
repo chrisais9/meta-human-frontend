@@ -19,19 +19,19 @@ const backgroundColor = [
 
 function NFTDetailCard({ nft }: Props) {
   return (
-    <div>
+    <div className="w-full lg:px-10 xl:px-20 2xl:px-40">
       <div
         style={{
           backgroundColor:
             backgroundColor[(nft.id - 1) % backgroundColor.length],
         }}
-        className="mb-4 flex rounded-2xl shadow-lg shadow-slate-200/60"
+        className="relative mb-4 flex aspect-square w-full rounded-2xl shadow-lg shadow-slate-200/60"
       >
         <Image
           className="rounded-2xl"
           src={nft.image}
-          width={400}
-          height={400}
+          layout="fill"
+          objectFit="cover"
           alt="??"
         />
       </div>

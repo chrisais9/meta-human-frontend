@@ -44,9 +44,8 @@ function GalleryInfiniteGrid({ items, onClickItem, amountToLoad }: Props) {
         </div>
       }
     >
-      <div className="col-span-2 flex items-center justify-between lg:col-span-3">
+      <div className="col-span-2 pb-6 lg:col-span-3">
         <GalleryFilter />
-        <div className="hidden text-xs lg:block">{items.length}</div>
       </div>
       {renderedItems.length === 0 ? (
         <div className="col-span-full flex min-h-[calc(100vh)] min-w-[670px] flex-col items-center justify-center">

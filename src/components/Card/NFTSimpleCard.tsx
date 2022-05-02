@@ -16,15 +16,15 @@ function NFTSimpleCard({ id, name, image, color, selected }: Props) {
         style={{
           backgroundColor: color,
         }}
-        className={`mx-auto flex w-52 animate-fade-in flex-col rounded-2xl bg-red-100 shadow-lg shadow-slate-200/60 transition duration-300 hover:-translate-y-1 hover:scale-105 hover:brightness-75 ${
+        className={`relative flex aspect-square animate-fade-in flex-col rounded-2xl bg-red-100 shadow-lg shadow-slate-200/60 transition duration-300 hover:-translate-y-1 hover:scale-105 hover:brightness-75 ${
           selected ? "ring-2 ring-black" : ""
         }`}
       >
         <Image
-          className="w-52 rounded-2xl"
+          className="h-full w-full rounded-2xl"
           src={image}
-          width={208}
-          height={208}
+          layout="fill"
+          objectFit="cover"
           alt={name}
         />
       </div>

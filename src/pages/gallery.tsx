@@ -52,12 +52,18 @@ function Gallery({ collection }: Props) {
   }, [collection, selectedFilters]);
 
   return (
-    <div className="mt-32 lg:mx-16">
-      <div className="flex justify-around">
-        <div className="sticky top-40 left-0 hidden h-screen justify-center lg:flex">
+    <div className="mt-32 lg:px-14">
+      <div className="flex justify-center">
+        <div className="sticky top-40 left-0 hidden h-screen w-full justify-center lg:flex">
           <NFTDetailCard nft={selectedNFT} />
         </div>
-        <div className="flex justify-center">
+        <div className="flex w-full flex-col justify-center">
+          <div className="flex items-center justify-between px-3 pb-6 ">
+            <div className="text-4xl font-black">Gallery</div>
+            <div className="hidden text-xs lg:inline">
+              {filteredCollection.length}
+            </div>
+          </div>
           <GalleryInfiniteGrid
             items={filteredCollection}
             onClickItem={(item) => setSelectedNFT(item)}
