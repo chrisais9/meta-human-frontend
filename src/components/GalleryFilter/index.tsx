@@ -62,7 +62,10 @@ function GalleryFilter() {
   }
 
   return (
-    <Popover.Group as="div" className="flex gap-2 overflow-auto text-2xs">
+    <Popover.Group
+      as="div"
+      className="flex gap-2 overflow-x-auto text-2xs no-scrollbar"
+    >
       <button
         className={`rounded-full p-3 py-2 ${
           isFilterEmpty ? "bg-black text-white" : "bg-[#F5F5F5]"
@@ -77,7 +80,7 @@ function GalleryFilter() {
         return (
           <Popover key={label}>
             <Popover.Button
-              className={`flex items-center rounded-full p-3 py-2 ${
+              className={`flex items-center rounded-full p-3 py-2 focus:outline-none ${
                 activeFilters.find(
                   (key) => key === label && selectedFilters[key].length !== 0
                 )

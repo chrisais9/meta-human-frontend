@@ -5,6 +5,7 @@ import { IState } from "@/store/modules";
 import { useSelector } from "react-redux";
 import GalleryInfiniteGrid from "@/components/GalleryGrid";
 import { fetchDummyNFTs } from "@/lib/fetchNFTs";
+import GalleryFilter from "@/components/GalleryFilter";
 
 type Props = {
   collection: INFT[];
@@ -64,6 +65,7 @@ function Gallery({ collection }: Props) {
               {filteredCollection.length}
             </div>
           </div>
+          <GalleryFilter />
           <GalleryInfiniteGrid
             items={filteredCollection}
             onClickItem={(item) => setSelectedNFT(item)}
