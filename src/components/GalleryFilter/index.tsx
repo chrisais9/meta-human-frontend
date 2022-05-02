@@ -63,7 +63,7 @@ function GalleryFilter() {
   }
 
   return (
-    <Popover.Group as="div" className="flex gap-2 text-2xs">
+    <Popover.Group as="div" className="flex gap-2 overflow-auto text-2xs">
       <button
         className={`rounded-full p-3 py-2 ${
           isFilterEmpty ? "bg-black text-white" : "bg-[#F5F5F5]"
@@ -76,9 +76,9 @@ function GalleryFilter() {
         const isItemEmpty = items.length === 0;
         const activeFilters = Object.keys(selectedFilters) as string[];
         return (
-          <Popover className="relative" key={label}>
+          <Popover key={label}>
             <Popover.Button
-              className={`rounded-full p-3 py-2 ${
+              className={`flex items-center rounded-full p-3 py-2 ${
                 activeFilters.find(
                   (key) => key === label && selectedFilters[key].length !== 0
                 )
@@ -105,26 +105,24 @@ function GalleryFilter() {
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1"
               >
-                <Popover.Panel className="absolute z-10 mt-3 w-32 transform">
-                  <div className="grid grid-cols-1 gap-4 rounded-xl bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5">
-                    <div className="text-xs font-medium">{label}</div>
-                    {items.map((item) => {
-                      const isItemSelected = !!(
-                        selectedFilters[label] &&
-                        selectedFilters[label].find((value) => value === item)
-                      );
-                      return (
-                        <FilterItemRow
-                          key={item}
-                          label={item}
-                          isSelected={isItemSelected}
-                          onSelect={() => {
-                            handleItemSelect(isItemSelected, label, item);
-                          }}
-                        />
-                      );
-                    })}
-                  </div>
+                <Popover.Panel className="fixed z-10 mt-3 grid w-32 grid-cols-1 gap-4 rounded-xl bg-white p-4 shadow-lg ring-1 ring-black ring-opacity-5">
+                  <div className="text-xs font-medium">{label}</div>
+                  {items.map((item) => {
+                    const isItemSelected = !!(
+                      selectedFilters[label] &&
+                      selectedFilters[label].find((value) => value === item)
+                    );
+                    return (
+                      <FilterItemRow
+                        key={item}
+                        label={item}
+                        isSelected={isItemSelected}
+                        onSelect={() => {
+                          handleItemSelect(isItemSelected, label, item);
+                        }}
+                      />
+                    );
+                  })}
                 </Popover.Panel>
               </Transition>
             )}

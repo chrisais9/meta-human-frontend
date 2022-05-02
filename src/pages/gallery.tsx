@@ -78,28 +78,30 @@ function Gallery({ collection }: Props) {
   }
 
   return (
-    <div className="mx-16 mt-32">
-      <div className="flex justify-between">
-        <div className="flex w-1/2 justify-center">
+    <div className="mt-32 lg:mx-16">
+      <div className="flex justify-around">
+        <div className="hidden justify-center lg:flex">
           <div className="sticky top-40 left-0 h-screen">
             <NFTDetailCard nft={selectedNFT} />
           </div>
         </div>
-        <div className="flex w-1/2 justify-center">
+        <div className="flex justify-center">
           <InfiniteScroll
-            className="grid grid-cols-3 gap-6 overflow-auto p-4"
+            className="grid grid-cols-2 gap-6 overflow-auto p-4 lg:grid-cols-3"
             dataLength={renderedItems.length}
             next={renderMoreData}
             hasMore={hasMore}
             loader={
-              <div className="col-span-3 flex justify-center rounded-full bg-black text-white">
+              <div className="col-span-2 flex justify-center rounded-full bg-black text-white lg:col-span-3">
                 Load More..
               </div>
             }
           >
-            <div className="col-span-3 flex items-center justify-between">
+            <div className="col-span-2 flex items-center justify-between lg:col-span-3">
               <GalleryFilter />
-              <div className="text-xs">{filteredCollection.length}</div>
+              <div className="hidden text-xs lg:block">
+                {filteredCollection.length}
+              </div>
             </div>
             {renderedItems.length === 0 ? (
               <div className="col-span-full flex min-h-[calc(100vh)] min-w-[670px] flex-col items-center justify-center">
