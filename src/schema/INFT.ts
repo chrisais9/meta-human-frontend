@@ -3,10 +3,10 @@ export default interface INFT {
   name: string;
   image: string;
   color: string;
-  attributes: [
-    {
-      trait_type: string;
-      value: string;
-    }
-  ];
+  attributes: Attribute[];
+}
+
+interface Attribute {
+  trait_type: string;
+  value: string;
 }

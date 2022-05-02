@@ -11,35 +11,56 @@ type Props = {
   collection: INFT[];
 };
 
+const amountToLoad = 10;
+
 function Gallery({ collection }: Props) {
   const [selectedNFT, setSelectedNFT] = useState(collection[0]);
 
   const selectedFilters = useSelector((state: IState) => state.filter.filters);
-  const [filteredCollection, setFilteredCollection] = useState(
-    collection.slice(0, 10)
-  );
+  const [filteredCollection, setFilteredCollection] = useState(collection);
 
   const [renderedItems, setRenderedItems] = useState(
-    filteredCollection.slice(0, 10)
+    filteredCollection.slice(0, amountToLoad)
   );
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    const isFilterEmpty = Object.values(selectedFilters).flat().length === 0;
+    const flattenedSelectedFilter = Object.values(selectedFilters).flat();
+    const isFilterEmpty = flattenedSelectedFilter.length === 0;
+
+    function filterCollection(collection: INFT[]) {
+      let col: INFT[] = [];
+      collection.forEach((origin) => {
+        let ck = true;
+        origin.attributes.forEach((originAttribute) => {
+          if (selectedFilters[originAttribute.trait_type]) {
+            let selectedItemFromFilter =
+              selectedFilters[originAttribute.trait_type];
+            if (
+              selectedItemFromFilter.length != 0 &&
+              !selectedItemFromFilter.includes(originAttribute.value)
+            ) {
+              ck = false;
+              return;
+            }
+          }
+        });
+        if (ck) {
+          col.push(origin);
+        }
+      });
+      return col;
+    }
 
     const filterdCollection = isFilterEmpty
       ? collection
-      : collection.filter(
-          (nft) =>
-            selectedFilters["Background"] &&
-            selectedFilters["Background"].includes(nft.attributes[0].value)
-        );
+      : filterCollection(collection);
+
     setFilteredCollection(filterdCollection);
-    console.log(filterdCollection);
-    setRenderedItems(filterdCollection.slice(0, 10));
+    setRenderedItems(filterdCollection.slice(0, amountToLoad));
   }, [collection, selectedFilters]);
 
-  function renderMoreData(amountToLoad: number = 10) {
+  function renderMoreData() {
     if (renderedItems.length >= filteredCollection.length) {
       setHasMore(false);
       return;
@@ -125,9 +146,11 @@ const background = [
   "Purple",
 ];
 
+const cloth = ["Hood", "T-shirt", "One-piece", "None"];
+
 export async function getStaticProps() {
   let collection: INFT[] = [];
-  for (let i = 1; i <= 1000; i++) {
+  for (let i = 1; i <= 100; i++) {
     try {
       collection = [
         ...collection,
@@ -140,6 +163,10 @@ export async function getStaticProps() {
             {
               trait_type: "Background",
               value: background[(i - 1) % background.length],
+            },
+            {
+              trait_type: "Clothes",
+              value: cloth[(i - 1) % cloth.length],
             },
           ],
         },
