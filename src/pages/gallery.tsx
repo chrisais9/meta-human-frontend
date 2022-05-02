@@ -37,7 +37,7 @@ function Gallery({ collection }: Props) {
             let selectedItemFromFilter =
               selectedFilters[originAttribute.trait_type];
             if (
-              selectedItemFromFilter.length != 0 &&
+              selectedItemFromFilter.length !== 0 &&
               !selectedItemFromFilter.includes(originAttribute.value)
             ) {
               ck = false;
@@ -85,38 +85,41 @@ function Gallery({ collection }: Props) {
             <NFTDetailCard nft={selectedNFT} />
           </div>
         </div>
-        <InfiniteScroll
-          className="grid grid-cols-3 gap-6 overflow-auto p-4"
-          dataLength={renderedItems.length}
-          next={renderMoreData}
-          hasMore={hasMore}
-          loader={
-            <div className="col-span-3 flex justify-center rounded-full bg-black text-white">
-              Load More..
+        <div className="flex w-1/2 justify-center">
+          <InfiniteScroll
+            className="grid grid-cols-3 gap-6 overflow-auto p-4"
+            dataLength={renderedItems.length}
+            next={renderMoreData}
+            hasMore={hasMore}
+            loader={
+              <div className="col-span-3 flex justify-center rounded-full bg-black text-white">
+                Load More..
+              </div>
+            }
+          >
+            <div className="col-span-3 flex items-center justify-between">
+              <GalleryFilter />
+              <div className="text-xs">{filteredCollection.length}</div>
             </div>
-          }
-          endMessage={
-            <div className="col-span-3 flex justify-center rounded-full bg-black text-white">
-              End
-            </div>
-          }
-        >
-          <div className="renderedItems-center col-span-3 flex justify-between">
-            <GalleryFilter />
-            <div className="text-xs">{filteredCollection.length}</div>
-          </div>
-          {renderedItems.map((nft) => (
-            <div key={nft.id} onClick={() => setSelectedNFT(nft)}>
-              <NFTSimpleCard
-                id={nft.id}
-                name={nft.name}
-                image={nft.image}
-                color={nft.color}
-                selected={selectedNFT === nft}
-              />
-            </div>
-          ))}
-        </InfiniteScroll>
+            {renderedItems.length === 0 ? (
+              <div className="col-span-full flex min-h-[calc(100vh)] min-w-[670px] flex-col items-center justify-center">
+                No Meta Humans matched your filter parameters
+              </div>
+            ) : (
+              renderedItems.map((nft) => (
+                <div key={nft.id} onClick={() => setSelectedNFT(nft)}>
+                  <NFTSimpleCard
+                    id={nft.id}
+                    name={nft.name}
+                    image={nft.image}
+                    color={nft.color}
+                    selected={selectedNFT === nft}
+                  />
+                </div>
+              ))
+            )}
+          </InfiniteScroll>
+        </div>
       </div>
     </div>
   );
@@ -146,7 +149,7 @@ const background = [
   "Purple",
 ];
 
-const cloth = ["Hood", "T-shirt", "One-piece", "None"];
+const cloth = ["Hood", "T-shirt", "One-piece"];
 
 export async function getStaticProps() {
   let collection: INFT[] = [];

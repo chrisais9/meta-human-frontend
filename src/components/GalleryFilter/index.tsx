@@ -24,7 +24,7 @@ const filters = [
   },
   {
     label: "Clothes",
-    items: ["Hood", "T-shirt", "One-piece", "None"],
+    items: ["Hood", "T-shirt", "One-piece"],
   },
   {
     label: "Ear",
