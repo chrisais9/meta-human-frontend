@@ -19,7 +19,7 @@ const backgroundColor = [
 
 function NFTDetailCard({ nft }: Props) {
   return (
-    <>
+    <div>
       <div
         style={{
           backgroundColor:
@@ -57,7 +57,7 @@ function NFTDetailCard({ nft }: Props) {
         <div className="font-bold">background</div>
         <div>pink</div>
       </div>
-    </>
+    </div>
   );
 }
 

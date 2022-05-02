@@ -2,9 +2,8 @@ import { IState } from "@/store/modules";
 import { addFilter, removeFilter, resetFilter } from "@/store/modules/filter";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
-import { Fragment, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { Fragment } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import FilterItemRow from "./FilterItemRow";
 
 const filters = [

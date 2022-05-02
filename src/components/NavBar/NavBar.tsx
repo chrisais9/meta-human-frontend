@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Switch from "react-switch";
 import * as walletActions from "@/store/modules/wallet";
 import Image from "next/image";
+import WalletSwitch from "../WalletSwitch";
 
 type Props = {
   isShowing: boolean;
@@ -90,23 +91,9 @@ function NavBar({ isShowing }: Props) {
           </ul>
         </div>
         <div className="flex items-center">
-          <Switch
-            width={110}
+          <WalletSwitch
+            walletAddress={walletAddress}
             onChange={onChangeWalletConnection}
-            checked={walletAddress.length !== 0}
-            offColor="#F5F6F8"
-            onColor="#000000"
-            offHandleColor="#000000"
-            uncheckedIcon={
-              <div className="flex h-full w-0 items-center justify-center text-2xs">
-                Connect
-              </div>
-            }
-            checkedIcon={
-              <div className="flex h-full w-20 items-center justify-center text-2xs text-white">
-                Connected
-              </div>
-            }
           />
         </div>
       </div>

@@ -36,3 +36,60 @@ export async function fetchNFTs(): Promise<INFT[]> {
 
   return collection;
 }
+
+const backgroundColor = [
+  "#8BCDE8",
+  "#EB6FCC",
+  "#637C6D",
+  "#BFB344",
+  "#57D181",
+  "#FF6942",
+  "#FF964A",
+  "#1E4CC1",
+  "#3E237D",
+];
+
+const background = [
+  "Sky Blue",
+  "Pink",
+  "Olive Green",
+  "Mustard",
+  "Light Green",
+  "Dark Orange",
+  "Orange",
+  "Blue",
+  "Purple",
+];
+
+const cloth = ["Hood", "T-shirt", "One-piece"];
+
+export function fetchDummyNFTs(): INFT[] {
+  let collection: INFT[] = [];
+  for (let i = 1; i <= 10000; i++) {
+    try {
+      collection = [
+        ...collection,
+        {
+          id: i,
+          name: `#XX${String(i).padStart(5, "0")}`,
+          image: `https://ipfs.io/ipfs/Qme42XjH7tBpvqyCqQFoa6UmbXehnRbwk5NDVATCSVQvf3`,
+          color: backgroundColor[(i - 1) % backgroundColor.length],
+          attributes: [
+            {
+              trait_type: "Background",
+              value: background[(i - 1) % background.length],
+            },
+            {
+              trait_type: "Clothes",
+              value: cloth[(i - 1) % cloth.length],
+            },
+          ],
+        },
+      ];
+    } catch (e) {
+      console.error("Something went wrong", e);
+    }
+  }
+
+  return collection;
+}
