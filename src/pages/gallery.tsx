@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import GalleryInfiniteGrid from "@/components/GalleryGrid";
 import { fetchDummyNFTs } from "@/lib/fetchNFTs";
 import GalleryFilter from "@/components/GalleryFilter";
+import Image from "next/image";
 
 type Props = {
   collection: INFT[];
@@ -52,6 +53,31 @@ function Gallery({ collection }: Props) {
     setFilteredCollection(filterdCollection);
   }, [collection, selectedFilters]);
 
+  function handleShuffle() {
+    const shuffledCollection = shuffle(filteredCollection).slice();
+    setFilteredCollection(shuffledCollection);
+  }
+
+  function shuffle(collection: INFT[]): INFT[] {
+    let currentIndex = collection.length;
+    let randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [collection[currentIndex], collection[randomIndex]] = [
+        collection[randomIndex],
+        collection[currentIndex],
+      ];
+    }
+
+    return collection;
+  }
+
   return (
     <div className="mt-32 lg:px-14">
       <div className="flex justify-center">
@@ -65,8 +91,29 @@ function Gallery({ collection }: Props) {
               {filteredCollection.length}
             </div>
           </div>
-          <div className="pb-8 pl-3 lg:pl-0">
+          <div className="flex justify-between pb-8 pl-3 lg:pl-0">
             <GalleryFilter />
+            <div className="flex gap-2">
+              <button
+                className="flex rounded-full bg-[#F5F5F5] p-2"
+                onClick={handleShuffle}
+              >
+                <Image
+                  src="/assets/icons/shuffle.svg"
+                  width={12}
+                  height={12}
+                  alt="opensea"
+                />
+              </button>
+              <button className="flex rounded-full bg-[#F5F5F5] p-2">
+                <Image
+                  src="/assets/icons/person.svg"
+                  width={12}
+                  height={12}
+                  alt="opensea"
+                />
+              </button>
+            </div>
           </div>
           <GalleryInfiniteGrid
             items={filteredCollection}
