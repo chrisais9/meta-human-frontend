@@ -68,7 +68,8 @@ function Home() {
         </div>
       </div>
       <div
-        className={`flex h-screen items-center justify-center bg-[${background}]`}
+        style={{ backgroundColor: `${background}` }}
+        className={`flex h-screen items-center justify-center`}
       >
         <input
           type="text"
