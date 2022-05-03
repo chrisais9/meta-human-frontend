@@ -13,10 +13,12 @@ type Props = {
 };
 
 function Gallery({ collection }: Props) {
+  const [filteredCollection, setFilteredCollection] = useState(collection);
+  const selectedFilters = useSelector((state: IState) => state.filter.filters);
+
   const [selectedNFT, setSelectedNFT] = useState(collection[0]);
 
-  const selectedFilters = useSelector((state: IState) => state.filter.filters);
-  const [filteredCollection, setFilteredCollection] = useState(collection);
+  const [isMyNFTMode, setIsMyNFTMode] = useState(false);
 
   useEffect(() => {
     const flattenedSelectedFilter = Object.values(selectedFilters).flat();
@@ -56,6 +58,10 @@ function Gallery({ collection }: Props) {
   function handleShuffle() {
     const shuffledCollection = shuffle(filteredCollection).slice();
     setFilteredCollection(shuffledCollection);
+  }
+
+  function handleToggleMyNFTMode() {
+    setIsMyNFTMode(!isMyNFTMode);
   }
 
   function shuffle(collection: INFT[]): INFT[] {
@@ -105,18 +111,32 @@ function Gallery({ collection }: Props) {
                   alt="opensea"
                 />
               </button>
-              <button className="flex rounded-full bg-[#F5F5F5] p-2">
-                <Image
-                  src="/assets/icons/person.svg"
-                  width={12}
-                  height={12}
-                  alt="opensea"
-                />
+              <button
+                className={`flex rounded-full p-2 ${
+                  isMyNFTMode ? "bg-black" : "bg-[#F5F5F5]"
+                }`}
+                onClick={handleToggleMyNFTMode}
+              >
+                {isMyNFTMode ? (
+                  <Image
+                    src="/assets/icons/person_white.svg"
+                    width={12}
+                    height={12}
+                    alt="opensea"
+                  />
+                ) : (
+                  <Image
+                    src="/assets/icons/person.svg"
+                    width={12}
+                    height={12}
+                    alt="opensea"
+                  />
+                )}
               </button>
             </div>
           </div>
           <GalleryInfiniteGrid
-            items={filteredCollection}
+            items={isMyNFTMode ? [] : filteredCollection}
             onClickItem={(item) => setSelectedNFT(item)}
             amountToLoad={10}
           />

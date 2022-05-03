@@ -2,7 +2,6 @@ import { IState } from "@/store/modules";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import Switch from "react-switch";
 import * as walletActions from "@/store/modules/wallet";
 import Image from "next/image";
 import WalletSwitch from "../WalletSwitch";
