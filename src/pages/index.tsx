@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useState } from "react";
 import Slider, { Settings } from "react-slick";
 
 const tempBackgroundColor = [
@@ -11,6 +12,12 @@ const tempBackgroundColor = [
 ];
 
 function Home() {
+  const handleChangeBackground = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setBackground(event.target.value);
+  };
+  const [background, setBackground] = useState("#52117c");
   return (
     <>
       <div className="flex h-screen items-end justify-center">
@@ -60,7 +67,14 @@ function Home() {
           </p>
         </div>
       </div>
-      <div className="flex h-screen items-center justify-center bg-[#A76BB4]">
+      <div
+        className={`flex h-screen items-center justify-center bg-[${background}]`}
+      >
+        <input
+          type="text"
+          value={background}
+          onChange={handleChangeBackground}
+        ></input>
         <div className="w-1/3 space-y-4 p-4 text-center text-sm text-white">
           <div className="mb-14 text-6xl font-black">META HUMAN</div>
           <p>
