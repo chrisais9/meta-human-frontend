@@ -110,7 +110,7 @@ function Gallery({ collection }: Props) {
     <div className="mt-32 lg:px-14">
       <div className="flex justify-center">
         <div
-          className={`top-0 left-0 z-50 h-screen w-screen justify-center p-20 backdrop-blur-md lg:sticky lg:top-40 lg:flex lg:w-full lg:p-0 lg:backdrop-blur-none ${
+          className={`top-0 left-0 z-50 flex h-screen w-screen animate-fade-in-fast items-center justify-center px-5 backdrop-blur-md duration-75 lg:sticky lg:top-40 lg:w-full lg:items-start lg:p-0 lg:backdrop-blur-none ${
             isSelectedNFTShowing ? "fixed" : "hidden"
           }`}
           onClick={handleCloseMobileSelectedNFT}
