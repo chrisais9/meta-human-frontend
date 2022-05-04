@@ -89,12 +89,20 @@ function NavBar({ isShowing }: Props) {
             ))}
           </ul>
         </div>
-        <div className="flex items-center">
+        <div className="hidden items-center lg:flex">
           <WalletSwitch
             walletAddress={walletAddress}
             onChange={onChangeWalletConnection}
           />
         </div>
+        <button className="relative flex h-5 w-6 lg:hidden">
+          <Image
+            src="/assets/icons/hamburger.svg"
+            layout="fill"
+            objectFit="cover"
+            alt="router"
+          />
+        </button>
       </div>
     </nav>
   );
