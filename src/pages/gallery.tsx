@@ -2,20 +2,25 @@ import INFT from "@/schema/INFT";
 import React, { useEffect, useState } from "react";
 import NFTDetailCard from "@/components/Card/NFTDetailCard";
 import { IState } from "@/store/modules";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import GalleryInfiniteGrid from "@/components/GalleryGrid";
 import { fetchDummyNFTs } from "@/lib/fetchNFTs";
 import GalleryFilter from "@/components/GalleryFilter";
 import Image from "next/image";
+import { setJoyrideWalletSwitch } from "@/store/modules/joyride";
 
 type Props = {
   collection: INFT[];
 };
 
 function Gallery({ collection }: Props) {
+  const dispatch = useDispatch();
+  const walletAddress = useSelector(
+    (state: IState) => state.wallet.walletAddress
+  );
+
   const [filteredCollection, setFilteredCollection] = useState(collection);
   const selectedFilters = useSelector((state: IState) => state.filter.filters);
-
   const [selectedNFT, setSelectedNFT] = useState(collection[0]);
 
   const [isMyNFTMode, setIsMyNFTMode] = useState(false);
@@ -61,7 +66,12 @@ function Gallery({ collection }: Props) {
   }
 
   function handleToggleMyNFTMode() {
-    setIsMyNFTMode(!isMyNFTMode);
+    if (walletAddress.length === 0) {
+      setIsMyNFTMode(false);
+      dispatch(setJoyrideWalletSwitch(!isMyNFTMode));
+    } else {
+      setIsMyNFTMode(!isMyNFTMode);
+    }
   }
 
   function shuffle(collection: INFT[]): INFT[] {

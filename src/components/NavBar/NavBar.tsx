@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as walletActions from "@/store/modules/wallet";
 import Image from "next/image";
 import WalletSwitch from "../WalletSwitch";
+import { setJoyrideWalletSwitch } from "@/store/modules/joyride";
 
 type Props = {
   isShowing: boolean;
@@ -45,6 +46,10 @@ function NavBar({ isShowing }: Props) {
     (state: IState) => state.wallet.walletAddress
   );
 
+  const isJoyrideWalletSwitch = useSelector(
+    (state: IState) => state.joyride.walletSwitch
+  );
+
   async function onChangeWalletConnection(state: boolean) {
     if (state) {
       if (window.klaytn) {
@@ -56,6 +61,10 @@ function NavBar({ isShowing }: Props) {
     } else {
       dispatch(walletActions.connect(""));
     }
+  }
+
+  function hideJoyrideWalletSwitch() {
+    dispatch(setJoyrideWalletSwitch(false));
   }
 
   return (
@@ -89,12 +98,41 @@ function NavBar({ isShowing }: Props) {
             ))}
           </ul>
         </div>
-        <div className="hidden items-center lg:flex">
+        <div
+          className="hidden items-center lg:flex"
+          style={
+            isJoyrideWalletSwitch
+              ? {
+                  boxShadow: "0 0 0 max(100vh, 100vw) rgba(0, 0, 0, .5)",
+                  borderRadius: "999px",
+                }
+              : {}
+          }
+        >
           <WalletSwitch
             walletAddress={walletAddress}
             onChange={onChangeWalletConnection}
           />
         </div>
+        {isJoyrideWalletSwitch ? (
+          <>
+            <div
+              className={`absolute top-0 left-0 hidden h-screen w-screen opacity-5 ${
+                isJoyrideWalletSwitch ? "lg:flex" : ""
+              }`}
+              onClick={hideJoyrideWalletSwitch}
+            ></div>
+            <div
+              className={`absolute top-20 right-5 hidden text-right text-3xl font-black text-white ${
+                isJoyrideWalletSwitch ? "lg:flex" : ""
+              }`}
+            >
+              👆🏻 <br />
+              Please Connect <br />
+              Your Wallet
+            </div>
+          </>
+        ) : null}
         <button className="relative flex h-5 w-6 lg:hidden">
           <Image
             src="/assets/icons/hamburger.svg"

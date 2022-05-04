@@ -1,11 +1,11 @@
 import { AnyAction, CombinedState, combineReducers } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
-import counterSlice, { CounterReducerState } from "./counter";
+import joyrideSlice, { JoyrideReducerState } from "./joyride";
 import walletSlice, { WalletReducerState } from "./wallet";
 import filterSlice, { FilterReducerState } from "./filter";
 
 export interface IState {
-  counter: CounterReducerState;
+  joyride: JoyrideReducerState;
   wallet: WalletReducerState;
   filter: FilterReducerState;
 }
@@ -19,7 +19,7 @@ const rootReducer = (
       return action.payload;
     default: {
       const combinedReducer = combineReducers({
-        counter: counterSlice,
+        joyride: joyrideSlice,
         wallet: walletSlice,
         filter: filterSlice,
       });
