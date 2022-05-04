@@ -111,7 +111,7 @@ function Gallery({ collection }: Props) {
       <div className="flex justify-center">
         <div
           className={`top-0 left-0 z-50 flex h-screen w-screen animate-fade-in-fast items-center justify-center px-5 backdrop-blur-md duration-75 lg:sticky lg:top-40 lg:w-full lg:items-start lg:p-0 lg:backdrop-blur-none ${
-            isSelectedNFTShowing ? "fixed" : "hidden"
+            isSelectedNFTShowing ? "fixed" : "hidden lg:flex"
           }`}
           onClick={handleCloseMobileSelectedNFT}
         >
