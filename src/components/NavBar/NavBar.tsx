@@ -123,7 +123,7 @@ function NavBar({ isShowing }: Props) {
               onClick={hideJoyrideWalletSwitch}
             ></div>
             <div
-              className={`absolute top-20 right-5 hidden text-right text-3xl font-black text-white ${
+              className={`absolute top-20 right-5 hidden animate-bounce text-right text-3xl font-black text-white ${
                 isJoyrideWalletSwitch ? "lg:flex" : ""
               }`}
             >
