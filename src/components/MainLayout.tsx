@@ -82,11 +82,11 @@ function MainLayout({ children }: Props) {
           </button>
         ))}
       </div>
-      <footer>
+      {/* <footer>
         <div className="flex justify-center bg-black text-white">
           2022 Meta Labs
         </div>
-      </footer>
+      </footer> */}
     </>
   );
 }

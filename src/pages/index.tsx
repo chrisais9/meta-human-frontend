@@ -20,18 +20,35 @@ function Home() {
   const [background, setBackground] = useState("#52117c");
   return (
     <>
-      <div className="flex h-screen items-end justify-center">
-        <div className="relative mb-10 h-32 w-1/2">
+      <div className="grid h-screen grid-cols-1 items-center justify-between lg:grid-cols-2">
+        <div className="flex h-full max-w-6xl flex-col justify-end pb-16 pl-16 text-left text-sm">
           <Image
             src="/assets/icons/mhaf_full.svg"
-            layout="fill"
+            width={125}
+            height={506}
             objectFit="contain"
             alt="logo"
           />
+          <p className="text-sm">
+            And you are made wonderful would never want you to feel like you
+            could never be rightAnd
+            <br /> you are made wonderful would never want you to feel like you
+            could never be rightAnd you are
+            <br /> made wonderful would never want you to feel like you could
+            never be rightLove is all you want, I<br /> would never do you wrong
+            Hold it down and give me some time <br />
+            <br />
+            And you are made wonderful would never want you to feel like you
+            could never be rightAnd
+            <br /> you are made wonderful would never want you to feel like you
+            could never be rightAnd you are
+            <br /> made wonderful would never want you to feel like you could
+            never be rightLove is all you want, I<br /> would never do you wrong
+            Hold it down and give me some time
+          </p>
         </div>
-        <div className="relative hidden h-full w-1/2 lg:flex">
+        <div className="relative h-full">
           <Image
-            priority
             src="/assets/images/metahuman_1.png"
             layout="fill"
             objectFit="cover"
@@ -39,61 +56,7 @@ function Home() {
           />
         </div>
       </div>
-      <div className="grid h-screen grid-cols-1 items-center justify-between lg:grid-cols-2">
-        <div className="relative h-full scale-x-[-1]">
-          <Image
-            src="/assets/images/metahuman_2.png"
-            layout="fill"
-            objectFit="cover"
-            alt="image"
-          />
-        </div>
-        <div className="max-w-6xl space-y-4 p-4 text-left text-sm">
-          <div className="mb-14 text-6xl font-black">META HUMAN</div>
-          <p>
-            And you are made wonderful would never want you to feel like you
-            could never be rightAnd you are made wonderful would never want you
-            to feel like you could never be rightAnd you are made wonderful
-            would never want you to feel like you could never be rightLove is
-            all you want, I would never do you wrong Hold it down and give me
-            some time <br />
-            <br />
-            And you are made wonderful would never want you to feel like you
-            could never be rightAnd you are made wonderful would never want you
-            to feel like you could never be rightAnd you are made wonderful
-            would never want you to feel like you could never be rightLove is
-            all you want, I would never do you wrong Hold it down and give me
-            some time
-          </p>
-        </div>
-      </div>
-      <div
-        style={{ backgroundColor: `${background}` }}
-        className={`flex h-screen items-center justify-center`}
-      >
-        <input
-          type="text"
-          value={background}
-          onChange={handleChangeBackground}
-        ></input>
-        <div className="w-1/3 space-y-4 p-4 text-center text-sm text-white">
-          <div className="mb-14 text-6xl font-black">META HUMAN</div>
-          <p>
-            And you are made wonderful would never want you to feel like you
-            could never be rightAnd you are made wonderful would never want you
-            to feel like you could never be rightAnd you are made wonderful
-            would never want you to feel like you could never be rightLove is
-            all you want, I would never do you wrong Hold it down and give me
-            some time And you are made wonderful would never want you to feel
-            like you could never be rightAnd you are made wonderful would never
-            want you to feel like you could never be rightAnd you are made
-            wonderful would never want you to feel like you could never be
-            rightLove is all you want, I would never do you wrong Hold it down
-            and give me some time
-          </p>
-        </div>
-      </div>
-      <div className="flex h-screen flex-col items-center justify-center">
+      {/* <div className="flex h-screen flex-col items-center justify-center">
         <div className="flex justify-center pb-12 text-6xl font-black capitalize">
           line up
         </div>
@@ -120,7 +83,7 @@ function Home() {
             ))}
           </Slider>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
