@@ -103,7 +103,7 @@ function NavBar({ isShowing }: Props) {
           style={
             isJoyrideWalletSwitch
               ? {
-                  boxShadow: "0 0 0 max(100vh, 100vw) rgba(0, 0, 0, .5)",
+                  boxShadow: "0 0 0 max(200vh, 200vw) rgba(0, 0, 0, .5)",
                   borderRadius: "999px",
                 }
               : {}
