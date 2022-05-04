@@ -24,6 +24,7 @@ function Gallery({ collection }: Props) {
   const [filteredCollection, setFilteredCollection] = useState(collection);
   const selectedFilters = useSelector((state: IState) => state.filter.filters);
   const [selectedNFT, setSelectedNFT] = useState(filteredCollection[0]);
+  const [isSelectedNFTShowing, setIsSelectedNFTShowing] = useState(false);
 
   const [isMyNFTMode, setIsMyNFTMode] = useState(false);
 
@@ -62,6 +63,15 @@ function Gallery({ collection }: Props) {
     setFilteredCollection(filterdCollection);
   }, [collection, selectedFilters]);
 
+  function handleCloseMobileSelectedNFT() {
+    setIsSelectedNFTShowing(false);
+  }
+
+  function handleSelectedNFT(nft: INFT) {
+    setSelectedNFT(nft);
+    setIsSelectedNFTShowing(true);
+  }
+
   function handleShuffle() {
     const shuffledCollection = shuffle(filteredCollection).slice();
     setFilteredCollection(shuffledCollection);
@@ -99,7 +109,12 @@ function Gallery({ collection }: Props) {
   return (
     <div className="mt-32 lg:px-14">
       <div className="flex justify-center">
-        <div className="sticky top-40 left-0 hidden h-screen w-full justify-center lg:flex">
+        <div
+          className={`top-0 left-0 z-50 h-screen w-screen justify-center p-20 backdrop-blur-md lg:sticky lg:top-40 lg:flex lg:w-full lg:p-0 lg:backdrop-blur-none ${
+            isSelectedNFTShowing ? "fixed" : "hidden"
+          }`}
+          onClick={handleCloseMobileSelectedNFT}
+        >
           <NFTDetailCard nft={selectedNFT} />
         </div>
         <div className="flex w-full flex-col justify-center">
@@ -184,7 +199,7 @@ function Gallery({ collection }: Props) {
           </div>
           <GalleryInfiniteGrid
             items={isMyNFTMode ? [] : filteredCollection}
-            onClickItem={(item) => setSelectedNFT(item)}
+            onClickItem={(item) => handleSelectedNFT(item)}
             amountToLoad={10}
           />
         </div>
