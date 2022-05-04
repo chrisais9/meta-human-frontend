@@ -103,15 +103,50 @@ function Gallery({ collection }: Props) {
           <NFTDetailCard nft={selectedNFT} />
         </div>
         <div className="flex w-full flex-col justify-center">
-          <div className="flex items-center justify-between pb-6 pl-3 lg:pl-0">
+          <div className="flex items-center justify-between p-3 pb-6 lg:pl-0">
             <div className="text-4xl font-black">Gallery</div>
             <div className="hidden text-xs lg:inline">
               {filteredCollection.length}
             </div>
+            <div className="flex gap-2 lg:hidden">
+              <button
+                className="flex rounded-full bg-[#F5F5F5] p-2"
+                onClick={handleShuffle}
+              >
+                <Image
+                  src="/assets/icons/shuffle.svg"
+                  width={12}
+                  height={12}
+                  alt="opensea"
+                />
+              </button>
+              <button
+                className={`flex rounded-full p-2 ${
+                  isMyNFTMode ? "bg-black" : "bg-[#F5F5F5]"
+                }`}
+                onClick={handleToggleMyNFTMode}
+              >
+                {isMyNFTMode ? (
+                  <Image
+                    src="/assets/icons/person_white.svg"
+                    width={12}
+                    height={12}
+                    alt="opensea"
+                  />
+                ) : (
+                  <Image
+                    src="/assets/icons/person.svg"
+                    width={12}
+                    height={12}
+                    alt="opensea"
+                  />
+                )}
+              </button>
+            </div>
           </div>
           <div className="flex justify-between pb-8 pl-3 lg:pl-0">
             <GalleryFilter />
-            <div className="flex gap-2">
+            <div className="hidden gap-2 lg:flex">
               <button
                 className="flex rounded-full bg-[#F5F5F5] p-2"
                 onClick={handleShuffle}
