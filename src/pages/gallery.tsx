@@ -14,6 +14,8 @@ type Props = {
 };
 
 function Gallery({ collection }: Props) {
+  collection = shuffle(collection);
+
   const dispatch = useDispatch();
   const walletAddress = useSelector(
     (state: IState) => state.wallet.walletAddress
@@ -21,7 +23,7 @@ function Gallery({ collection }: Props) {
 
   const [filteredCollection, setFilteredCollection] = useState(collection);
   const selectedFilters = useSelector((state: IState) => state.filter.filters);
-  const [selectedNFT, setSelectedNFT] = useState(collection[0]);
+  const [selectedNFT, setSelectedNFT] = useState(filteredCollection[0]);
 
   const [isMyNFTMode, setIsMyNFTMode] = useState(false);
 
