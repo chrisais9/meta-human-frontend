@@ -1,11 +1,12 @@
 import Caver, { AbiItem, TransactionReceipt } from "caver-js";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ABI from "@/abi/abi.json";
-import useContract from "@/hooks/useContract";
+import useMetaHuman from "@/hooks/useMetaHuman";
 import { toast } from "react-toastify";
 import { IState } from "@/store/modules";
 import { useSelector, useDispatch } from "react-redux";
 import * as walletActions from "@/store/modules/wallet";
+import caver from "@/config/caver";
 
 function Mint() {
   const dispatch = useDispatch();
@@ -13,7 +14,15 @@ function Mint() {
     (state: IState) => state.wallet.walletAddress
   );
 
-  const { name: collectionName, totalSupply } = useContract();
+  const {
+    deployedAddress,
+    name: collectionName,
+    totalSupply,
+    tokenPrice,
+    maxMintAmount,
+    isWhitelistMintActive,
+    isPublicMintActive,
+  } = useMetaHuman();
 
   const [mintAmount, setMintAmount] = useState("1");
 
@@ -37,14 +46,17 @@ function Mint() {
       const caver = new Caver(window.klaytn);
       const contract = new caver.klay.Contract(
         ABI as AbiItem[],
-        "0xa4e0931470700187317B551B1c06733Df6645758"
+        deployedAddress
       );
 
       contract.methods
-        .mintHoneyBadger(caver.utils.toBN(mintAmount))
+        .mintMetaHuman(caver.utils.toBN(mintAmount))
         .send({
           from: walletAddress,
-          value: caver.utils.toPeb((+mintAmount * 0.1).toString(), "KLAY"),
+          value: caver.utils.toPeb(
+            (+mintAmount * tokenPrice).toString(),
+            "peb"
+          ),
           gas: 1000000,
         })
         .then((receipt: TransactionReceipt) => {
@@ -120,6 +132,15 @@ function Mint() {
         <hr className="my-6" />
         <div>콜렉션이름: {collectionName}</div>
         <div>민트된 NFT 수: {totalSupply}</div>
+        <div>지갑당 최대 민팅 가능 NFT 수: {maxMintAmount}</div>
+        <div>NFT 가격: {caver.utils.fromPeb(tokenPrice, "KLAY")} KLAY</div>
+        <div>
+          화이트리스트 민팅 상태:{" "}
+          {isWhitelistMintActive ? "시작됨" : "시작 이전"}{" "}
+        </div>
+        <div>
+          퍼블릭 민팅 상태: {isPublicMintActive ? "시작됨" : "시작 이전"}{" "}
+        </div>
         <hr className="my-6" />
         <div className="mb-6">
           <label className="mb-2 block text-sm font-bold">민팅할 수량</label>
