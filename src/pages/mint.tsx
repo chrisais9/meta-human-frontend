@@ -7,6 +7,8 @@ import { IState } from "@/store/modules";
 import { useSelector, useDispatch } from "react-redux";
 import * as walletActions from "@/store/modules/wallet";
 import caver from "@/config/caver";
+import Slider, { Settings } from "react-slick";
+import Image from "next/image";
 
 function Mint() {
   const dispatch = useDispatch();
@@ -172,8 +174,56 @@ function Mint() {
           )}
         </div>
       </div>
+      <div className="flex h-screen flex-col items-center justify-center">
+        <div className="flex justify-center pb-12 text-6xl font-black capitalize">
+          line up
+        </div>
+        <div className="w-screen overflow-hidden">
+          <Slider {...settings}>
+            {[...Array(10)].map((e, i) => (
+              <div key={i} className="-mx-10 pb-8">
+                <div
+                  style={{
+                    backgroundColor: tempBackgroundColor[i % 6],
+                  }}
+                  className="h-60 w-60 rounded-2xl shadow-xl shadow-slate-200/80"
+                >
+                  <Image
+                    className="rounded-2xl"
+                    key={i}
+                    src="/assets/images/metahumanxx.png"
+                    width={240}
+                    height={240}
+                    alt="??"
+                  />
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      </div>
     </div>
   );
 }
+
+const tempBackgroundColor = [
+  "#FF6942",
+  "#FF964A",
+  "#1E4CC1",
+  "#3E237D",
+  "#57D181",
+  "#BFB344",
+];
+
+var settings: Settings = {
+  infinite: true,
+  draggable: false,
+  slidesToShow: 5,
+  slidesToScroll: 1,
+  autoplay: true,
+  speed: 5000,
+  autoplaySpeed: 0,
+  cssEase: "linear",
+};
 
 export default Mint;
