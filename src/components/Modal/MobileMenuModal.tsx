@@ -21,7 +21,7 @@ function MobileMenuModal({
   }
   return (
     <Dialog
-      className="absolute top-[5rem] left-0 flex h-screen w-screen items-center justify-center backdrop-blur-md"
+      className="absolute top-[5rem] left-0 flex h-screen w-screen animate-fade-in-fast items-center justify-center backdrop-blur-md"
       open={isMobileMenuShowing}
       onClose={() => {}}
     >
