@@ -6,37 +6,14 @@ import * as walletActions from "@/store/modules/wallet";
 import Image from "next/image";
 import WalletSwitch from "../WalletSwitch";
 import { setJoyrideWalletSwitch } from "@/store/modules/joyride";
+import { Squash as Hamburger } from "hamburger-react";
+import { useState } from "react";
+import MobileMenuModal from "../Modal/MobileMenuModal";
+import { routerItems, socialItems } from "@/config/router";
 
 type Props = {
   isShowing: boolean;
 };
-
-const routerItems = [
-  {
-    href: "/",
-    title: "Home",
-  },
-  {
-    href: "/mint",
-    title: "Buy",
-  },
-  {
-    href: "/gallery",
-    title: "Gallery",
-  },
-  {
-    href: "/roadmap",
-    title: "Roadmap",
-  },
-  {
-    href: "/team",
-    title: "Team",
-  },
-  {
-    href: "/shop",
-    title: "Shop",
-  },
-];
 
 function NavBar({ isShowing }: Props) {
   const router = useRouter();
@@ -49,6 +26,8 @@ function NavBar({ isShowing }: Props) {
   const isJoyrideWalletSwitch = useSelector(
     (state: IState) => state.joyride.walletSwitch
   );
+
+  const [isMobileMenuShowing, setIsMobileMenuShowing] = useState(false);
 
   async function onChangeWalletConnection(state: boolean) {
     if (state) {
@@ -68,81 +47,90 @@ function NavBar({ isShowing }: Props) {
   }
 
   return (
-    <nav
-      className={`fixed top-0 h-20 w-full px-6 py-7 transition duration-300 lg:z-50 ${
-        isShowing ? "traslate-y-0" : "-translate-y-full"
-      }`}
-    >
-      <div className="mx-auto flex h-full items-center justify-between">
-        <Link href="/">
-          <a>
+    <>
+      <nav
+        className={`fixed top-0 z-50 h-20 w-full px-6 py-7 transition duration-300 ${
+          isShowing ? "traslate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className="mx-auto flex h-full cursor-pointer items-center justify-between">
+          <Link href="/" passHref>
             <Image
               src="/assets/icons/mhaf.svg"
               width={156}
               height={24}
               alt="back"
             />
-          </a>
-        </Link>
-        <div className="hidden items-center lg:flex" id="mobile-menu">
-          <ul className="flex space-x-6 uppercase">
-            {routerItems.map(({ href, title }) => (
-              <li
-                key={title}
-                className={
-                  router.pathname === href ? "btn-router-active" : "btn-router"
-                }
+          </Link>
+          <div className="hidden items-center lg:flex" id="mobile-menu">
+            <ul className="flex space-x-6 uppercase">
+              {routerItems.map(({ href, title }) => (
+                <li
+                  key={title}
+                  className={
+                    router.pathname === href
+                      ? "btn-router-active"
+                      : "btn-router"
+                  }
+                >
+                  <Link href={href}>{title}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div
+            className="hidden items-center lg:flex"
+            style={
+              isJoyrideWalletSwitch
+                ? {
+                    boxShadow: "0 0 0 max(200vh, 200vw) rgba(0, 0, 0, .5)",
+                    borderRadius: "999px",
+                  }
+                : {}
+            }
+          >
+            <WalletSwitch
+              walletAddress={walletAddress}
+              onChange={onChangeWalletConnection}
+            />
+          </div>
+          {isJoyrideWalletSwitch && (
+            <>
+              <div
+                className={`absolute top-0 left-0 hidden h-screen w-screen opacity-5 ${
+                  isJoyrideWalletSwitch ? "lg:flex" : ""
+                }`}
+                onClick={hideJoyrideWalletSwitch}
+              ></div>
+              <div
+                className={`absolute top-20 right-5 hidden animate-bounce text-right text-3xl font-black text-white ${
+                  isJoyrideWalletSwitch ? "lg:flex" : ""
+                }`}
               >
-                <Link href={href}>{title}</Link>
-              </li>
-            ))}
-          </ul>
+                👆🏻 <br />
+                Please Connect <br />
+                Your Wallet
+              </div>
+            </>
+          )}
+          <div className="flex lg:hidden">
+            <Hamburger
+              toggle={setIsMobileMenuShowing}
+              toggled={isMobileMenuShowing}
+            />
+          </div>
         </div>
-        <div
-          className="hidden items-center lg:flex"
-          style={
-            isJoyrideWalletSwitch
-              ? {
-                  boxShadow: "0 0 0 max(200vh, 200vw) rgba(0, 0, 0, .5)",
-                  borderRadius: "999px",
-                }
-              : {}
-          }
-        >
-          <WalletSwitch
-            walletAddress={walletAddress}
-            onChange={onChangeWalletConnection}
-          />
-        </div>
-        {isJoyrideWalletSwitch ? (
-          <>
-            <div
-              className={`absolute top-0 left-0 hidden h-screen w-screen opacity-5 ${
-                isJoyrideWalletSwitch ? "lg:flex" : ""
-              }`}
-              onClick={hideJoyrideWalletSwitch}
-            ></div>
-            <div
-              className={`absolute top-20 right-5 hidden animate-bounce text-right text-3xl font-black text-white ${
-                isJoyrideWalletSwitch ? "lg:flex" : ""
-              }`}
-            >
-              👆🏻 <br />
-              Please Connect <br />
-              Your Wallet
-            </div>
-          </>
-        ) : null}
-        <button className="relative flex h-5 w-6 lg:hidden">
-          <Image
-            src="/assets/icons/hamburger.svg"
-            layout="fill"
-            objectFit="cover"
-            alt="router"
-          />
-        </button>
-      </div>
-    </nav>
+      </nav>
+
+      <MobileMenuModal
+        routerItems={routerItems}
+        socialItems={socialItems}
+        isMobileMenuShowing={isMobileMenuShowing}
+        onClose={() => {
+          setIsMobileMenuShowing(false);
+        }}
+      />
+    </>
   );
 }
 

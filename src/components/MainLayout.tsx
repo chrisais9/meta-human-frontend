@@ -1,3 +1,4 @@
+import { socialItems } from "@/config/router";
 import Head from "next/head";
 import Image from "next/image";
 import { ReactNode, useCallback, useEffect, useState } from "react";
@@ -6,25 +7,6 @@ import NavBar from "./NavBar/NavBar";
 type Props = {
   children?: ReactNode;
 };
-
-const socialItems = [
-  {
-    href: "https://www.twitter.com",
-    title: "twitter",
-  },
-  {
-    href: "https://www.instagram.com",
-    title: "instagram",
-  },
-  {
-    href: "https://www.discord.com",
-    title: "discord",
-  },
-  {
-    href: "https://opensea.io",
-    title: "opensea",
-  },
-];
 
 function MainLayout({ children }: Props) {
   const [isNavBarShowing, setIsNavBarShowing] = useState(true);
