@@ -12,12 +12,8 @@ export const routerItems = [
     title: "Gallery",
   },
   {
-    href: "/roadmap",
-    title: "Roadmap",
-  },
-  {
-    href: "/team",
-    title: "Team",
+    href: "/galaxy",
+    title: "Galaxy",
   },
   {
     href: "/shop",
