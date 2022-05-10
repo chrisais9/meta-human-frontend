@@ -16,8 +16,16 @@ export const routerItems = [
     title: "Galaxy",
   },
   {
+    href: "/wgalaxy",
+    title: "Galaxy-W",
+  },
+  {
     href: "/roadmap",
     title: "Roadmap",
+  },
+  {
+    href: "/wroadmap",
+    title: "Roadmap-W",
   },
   {
     href: "/shop",
