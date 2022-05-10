@@ -1,8 +1,19 @@
+import NFTDetailCard from "@/components/Card/NFTDetailCard";
+import INFT from "@/schema/INFT";
 import Image from "next/image";
+import { useEffect } from "react";
 
 function Galaxy() {
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.add("dark");
+    return () => {
+      root.classList.remove("dark");
+    };
+  });
+
   return (
-    <div className="container h-screen w-screen px-56 pt-36">
+    <div className="bg-black px-56 pt-36 text-white">
       <div className="relative h-20 w-80">
         <Image
           src="/assets/icons/mhaf_full_white.svg"
@@ -16,9 +27,10 @@ function Galaxy() {
         coming.
         <br />
         <br />
-        Meta Humans create a new world called 'Metaverse' for coexistence with
-        humans and technological innovations in many ways, including language,
-        lifestyle, culture, fashion, games, and music, to help mankind develop.
+        Meta Humans create a new world called &apos;Metaverse&apos; for
+        coexistence with humans and technological innovations in many ways,
+        including language, lifestyle, culture, fashion, games, and music, to
+        help mankind develop.
         <br />
         <br />
         With exclusive access to the Meta Human collection of 5,000 XX and 5,000
@@ -42,13 +54,105 @@ function Galaxy() {
 
       <div className="mt-56 text-3xl font-black">FANCY WORK MEMBERS</div>
 
-      <div className="relative h-full w-full">
-        <Image
-          src="/assets/images/team.png"
-          layout="fill"
-          objectFit="contain"
-          alt="logo"
+      <div className="mt-14 flex justify-center gap-12 px-40">
+        <NFTDetailCard
+          nft={
+            {
+              id: 0,
+              name: `SUNG HO`,
+              image: `https://ipfs.io/ipfs/Qme42XjH7tBpvqyCqQFoa6UmbXehnRbwk5NDVATCSVQvf3`,
+              color: "#8BCDE8",
+              attributes: [
+                {
+                  trait_type: "Background",
+                  value: "#8BCDE8",
+                },
+                {
+                  trait_type: "Clothes",
+                  value: "dd",
+                },
+              ],
+            } as INFT
+          }
         />
+        <NFTDetailCard
+          nft={
+            {
+              id: 0,
+              name: `HYONG MO`,
+              image: `https://ipfs.io/ipfs/Qme42XjH7tBpvqyCqQFoa6UmbXehnRbwk5NDVATCSVQvf3`,
+              color: "#8BCDE8",
+              attributes: [
+                {
+                  trait_type: "Background",
+                  value: "#8BCDE8",
+                },
+                {
+                  trait_type: "Clothes",
+                  value: "dd",
+                },
+              ],
+            } as INFT
+          }
+        />
+        <NFTDetailCard
+          nft={
+            {
+              id: 0,
+              name: `IM MYOUNG`,
+              image: `https://ipfs.io/ipfs/Qme42XjH7tBpvqyCqQFoa6UmbXehnRbwk5NDVATCSVQvf3`,
+              color: "#8BCDE8",
+              attributes: [
+                {
+                  trait_type: "Background",
+                  value: "#8BCDE8",
+                },
+                {
+                  trait_type: "Clothes",
+                  value: "dd",
+                },
+              ],
+            } as INFT
+          }
+        />
+        <NFTDetailCard
+          nft={
+            {
+              id: 0,
+              name: `RYAN`,
+              image: `https://ipfs.io/ipfs/Qme42XjH7tBpvqyCqQFoa6UmbXehnRbwk5NDVATCSVQvf3`,
+              color: "#8BCDE8",
+              attributes: [
+                {
+                  trait_type: "Background",
+                  value: "#8BCDE8",
+                },
+                {
+                  trait_type: "Clothes",
+                  value: "dd",
+                },
+              ],
+            } as INFT
+          }
+        />
+      </div>
+      <div className="mt-11 flex justify-center pb-32">
+        <a
+          className="border-b-[0.5px] border-white text-sm font-light"
+          href="https://discord.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          TOGETHER WITH US IN
+          <span className="pl-4">
+            <Image
+              src="/assets/icons/discord.svg"
+              width={16}
+              height={12}
+              alt="discord"
+            />
+          </span>
+        </a>
       </div>
     </div>
   );

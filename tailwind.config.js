@@ -1,6 +1,7 @@
 plugin = require("tailwindcss/plugin");
 
 module.exports = {
+  darkMode: "class",
   content: ["./src/pages/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}"],
   theme: {
     extend: {
@@ -35,6 +36,12 @@ module.exports = {
         },
         ".btn-router-active": {
           "@apply btn-router bg-black text-header-btn-background": {},
+        },
+        ".btn-router-dark": {
+          "@apply rounded-full p-2 text-2xs text-white": {},
+        },
+        ".btn-router-active-dark": {
+          "@apply btn-router bg-white text-black": {},
         },
       });
       addUtilities({

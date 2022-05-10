@@ -7,7 +7,7 @@ import Image from "next/image";
 import WalletSwitch from "../WalletSwitch";
 import { setJoyrideWalletSwitch } from "@/store/modules/joyride";
 import { Squash as Hamburger } from "hamburger-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileMenuModal from "../Modal/MobileMenuModal";
 import { routerItems, socialItems } from "@/config/router";
 
@@ -54,23 +54,35 @@ function NavBar({ isShowing }: Props) {
         }`}
       >
         <div className="mx-auto flex h-full cursor-pointer items-center justify-between">
-          <Link href="/" passHref>
-            <Image
-              src="/assets/icons/mhaf.svg"
-              width={156}
-              height={24}
-              alt="back"
-            />
-          </Link>
-          <div className="hidden items-center lg:flex" id="mobile-menu">
+          <div className="flex dark:hidden">
+            <Link href="/" passHref>
+              <Image
+                src="/assets/icons/mhaf.svg"
+                width={156}
+                height={24}
+                alt="logo"
+              />
+            </Link>
+          </div>
+          <div className="hidden dark:flex">
+            <Link href="/" passHref>
+              <Image
+                src="/assets/icons/mhaf_white.svg"
+                width={156}
+                height={24}
+                alt="logo"
+              />
+            </Link>
+          </div>
+          <div className="hidden items-center lg:flex">
             <ul className="flex space-x-6 uppercase">
               {routerItems.map(({ href, title }) => (
                 <li
                   key={title}
                   className={
                     router.pathname === href
-                      ? "btn-router-active"
-                      : "btn-router"
+                      ? "btn-router-active dark:btn-router-active-dark"
+                      : "btn-router dark:btn-router-dark"
                   }
                 >
                   <Link href={href}>{title}</Link>

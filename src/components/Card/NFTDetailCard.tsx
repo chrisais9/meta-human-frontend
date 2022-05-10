@@ -19,7 +19,7 @@ const backgroundColor = [
 
 function NFTDetailCard({ nft }: Props) {
   return (
-    <div className="w-full lg:px-10 xl:px-20 2xl:px-40">
+    <div className="w-full">
       <div
         style={{
           backgroundColor:
