@@ -64,7 +64,7 @@ function Roadmap() {
           onMouseLeave={() => setIsCommunityHovered(false)}
         ></div>
         <div
-          className={`mb-6 grid-cols-1 bg-blue-900 ${
+          className={`mb-6 grid-cols-1 ${
             isMetaverseHovered ? "bg-blue-900" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsMetaverseHovered(true)}
@@ -84,7 +84,7 @@ function Roadmap() {
           onMouseLeave={() => setIsMetaverseHovered(false)}
         ></div>
         <div
-          className={`mb-6 grid-cols-1 bg-blue-900 ${
+          className={`mb-6 grid-cols-1 ${
             isMetaverseHovered ? "bg-blue-900" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsMetaverseHovered(true)}
@@ -106,7 +106,7 @@ function Roadmap() {
           onMouseLeave={() => setIsVisionHovered(false)}
         ></div>
         <div
-          className={`mr-6 grid-cols-1  ${
+          className={`mr-6 grid-cols-1 ${
             isMerchandiseHovered ? "bg-purple-600" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsMerchandiseHovered(true)}
@@ -126,14 +126,14 @@ function Roadmap() {
           onMouseLeave={() => setIsCommunityHovered(false)}
         ></div>
         <div
-          className={`mr-6 grid-cols-1 bg-orange-600 ${
+          className={`mr-6 grid-cols-1 ${
             isCommunityHovered ? "bg-orange-600" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsCommunityHovered(true)}
           onMouseLeave={() => setIsCommunityHovered(false)}
         ></div>
         <div
-          className={`-mt-6 mr-6 grid-cols-1 bg-blue-900 ${
+          className={`-mt-6 mr-6 grid-cols-1 ${
             isMetaverseHovered ? "bg-blue-900" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsMetaverseHovered(true)}
@@ -153,7 +153,7 @@ function Roadmap() {
           </div>
         </div>
         <div
-          className={`grid-cols-1 bg-green-600 ${
+          className={`grid-cols-1 ${
             isPhysitalHovered ? "bg-green-600" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsPhysitalHovered(true)}
