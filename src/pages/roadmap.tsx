@@ -1,3 +1,4 @@
+import RoadmapDetailModal from "@/components/Modal/RoadmapDetailModal";
 import { useEffect, useState } from "react";
 function Roadmap() {
   const [isVisionHovered, setIsVisionHovered] = useState(false);
@@ -5,6 +6,9 @@ function Roadmap() {
   const [isMerchandiseHovered, setIsMerchandiseHovered] = useState(false);
   const [isMetaverseHovered, setIsMetaverseHovered] = useState(false);
   const [isPhysitalHovered, setIsPhysitalHovered] = useState(false);
+
+  const [isRoadmapDetailShowing, setIsRoadmapDetailShowing] = useState(false);
+
   useEffect(() => {
     const root = window.document.documentElement;
     root.classList.add("dark");
@@ -29,9 +33,12 @@ function Roadmap() {
         We are working hard to establish our own brand in the virtual world of
         Metabus in the near future.
       </p>
-      <div className="mt-16 grid h-3/4 w-screen grid-cols-7 px-20 text-white">
+      <div
+        className="mt-16 grid h-3/4 w-screen grid-cols-7 px-20 text-white"
+        onClick={() => setIsRoadmapDetailShowing(true)}
+      >
         <div
-          className={`mr-6 grid-cols-1 ${
+          className={`mr-6 ${
             isVisionHovered ? "bg-yellow-900" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsVisionHovered(true)}
@@ -44,7 +51,7 @@ function Roadmap() {
           </div>
         </div>
         <div
-          className={`mb-6 grid-cols-1 ${
+          className={`mb-6 ${
             isCommunityHovered ? "bg-orange-600" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsCommunityHovered(true)}
@@ -57,14 +64,14 @@ function Roadmap() {
           </div>
         </div>
         <div
-          className={`mr-6 grid-cols-1 ${
+          className={`mr-6 ${
             isCommunityHovered ? "bg-orange-600" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsCommunityHovered(true)}
           onMouseLeave={() => setIsCommunityHovered(false)}
         ></div>
         <div
-          className={`mb-6 grid-cols-1 ${
+          className={`mb-6 ${
             isMetaverseHovered ? "bg-blue-900" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsMetaverseHovered(true)}
@@ -77,21 +84,21 @@ function Roadmap() {
           </div>
         </div>
         <div
-          className={`mb-6 grid-cols-1 ${
+          className={`mb-6 ${
             isMetaverseHovered ? "bg-blue-900" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsMetaverseHovered(true)}
           onMouseLeave={() => setIsMetaverseHovered(false)}
         ></div>
         <div
-          className={`mb-6 grid-cols-1 ${
+          className={`mb-6 ${
             isMetaverseHovered ? "bg-blue-900" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsMetaverseHovered(true)}
           onMouseLeave={() => setIsMetaverseHovered(false)}
         ></div>
         <div
-          className={`ml-6 grid-cols-1 ${
+          className={`ml-6 ${
             isPhysitalHovered ? "bg-green-600" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsPhysitalHovered(true)}
@@ -99,14 +106,14 @@ function Roadmap() {
         ></div>
 
         <div
-          className={`mr-6 grid-cols-1 ${
+          className={`mr-6 ${
             isVisionHovered ? "bg-yellow-900" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsVisionHovered(true)}
           onMouseLeave={() => setIsVisionHovered(false)}
         ></div>
         <div
-          className={`mr-6 grid-cols-1 ${
+          className={`mr-6 ${
             isMerchandiseHovered ? "bg-purple-600" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsMerchandiseHovered(true)}
@@ -119,30 +126,26 @@ function Roadmap() {
           </div>
         </div>
         <div
-          className={`grid-cols-1 ${
+          className={`${isCommunityHovered ? "bg-orange-600" : "bg-[#282828]"}`}
+          onMouseEnter={() => setIsCommunityHovered(true)}
+          onMouseLeave={() => setIsCommunityHovered(false)}
+        ></div>
+        <div
+          className={`mr-6 ${
             isCommunityHovered ? "bg-orange-600" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsCommunityHovered(true)}
           onMouseLeave={() => setIsCommunityHovered(false)}
         ></div>
         <div
-          className={`mr-6 grid-cols-1 ${
-            isCommunityHovered ? "bg-orange-600" : "bg-[#282828]"
-          }`}
-          onMouseEnter={() => setIsCommunityHovered(true)}
-          onMouseLeave={() => setIsCommunityHovered(false)}
-        ></div>
-        <div
-          className={`-mt-6 mr-6 grid-cols-1 ${
+          className={`-mt-6 mr-6 ${
             isMetaverseHovered ? "bg-blue-900" : "bg-[#282828]"
           }`}
           onMouseEnter={() => setIsMetaverseHovered(true)}
           onMouseLeave={() => setIsMetaverseHovered(false)}
         ></div>
         <div
-          className={`grid-cols-1 ${
-            isPhysitalHovered ? "bg-green-600" : "bg-[#282828]"
-          }`}
+          className={`${isPhysitalHovered ? "bg-green-600" : "bg-[#282828]"}`}
           onMouseEnter={() => setIsPhysitalHovered(true)}
           onMouseLeave={() => setIsPhysitalHovered(false)}
         >
@@ -153,13 +156,15 @@ function Roadmap() {
           </div>
         </div>
         <div
-          className={`grid-cols-1 ${
-            isPhysitalHovered ? "bg-green-600" : "bg-[#282828]"
-          }`}
+          className={`${isPhysitalHovered ? "bg-green-600" : "bg-[#282828]"}`}
           onMouseEnter={() => setIsPhysitalHovered(true)}
           onMouseLeave={() => setIsPhysitalHovered(false)}
         ></div>
       </div>
+      <RoadmapDetailModal
+        isShowing={isRoadmapDetailShowing}
+        onClose={() => setIsRoadmapDetailShowing(false)}
+      />
     </div>
   );
 }
