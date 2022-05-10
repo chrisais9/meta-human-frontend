@@ -15,7 +15,7 @@ function Roadmap() {
     return () => {
       root.classList.remove("dark");
     };
-  });
+  }, []);
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-black pt-32">

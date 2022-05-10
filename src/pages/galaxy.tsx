@@ -10,7 +10,7 @@ function Galaxy() {
     return () => {
       root.classList.remove("dark");
     };
-  });
+  }, []);
 
   return (
     <div className="bg-black px-56 pt-36 text-white">
