@@ -48,7 +48,7 @@ function MainLayout({ children }: Props) {
       </Head>
       <NavBar isShowing={isNavBarShowing} />
       <main>{children}</main>
-      <div className="fixed bottom-9 right-9 flex w-6 flex-col gap-2">
+      <div className="fixed bottom-9 right-9 hidden w-6 flex-col gap-2 lg:flex">
         {socialItems.map(({ href, title }) => (
           <button
             className="rounded bg-black"

@@ -26,7 +26,7 @@ function WRoadmap() {
         Metabus in the near future.
       </p>
       <div
-        className="mt-16 grid h-3/4 w-screen grid-cols-7 px-20 text-white"
+        className="mt-16 grid h-3/4 w-screen grid-cols-7 px-40 text-white"
         onClick={() => setIsRoadmapDetailShowing(true)}
       >
         <div

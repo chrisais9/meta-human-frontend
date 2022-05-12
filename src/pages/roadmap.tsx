@@ -19,10 +19,10 @@ function Roadmap() {
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-black pt-32">
-      <div className="text-center text-3xl font-extrabold text-white">
+      <div className="animate-fade-in-fast text-center text-3xl font-extrabold  text-white">
         Maybe we&apos;re all meta-humans.
       </div>
-      <p className="mt-5 text-center font-light text-white">
+      <p className="mt-5 animate-fade-in-fast text-center font-light text-white">
         We break the boundaries between the real and virtual worlds through the
         Meta-Human Universe.
         <br />
@@ -34,7 +34,7 @@ function Roadmap() {
         Metabus in the near future.
       </p>
       <div
-        className="mt-16 grid h-3/4 w-screen grid-cols-7 px-20 text-white"
+        className="mt-16 grid h-3/4 w-screen animate-fade-in grid-cols-7 px-20 text-white"
         onClick={() => setIsRoadmapDetailShowing(true)}
       >
         <div

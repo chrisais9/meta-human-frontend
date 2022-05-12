@@ -79,11 +79,13 @@ function NavBar({ isShowing }: Props) {
               {routerItems.map(({ href, title }) => (
                 <li
                   key={title}
-                  className={
-                    router.pathname === href
-                      ? "btn-router-active dark:btn-router-active-dark"
-                      : "btn-router dark:btn-router-dark"
-                  }
+                  className={` 
+                    ${
+                      router.pathname === href
+                        ? "btn-router-active animate-fade-in-fast dark:btn-router-active-dark"
+                        : "btn-router dark:btn-router-dark"
+                    }
+                  `}
                 >
                   <Link href={href}>{title}</Link>
                 </li>
