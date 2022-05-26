@@ -4,6 +4,10 @@ export const routerItems = [
     title: "Home",
   },
   {
+    href: "/minttest",
+    title: "Test Mint",
+  },
+  {
     href: "/mint",
     title: "Buy",
   },

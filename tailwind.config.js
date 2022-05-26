@@ -29,6 +29,7 @@ module.exports = {
     },
   },
   plugins: [
+    require("tailwindcss-animate"),
     plugin(function ({ addUtilities, addComponents }) {
       addComponents({
         ".btn-router": {
