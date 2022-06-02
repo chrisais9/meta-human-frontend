@@ -13,6 +13,7 @@ function useMetaHuman() {
   const deployedAddress = "0x70bf0D4514fB47432af5Db1eCE7b534E2e3CDF48";
   const contract = new caver.klay.Contract(ABI as AbiItem[], deployedAddress);
   const [name, setName] = useState("");
+  const [maxSupply, setMaxSupply] = useState(0);
   const [totalSupply, setTotalSupply] = useState(0);
   const [tokenPrice, setTokenPrice] = useState(0);
   const [maxMintAmount, setMaxMintAmount] = useState(0);
@@ -20,9 +21,18 @@ function useMetaHuman() {
   const [isPublicMintActive, setIsPublicMintActive] = useState(false);
 
   useEffect(() => {
+    contract.events.allEvents(
+      { filter: { event: "Transfer" } },
+      async (err: any, result: any) => {
+        console.log(err, result);
+        setTotalSupply(await fetchTotalSupply());
+      }
+    );
+
     const fetchData = async () => {
       const [
         name,
+        maxSupply,
         totalSupply,
         tokenPrice,
         maxMintAmount,
@@ -30,6 +40,7 @@ function useMetaHuman() {
         isPublicMintActive,
       ] = await Promise.all([
         fetchCollectionName(),
+        fetchMaxSupply(),
         fetchTotalSupply(),
         fetchTokenPrice(),
         fetchMaxMintAmount(),
@@ -38,6 +49,7 @@ function useMetaHuman() {
       ]);
 
       setName(name);
+      setMaxSupply(maxSupply);
       setTotalSupply(totalSupply);
       setTokenPrice(tokenPrice);
       setMaxMintAmount(maxMintAmount);
@@ -45,11 +57,16 @@ function useMetaHuman() {
       setIsPublicMintActive(isPublicMintActive);
     };
     fetchData();
-  });
+  }, []);
 
   function fetchCollectionName(): Promise<string> {
     const collectionName = contract.methods.name().call();
     return collectionName;
+  }
+
+  function fetchMaxSupply(): Promise<number> {
+    const maxSupply = contract.methods.maxSupply().call();
+    return maxSupply;
   }
 
   function fetchTotalSupply(): Promise<number> {
@@ -82,6 +99,7 @@ function useMetaHuman() {
   return {
     deployedAddress,
     name,
+    maxSupply,
     totalSupply,
     tokenPrice,
     maxMintAmount,

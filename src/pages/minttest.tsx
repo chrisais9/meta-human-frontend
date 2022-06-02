@@ -19,6 +19,7 @@ function Mint() {
   const {
     deployedAddress,
     name: collectionName,
+    maxSupply,
     totalSupply,
     tokenPrice,
     maxMintAmount,
@@ -133,7 +134,9 @@ function Mint() {
         </div>
         <hr className="my-6" />
         <div>콜렉션이름: {collectionName}</div>
-        <div>민트된 NFT 수: {totalSupply}</div>
+        <div>
+          민트된 NFT 수: {totalSupply} / {maxSupply}
+        </div>
         <div>지갑당 최대 민팅 가능 NFT 수: {maxMintAmount}</div>
         <div>NFT 가격: {caver.utils.fromPeb(tokenPrice, "KLAY")} KLAY</div>
         <div>

@@ -7,7 +7,7 @@ import Image from "next/image";
 import WalletSwitch from "../WalletSwitch";
 import { setJoyrideWalletSwitch } from "@/store/modules/joyride";
 import { Squash as Hamburger } from "hamburger-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MobileMenuModal from "../Modal/MobileMenuModal";
 import { routerItems, socialItems } from "@/config/router";
 
@@ -87,7 +87,9 @@ function NavBar({ isShowing }: Props) {
                     }
                   `}
                 >
-                  <Link href={href}>{title}</Link>
+                  <Link href={href} passHref>
+                    {title}
+                  </Link>
                 </li>
               ))}
             </ul>
