@@ -19,6 +19,7 @@ function useMetaHuman() {
   const [maxMintAmount, setMaxMintAmount] = useState(0);
   const [isWhitelistMintActive, setIsWhitelistMintActive] = useState(false);
   const [isPublicMintActive, setIsPublicMintActive] = useState(false);
+  const [baseURI, setBaseURI] = useState("");
 
   useEffect(() => {
     contract.events.allEvents(
@@ -38,6 +39,7 @@ function useMetaHuman() {
         maxMintAmount,
         isWhitelistMintActive,
         isPublicMintActive,
+        baseURI,
       ] = await Promise.all([
         fetchCollectionName(),
         fetchMaxSupply(),
@@ -46,6 +48,7 @@ function useMetaHuman() {
         fetchMaxMintAmount(),
         fetchWhitelistMintStatus(),
         fetchPublicMintStatus(),
+        fetchBaseURI(),
       ]);
 
       setName(name);
@@ -55,6 +58,7 @@ function useMetaHuman() {
       setMaxMintAmount(maxMintAmount);
       setIsWhitelistMintActive(isWhitelistMintActive);
       setIsPublicMintActive(isPublicMintActive);
+      setBaseURI(baseURI);
     };
     fetchData();
   }, []);
@@ -96,6 +100,11 @@ function useMetaHuman() {
     return isPublicMintActive;
   }
 
+  function fetchBaseURI(): Promise<string> {
+    const baseURI = contract.methods.baseURI().call();
+    return baseURI;
+  }
+
   return {
     deployedAddress,
     name,
@@ -105,6 +114,7 @@ function useMetaHuman() {
     maxMintAmount,
     isWhitelistMintActive,
     isPublicMintActive,
+    baseURI,
   };
 }
 
