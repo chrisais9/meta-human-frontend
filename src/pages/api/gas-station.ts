@@ -12,7 +12,8 @@ export default async function handler(
   const { senderRawTransaction: senderRawTransaction } = request.body;
 
   const { to: to } = caver.klay.decodeTransaction(senderRawTransaction);
-  if (to !== deployedAddress) {
+  if (!to || to.toLowerCase() !== deployedAddress.toLowerCase()) {
+    console.log(to);
     return response.status(404);
   }
 
