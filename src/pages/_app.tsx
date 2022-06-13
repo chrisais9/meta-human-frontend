@@ -6,6 +6,7 @@ import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
 import MainLayout from "@/components/MainLayout";
 import wrapper from "@/store/store";
+export { reportWebVitals } from "next-axiom";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

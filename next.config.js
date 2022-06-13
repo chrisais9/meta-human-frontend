@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const { withAxiom } = require("next-axiom");
+
+const nextConfig = withAxiom({
   images: {
     domains: ["ipfs.io", "azk.imgix.net"],
   },
@@ -17,6 +19,6 @@ const nextConfig = {
     return config;
   },
   reactStrictMode: true,
-};
+});
 
 module.exports = nextConfig;
