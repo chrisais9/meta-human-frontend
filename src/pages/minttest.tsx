@@ -1,5 +1,5 @@
-import Caver, { AbiItem, TransactionReceipt } from "caver-js";
-import React, { useEffect, useState } from "react";
+import Caver, { AbiItem, RLPEncodedTransaction } from "caver-js";
+import React, { useState } from "react";
 import ABI from "@/abi/abi.json";
 import useMetaHuman from "@/hooks/useMetaHuman";
 import { toast } from "react-toastify";
@@ -9,6 +9,11 @@ import * as walletActions from "@/store/modules/wallet";
 import caver from "@/config/caver";
 import Slider, { Settings } from "react-slick";
 import Image from "next/image";
+import axios from "axios";
+
+type RLPEncodedTrasactionWithRawTransaction<T> = Partial<T> & {
+  rawTransaction: string;
+};
 
 function Mint() {
   const dispatch = useDispatch();
@@ -52,30 +57,29 @@ function Mint() {
         deployedAddress
       );
 
-      contract.methods
-        .mintMetaHuman(caver.utils.toBN(mintAmount))
-        .send({
-          from: walletAddress,
-          value: caver.utils.toPeb(
-            (+mintAmount * tokenPrice).toString(),
-            "peb"
-          ),
-          gas: 1000000,
+      const senderTransaction = {
+        type: "FEE_DELEGATED_SMART_CONTRACT_EXECUTION",
+        from: walletAddress,
+        to: deployedAddress,
+        data: contract.methods
+          .mintMetaHuman(caver.utils.toBN(mintAmount))
+          .encodeABI(),
+        gas: 1000000,
+        value: caver.utils.toPeb((+mintAmount * tokenPrice).toString(), "peb"),
+      };
+
+      const { rawTransaction: senderRawTransaction } =
+        (await caver.klay.signTransaction(
+          senderTransaction
+        )) as RLPEncodedTrasactionWithRawTransaction<RLPEncodedTransaction>;
+
+      const txHash = (
+        await axios.post("/api/gas-station/", {
+          senderRawTransaction: senderRawTransaction,
         })
-        .then((receipt: TransactionReceipt) => {
-          notifyMintSuccess(receipt.transactionHash);
-        })
-        .catch((err: any) => {
-          try {
-            var receipt = JSON.parse(
-              err.stack.substring(
-                err.stack.indexOf("{"),
-                err.stack.lastIndexOf("}") + 1
-              )
-            );
-            notifyMintFail(receipt.transactionHash);
-          } catch (error) {}
-        });
+      ).data;
+
+      notifyMintSuccess(txHash);
     } else {
       window.alert("카이카스 지갑을 설치해주세요");
     }
