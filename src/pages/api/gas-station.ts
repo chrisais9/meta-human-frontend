@@ -22,6 +22,6 @@ export default async function handler(
   console.log(txHash);
 
   return response.status(200).json({
-    data: txHash,
+    txHash: txHash,
   });
 }

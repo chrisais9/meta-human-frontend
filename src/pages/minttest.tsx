@@ -73,7 +73,7 @@ function Mint() {
           senderTransaction
         )) as RLPEncodedTrasactionWithRawTransaction<RLPEncodedTransaction>;
 
-      const txHash = (
+      const { txHash: txHash } = (
         await axios.post("/api/gas-station/", {
           senderRawTransaction: senderRawTransaction,
         })
