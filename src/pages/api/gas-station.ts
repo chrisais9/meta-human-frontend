@@ -1,5 +1,6 @@
 // pages/api/gas-station.ts
 
+import { deployedAddress } from "@/config/caver";
 import Caver from "caver-js";
 import { NextApiRequest, NextApiResponse } from "next";
 const caver = new Caver("https://api.baobab.klaytn.net:8651");
@@ -10,6 +11,11 @@ export default async function handler(
 ) {
   const { senderRawTransaction: senderRawTransaction } = request.body;
 
+  const { to: to } = caver.klay.decodeTransaction(senderRawTransaction);
+  if (to !== deployedAddress) {
+    return response.status(404);
+  }
+
   caver.klay.accounts.wallet.add(
     process.env.GAS_STATION_ADDRESS_PRIVATE_KEY || "",
     process.env.GAS_STATION_ADDRESS
@@ -19,7 +25,6 @@ export default async function handler(
     senderRawTransaction: senderRawTransaction,
     feePayer: process.env.GAS_STATION_ADDRESS,
   });
-  console.log(txHash);
 
   return response.status(200).json({
     txHash: txHash,

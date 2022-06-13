@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import caver from "@/config/caver";
+import caver, { deployedAddress } from "@/config/caver";
 import ABI from "@/abi/abi.json";
 import { AbiItem } from "caver-js";
 
@@ -10,7 +10,6 @@ declare global {
 }
 
 function useMetaHuman() {
-  const deployedAddress = "0x70bf0D4514fB47432af5Db1eCE7b534E2e3CDF48";
   const contract = new caver.klay.Contract(ABI as AbiItem[], deployedAddress);
   const [name, setName] = useState("");
   const [maxSupply, setMaxSupply] = useState(0);
