@@ -4,6 +4,10 @@ import { deployedAddress } from "@/config/caver";
 import Caver from "caver-js";
 import { NextApiRequest, NextApiResponse } from "next";
 const caver = new Caver("https://api.baobab.klaytn.net:8651");
+caver.klay.accounts.wallet.add(
+  process.env.GAS_STATION_ADDRESS_PRIVATE_KEY || "",
+  process.env.GAS_STATION_ADDRESS
+);
 
 export default async function handler(
   request: NextApiRequest,
@@ -17,11 +21,6 @@ export default async function handler(
       console.log(to);
       return response.status(404);
     }
-
-    caver.klay.accounts.wallet.add(
-      process.env.GAS_STATION_ADDRESS_PRIVATE_KEY || "",
-      process.env.GAS_STATION_ADDRESS
-    );
 
     const { transactionHash: txHash } = await caver.klay.sendTransaction({
       senderRawTransaction: senderRawTransaction,
