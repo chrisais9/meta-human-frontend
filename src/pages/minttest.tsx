@@ -73,13 +73,17 @@ function Mint() {
           senderTransaction
         )) as RLPEncodedTrasactionWithRawTransaction<RLPEncodedTransaction>;
 
-      const { txHash: txHash } = (
-        await axios.post("/api/gas-station/", {
-          senderRawTransaction: senderRawTransaction,
-        })
-      ).data;
+      try {
+        const { txHash: txHash } = (
+          await axios.post("/api/gas-station/", {
+            senderRawTransaction: senderRawTransaction,
+          })
+        ).data;
 
-      notifyMintSuccess(txHash);
+        notifyMintSuccess(txHash);
+      } catch (error) {
+        notifyMintFail();
+      }
     } else {
       window.alert("카이카스 지갑을 설치해주세요");
     }
@@ -107,18 +111,10 @@ function Mint() {
     );
   }
 
-  function notifyMintFail(txHash: string) {
+  function notifyMintFail() {
     toast.error(
       <>
         <div>민팅 실패</div>
-        <a
-          className="text-blue-600 underline"
-          href={`https://baobab.scope.klaytn.com/tx/${txHash}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          영수증 보기
-        </a>
       </>,
       {
         position: "top-right",
