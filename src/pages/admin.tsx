@@ -86,7 +86,7 @@ function Admin() {
     }
 
     const caver = new Caver(window.klaytn);
-    const contract = new caver.klay.Contract(ABI as AbiItem[], deployedAddress);
+    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
 
     const priceInKlay = caver.utils.toPeb(whitelistMintPrice);
 
@@ -122,7 +122,7 @@ function Admin() {
     }
 
     const caver = new Caver(window.klaytn);
-    const contract = new caver.klay.Contract(ABI as AbiItem[], deployedAddress);
+    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
     contract.methods
       .pauseWhitelistMint()
       .send({
@@ -162,7 +162,7 @@ function Admin() {
     }
 
     const caver = new Caver(window.klaytn);
-    const contract = new caver.klay.Contract(ABI as AbiItem[], deployedAddress);
+    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
 
     const priceInKlay = caver.utils.toPeb(publicMintPrice);
 
@@ -198,7 +198,7 @@ function Admin() {
     }
 
     const caver = new Caver(window.klaytn);
-    const contract = new caver.klay.Contract(ABI as AbiItem[], deployedAddress);
+    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
     contract.methods
       .pausePublicMint()
       .send({
@@ -223,7 +223,7 @@ function Admin() {
 
   function updateBaseURI() {
     const caver = new Caver(window.klaytn);
-    const contract = new caver.klay.Contract(ABI as AbiItem[], deployedAddress);
+    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
 
     contract.methods
       .setBaseURI(`https://ipfs.io/ipfs/${revealURI}/`)

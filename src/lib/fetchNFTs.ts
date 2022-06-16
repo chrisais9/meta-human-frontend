@@ -27,7 +27,7 @@ async function fetchNFT(contract: Contract, id: number): Promise<INFT> {
 }
 
 export async function fetchCollection(): Promise<INFT[]> {
-  const contract = new caver.klay.Contract(ABI as AbiItem[], contractAddress);
+  const contract = caver.contract.create(ABI as AbiItem[], contractAddress);
   const totalSupply = await contract.methods.totalSupply().call();
 
   const collection = await Promise.all(

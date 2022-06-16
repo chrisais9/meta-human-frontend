@@ -10,7 +10,7 @@ declare global {
 }
 
 function useMetaHuman() {
-  const contract = new caver.klay.Contract(ABI as AbiItem[], deployedAddress);
+  const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
   const [name, setName] = useState("");
   const [maxSupply, setMaxSupply] = useState(0);
   const [totalSupply, setTotalSupply] = useState(0);

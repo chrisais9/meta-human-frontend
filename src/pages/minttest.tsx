@@ -52,10 +52,7 @@ function Mint() {
   async function mint() {
     if (window.klaytn) {
       const caver = new Caver(window.klaytn);
-      const contract = new caver.klay.Contract(
-        ABI as AbiItem[],
-        deployedAddress
-      );
+      const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
 
       const senderTransaction = {
         type: "FEE_DELEGATED_SMART_CONTRACT_EXECUTION",
