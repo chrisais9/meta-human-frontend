@@ -61,7 +61,7 @@ function Mint() {
         data: contract.methods
           .mintMetaHuman(caver.utils.toBN(mintAmount))
           .encodeABI(),
-        gas: 1000000,
+        gas: 100000,
         value: caver.utils.toPeb((+mintAmount * tokenPrice).toString(), "peb"),
       };
 

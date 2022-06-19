@@ -4,10 +4,11 @@ import { deployedAddress } from "@/config/caver";
 import Caver from "caver-js";
 import { NextApiRequest, NextApiResponse } from "next";
 const caver = new Caver("https://api.baobab.klaytn.net:8651");
-caver.klay.accounts.wallet.add(
-  process.env.GAS_STATION_ADDRESS_PRIVATE_KEY || "",
-  process.env.GAS_STATION_ADDRESS
+const feePayerKeyring = caver.wallet.keyring.create(
+  process.env.GAS_STATION_ADDRESS || "",
+  process.env.GAS_STATION_ADDRESS_PRIVATE_KEY || ""
 );
+caver.wallet.add(feePayerKeyring);
 
 export default async function handler(
   request: NextApiRequest,
@@ -16,16 +17,22 @@ export default async function handler(
   try {
     const { senderRawTransaction: senderRawTransaction } = request.body;
 
-    const { to: to } = caver.klay.decodeTransaction(senderRawTransaction);
+    const transaction =
+      caver.transaction.feeDelegatedSmartContractExecution.decode(
+        senderRawTransaction
+      );
+
+    const to = transaction.to;
+
     if (!to || to.toLowerCase() !== deployedAddress.toLowerCase()) {
-      console.log(to);
       return response.status(404);
     }
 
-    const { transactionHash: txHash } = await caver.klay.sendTransaction({
-      senderRawTransaction: senderRawTransaction,
-      feePayer: process.env.GAS_STATION_ADDRESS,
-    });
+    await caver.wallet.signAsFeePayer(feePayerKeyring.address, transaction);
+
+    const { transactionHash: txHash } = await caver.rpc.klay.sendRawTransaction(
+      transaction
+    );
 
     return response.status(200).json({
       txHash: txHash,
