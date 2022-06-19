@@ -28,12 +28,8 @@ export default async function handler(
 
     await caver.wallet.signAsFeePayer(feePayerKeyring.address, transaction);
 
-    const { transactionHash: txHash } = await caver.rpc.klay.sendRawTransaction(
-      transaction
-    );
-
     return response.status(200).json({
-      txHash: txHash,
+      transaction: transaction.getRLPEncoding(),
     });
   } catch (error) {
     return response.status(500).json({

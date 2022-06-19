@@ -33,6 +33,7 @@ function Mint() {
   } = useMetaHuman();
 
   const [mintAmount, setMintAmount] = useState("1");
+  const [mintState, setMintState] = useState("민팅 하기 버튼을 눌러주세요");
 
   const handleChangeMintAmount = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -65,18 +66,27 @@ function Mint() {
         value: caver.utils.toPeb((+mintAmount * tokenPrice).toString(), "peb"),
       };
 
+      setMintState("Kaikas 지갑에서 승인 버튼을 눌러주세요");
+
       const { rawTransaction: senderRawTransaction } =
-        (await caver.klay.signTransaction(
+        (await caver.rpc.klay.signTransaction(
           senderTransaction
         )) as RLPEncodedTrasactionWithRawTransaction<RLPEncodedTransaction>;
 
       try {
-        const { txHash: txHash } = (
+        setMintState("대납 요청중..");
+        const { transaction: feePayerSignedTransaction } = (
           await axios.post("/api/gas-station/", {
             senderRawTransaction: senderRawTransaction,
           })
         ).data;
 
+        setMintState("대납 승인됨. 블록체인 네트워크에 트랜잭션 전송중...");
+
+        const { transactionHash: txHash } =
+          await caver.rpc.klay.sendRawTransaction(feePayerSignedTransaction);
+
+        setMintState("민팅 완료");
         notifyMintSuccess(txHash);
       } catch (error) {
         notifyMintFail();
@@ -173,6 +183,7 @@ function Mint() {
             </button>
           )}
         </div>
+        <div>진행 상태: {mintState}</div>
       </div>
       <div className="flex h-screen flex-col items-center justify-center">
         <div className="flex justify-center pb-12 text-6xl font-black capitalize">
