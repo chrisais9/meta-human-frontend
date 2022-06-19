@@ -22,9 +22,7 @@ export default async function handler(
         senderRawTransaction
       );
 
-    const to = transaction.to;
-
-    if (!to || to.toLowerCase() !== deployedAddress.toLowerCase()) {
+    if (transaction.to.toLowerCase() !== deployedAddress.toLowerCase()) {
       return response.status(404);
     }
 
