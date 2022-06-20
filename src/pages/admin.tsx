@@ -9,8 +9,10 @@ import { MetaHuman } from "types/web3-v1-contracts";
 function Admin() {
   const {
     deployedAddress,
-    tokenPrice,
-    maxMintAmount,
+    tokenPublicPrice,
+    tokenWhitelistPrice,
+    maxPublicMintAmount,
+    maxWhitelistMintAmount,
     isWhitelistMintActive,
     isPublicMintActive,
     baseURI,
@@ -91,12 +93,19 @@ function Admin() {
 
     const priceInKlay = caver.utils.toPeb(whitelistMintPrice);
 
-    await contract.methods
-      .startWhitelistMint(whitelistMintAmount, priceInKlay, whitelistMerkleHash)
-      .send({
-        from: walletAddress,
-        gas: 1000000,
-      });
+    await caver.rpc.klay.sendTransaction({
+      type: "SMART_CONTRACT_EXECUTION",
+      from: walletAddress,
+      to: deployedAddress,
+      data: contract.methods
+        .startWhitelistMint(
+          whitelistMintAmount,
+          priceInKlay,
+          whitelistMerkleHash
+        )
+        .encodeABI(),
+      gas: 100000,
+    });
   }
 
   async function stopWhitelistMint() {
@@ -110,9 +119,13 @@ function Admin() {
       ABI as AbiItem[],
       deployedAddress
     ) as any as MetaHuman;
-    await contract.methods.pauseWhitelistMint().send({
+
+    await caver.rpc.klay.sendTransaction({
+      type: "SMART_CONTRACT_EXECUTION",
       from: walletAddress,
-      gas: 1000000,
+      to: deployedAddress,
+      data: contract.methods.pauseWhitelistMint().encodeABI(),
+      gas: 100000,
     });
   }
 
@@ -140,15 +153,15 @@ function Admin() {
 
     const priceInKlay = caver.utils.toPeb(publicMintPrice);
 
-    await contract.methods
-      .startPublicMint(
-        caver.utils.toBN(publicMintAmount),
-        caver.utils.toBN(priceInKlay)
-      )
-      .send({
-        from: walletAddress,
-        gas: 1000000,
-      });
+    await caver.rpc.klay.sendTransaction({
+      type: "SMART_CONTRACT_EXECUTION",
+      from: walletAddress,
+      to: deployedAddress,
+      data: contract.methods
+        .startPublicMint(publicMintAmount, priceInKlay)
+        .encodeABI(),
+      gas: 100000,
+    });
   }
 
   async function stopPublicMint() {
@@ -162,9 +175,13 @@ function Admin() {
       ABI as AbiItem[],
       deployedAddress
     ) as any as MetaHuman;
-    await contract.methods.pausePublicMint().send({
+
+    await caver.rpc.klay.sendTransaction({
+      type: "SMART_CONTRACT_EXECUTION",
       from: walletAddress,
-      gas: 1000000,
+      to: deployedAddress,
+      data: contract.methods.pausePublicMint().encodeABI(),
+      gas: 100000,
     });
   }
 
@@ -175,12 +192,15 @@ function Admin() {
       deployedAddress
     ) as any as MetaHuman;
 
-    await contract.methods
-      .setBaseURI(`https://ipfs.io/ipfs/${revealURI}/`)
-      .send({
-        from: walletAddress,
-        gas: 1000000,
-      });
+    await caver.rpc.klay.sendTransaction({
+      type: "SMART_CONTRACT_EXECUTION",
+      from: walletAddress,
+      to: deployedAddress,
+      data: contract.methods
+        .setBaseURI(`https://ipfs.io/ipfs/${revealURI}/`)
+        .encodeABI(),
+      gas: 100000,
+    });
   }
 
   return (
@@ -191,8 +211,10 @@ function Admin() {
           <div className="mb-2 text-3xl font-bold">화이트 리스트 민팅</div>
           <div className="mb-12 flex flex-col gap-4 rounded border-4 border-black bg-white px-8 pt-6 pb-8">
             <div>상태: {isWhitelistMintActive ? "진행중" : "중단됨"}</div>
-            <div>가격: {Caver.utils.fromPeb(tokenPrice, "KLAY")} KLAY</div>
-            <div>민팅 가능 수량(Per Tx): {maxMintAmount}</div>
+            <div>
+              가격: {Caver.utils.fromPeb(tokenWhitelistPrice, "KLAY")} KLAY
+            </div>
+            <div>민팅 가능 수량(Per Tx): {maxWhitelistMintAmount}</div>
             <hr />
             <div>가격:</div>
             <input
@@ -232,8 +254,10 @@ function Admin() {
           <div className="mb-2 text-3xl font-bold">퍼블릭 민팅</div>
           <div className="mb-12 flex flex-col gap-4 rounded border-4 border-black bg-white px-8 pt-6 pb-8">
             <div>상태: {isPublicMintActive ? "진행중" : "중단됨"}</div>
-            <div>가격: {Caver.utils.fromPeb(tokenPrice, "KLAY")} KLAY</div>
-            <div>민팅 가능 수량(Per Tx): {maxMintAmount}</div>
+            <div>
+              가격: {Caver.utils.fromPeb(tokenPublicPrice, "KLAY")} KLAY
+            </div>
+            <div>민팅 가능 수량(Per Tx): {maxPublicMintAmount}</div>
             <hr />
             <div>가격:</div>
             <input

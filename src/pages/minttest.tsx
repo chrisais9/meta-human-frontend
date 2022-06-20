@@ -27,9 +27,8 @@ function Mint() {
     name: collectionName,
     maxSupply,
     totalSupply,
-    tokenPrice,
-    maxMintAmount,
-    isWhitelistMintActive,
+    tokenPublicPrice,
+    maxPublicMintAmount,
     isPublicMintActive,
   } = useMetaHuman();
 
@@ -65,7 +64,10 @@ function Mint() {
         to: deployedAddress,
         data: contract.methods.mintMetaHuman(mintAmount).encodeABI(),
         gas: 100000,
-        value: caver.utils.toPeb((+mintAmount * +tokenPrice).toString(), "peb"),
+        value: caver.utils.toPeb(
+          (+mintAmount * +tokenPublicPrice).toString(),
+          "peb"
+        ),
       };
 
       setMintState("Kaikas 지갑에서 승인 버튼을 눌러주세요");
@@ -136,6 +138,7 @@ function Mint() {
 
   return (
     <div className="container mx-auto mt-32">
+      <div className="mb-6 text-4xl font-black">퍼블릭 민팅 테스트</div>
       <div className="mb-4 flex flex-col rounded bg-white px-8 pt-6 pb-8 shadow-md">
         <div>
           카이카스 지갑주소:{" "}
@@ -146,11 +149,9 @@ function Mint() {
         <div>
           민트된 NFT 수: {totalSupply} / {maxSupply}
         </div>
-        <div>지갑당 최대 민팅 가능 NFT 수: {maxMintAmount}</div>
-        <div>NFT 가격: {caver.utils.fromPeb(tokenPrice, "KLAY")} KLAY</div>
+        <div>지갑당 최대 민팅 가능 NFT 수: {maxPublicMintAmount}</div>
         <div>
-          화이트리스트 민팅 상태:{" "}
-          {isWhitelistMintActive ? "시작됨" : "시작 이전"}{" "}
+          NFT 가격: {caver.utils.fromPeb(tokenPublicPrice, "KLAY")} KLAY
         </div>
         <div>
           퍼블릭 민팅 상태: {isPublicMintActive ? "시작됨" : "시작 이전"}{" "}
