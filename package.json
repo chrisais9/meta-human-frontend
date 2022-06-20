@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run generate-types && next dev",
-    "build": "next build",
+    "build": "npm run generate-types && next build",
     "start": "next start",
     "lint": "next lint",
     "generate-types": "typechain --target=web3-v1 'src/abi/*.json'"
