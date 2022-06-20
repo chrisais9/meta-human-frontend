@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import caver, { deployedAddress } from "@/config/caver";
-import ABI from "@/abi/abi.json";
+import ABI from "@/abi/MetaHuman.json";
 import { AbiItem } from "caver-js";
+import { MetaHuman } from "types/web3-v1-contracts";
 
 declare global {
   interface Window {
@@ -10,12 +11,15 @@ declare global {
 }
 
 function useMetaHuman() {
-  const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
+  const contract = caver.contract.create(
+    ABI as AbiItem[],
+    deployedAddress
+  ) as any as MetaHuman;
   const [name, setName] = useState("");
-  const [maxSupply, setMaxSupply] = useState(0);
-  const [totalSupply, setTotalSupply] = useState(0);
-  const [tokenPrice, setTokenPrice] = useState(0);
-  const [maxMintAmount, setMaxMintAmount] = useState(0);
+  const [maxSupply, setMaxSupply] = useState("0");
+  const [totalSupply, setTotalSupply] = useState("0");
+  const [tokenPrice, setTokenPrice] = useState("0");
+  const [maxMintAmount, setMaxMintAmount] = useState("0");
   const [isWhitelistMintActive, setIsWhitelistMintActive] = useState(false);
   const [isPublicMintActive, setIsPublicMintActive] = useState(false);
   const [baseURI, setBaseURI] = useState("");
@@ -67,22 +71,22 @@ function useMetaHuman() {
     return collectionName;
   }
 
-  function fetchMaxSupply(): Promise<number> {
+  function fetchMaxSupply(): Promise<string> {
     const maxSupply = contract.methods.maxSupply().call();
     return maxSupply;
   }
 
-  function fetchTotalSupply(): Promise<number> {
+  function fetchTotalSupply(): Promise<string> {
     const totalSupply = contract.methods.totalSupply().call();
     return totalSupply;
   }
 
-  function fetchTokenPrice(): Promise<number> {
+  function fetchTokenPrice(): Promise<string> {
     const tokenPrice = contract.methods.tokenPrice().call();
     return tokenPrice;
   }
 
-  function fetchMaxMintAmount(): Promise<number> {
+  function fetchMaxMintAmount(): Promise<string> {
     const maxMintAmount = contract.methods.maxMintAmount().call();
     return maxMintAmount;
   }

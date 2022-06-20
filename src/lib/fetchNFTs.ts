@@ -1,12 +1,13 @@
 import caver from "@/config/caver";
 import INFT from "@/schema/INFT";
 import { AbiItem, Contract } from "caver-js";
-import ABI from "@/abi/abi.json";
+import ABI from "@/abi/MetaHuman.json";
 import axios from "axios";
+import { MetaHuman } from "types/web3-v1-contracts";
 
 const contractAddress = "0xa4e0931470700187317B551B1c06733Df6645758";
 
-async function fetchNFT(contract: Contract, id: number): Promise<INFT> {
+async function fetchNFT(contract: MetaHuman, id: number): Promise<INFT> {
   const hash = await contract.methods.tokenURI(id).call();
   const owner = await contract.methods.ownerOf(id).call();
 
@@ -27,12 +28,15 @@ async function fetchNFT(contract: Contract, id: number): Promise<INFT> {
 }
 
 export async function fetchCollection(): Promise<INFT[]> {
-  const contract = caver.contract.create(ABI as AbiItem[], contractAddress);
+  const contract = caver.contract.create(
+    ABI as AbiItem[],
+    contractAddress
+  ) as any as MetaHuman;
   const totalSupply = await contract.methods.totalSupply().call();
 
   const collection = await Promise.all(
     Array(totalSupply)
-      .fill(0)
+      .fill("0")
       .map((e, i) => fetchNFT(contract, i + 1)) // [fetchNFT(1), fetchNFT(2) ... fetchNFT(9999), fetchNFT(10000)]
   );
 

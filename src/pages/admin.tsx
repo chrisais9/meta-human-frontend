@@ -1,12 +1,10 @@
-import caver from "@/config/caver";
 import useMetaHuman from "@/hooks/useMetaHuman";
 import { IState } from "@/store/modules";
-import Caver, { AbiItem, TransactionReceipt } from "caver-js";
+import Caver, { AbiItem } from "caver-js";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import * as walletActions from "@/store/modules/wallet";
-import ABI from "@/abi/abi.json";
+import ABI from "@/abi/MetaHuman.json";
+import { MetaHuman } from "types/web3-v1-contracts";
 
 function Admin() {
   const {
@@ -67,7 +65,7 @@ function Admin() {
     setRevealURI(event.target.value);
   };
 
-  function startWhitelistMint() {
+  async function startWhitelistMint() {
     if (
       !whitelistMintAmount ||
       !whitelistMintPrice ||
@@ -86,66 +84,39 @@ function Admin() {
     }
 
     const caver = new Caver(window.klaytn);
-    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
+    const contract = caver.contract.create(
+      ABI as AbiItem[],
+      deployedAddress
+    ) as any as MetaHuman;
 
     const priceInKlay = caver.utils.toPeb(whitelistMintPrice);
 
-    contract.methods
-      .startWhitelistMint(
-        caver.utils.toBN(whitelistMintAmount),
-        caver.utils.toBN(priceInKlay)
-      )
+    await contract.methods
+      .startWhitelistMint(whitelistMintAmount, priceInKlay, whitelistMerkleHash)
       .send({
         from: walletAddress,
         gas: 1000000,
-      })
-      .then((receipt: TransactionReceipt) => {
-        window.alert(receipt.transactionHash);
-      })
-      .catch((err: any) => {
-        try {
-          var receipt = JSON.parse(
-            err.stack.substring(
-              err.stack.indexOf("{"),
-              err.stack.lastIndexOf("}") + 1
-            )
-          );
-          window.alert(receipt.transactionHash);
-        } catch (error) {}
       });
   }
 
-  function stopWhitelistMint() {
+  async function stopWhitelistMint() {
     if (!window.klaytn) {
       window.alert("카이카스 지갑을 설치하세요");
       return;
     }
 
     const caver = new Caver(window.klaytn);
-    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
-    contract.methods
-      .pauseWhitelistMint()
-      .send({
-        from: walletAddress,
-        gas: 1000000,
-      })
-      .then((receipt: TransactionReceipt) => {
-        window.alert(receipt.transactionHash);
-      })
-      .catch((err: any) => {
-        try {
-          var receipt = JSON.parse(
-            err.stack.substring(
-              err.stack.indexOf("{"),
-              err.stack.lastIndexOf("}") + 1
-            )
-          );
-          window.alert(receipt.transactionHash);
-        } catch (error) {}
-      });
+    const contract = caver.contract.create(
+      ABI as AbiItem[],
+      deployedAddress
+    ) as any as MetaHuman;
+    await contract.methods.pauseWhitelistMint().send({
+      from: walletAddress,
+      gas: 1000000,
+    });
   }
 
-  function startPublicMint() {
+  async function startPublicMint() {
     if (
       !publicMintAmount ||
       !publicMintPrice ||
@@ -162,11 +133,14 @@ function Admin() {
     }
 
     const caver = new Caver(window.klaytn);
-    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
+    const contract = caver.contract.create(
+      ABI as AbiItem[],
+      deployedAddress
+    ) as any as MetaHuman;
 
     const priceInKlay = caver.utils.toPeb(publicMintPrice);
 
-    contract.methods
+    await contract.methods
       .startPublicMint(
         caver.utils.toBN(publicMintAmount),
         caver.utils.toBN(priceInKlay)
@@ -174,76 +148,38 @@ function Admin() {
       .send({
         from: walletAddress,
         gas: 1000000,
-      })
-      .then((receipt: TransactionReceipt) => {
-        window.alert(receipt.transactionHash);
-      })
-      .catch((err: any) => {
-        try {
-          var receipt = JSON.parse(
-            err.stack.substring(
-              err.stack.indexOf("{"),
-              err.stack.lastIndexOf("}") + 1
-            )
-          );
-          window.alert(receipt.transactionHash);
-        } catch (error) {}
       });
   }
 
-  function stopPublicMint() {
+  async function stopPublicMint() {
     if (!window.klaytn) {
       window.alert("카이카스 지갑을 설치하세요");
       return;
     }
 
     const caver = new Caver(window.klaytn);
-    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
-    contract.methods
-      .pausePublicMint()
-      .send({
-        from: walletAddress,
-        gas: 1000000,
-      })
-      .then((receipt: TransactionReceipt) => {
-        window.alert(receipt.transactionHash);
-      })
-      .catch((err: any) => {
-        try {
-          var receipt = JSON.parse(
-            err.stack.substring(
-              err.stack.indexOf("{"),
-              err.stack.lastIndexOf("}") + 1
-            )
-          );
-          window.alert(receipt.transactionHash);
-        } catch (error) {}
-      });
+    const contract = caver.contract.create(
+      ABI as AbiItem[],
+      deployedAddress
+    ) as any as MetaHuman;
+    await contract.methods.pausePublicMint().send({
+      from: walletAddress,
+      gas: 1000000,
+    });
   }
 
-  function updateBaseURI() {
+  async function updateBaseURI() {
     const caver = new Caver(window.klaytn);
-    const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
+    const contract = caver.contract.create(
+      ABI as AbiItem[],
+      deployedAddress
+    ) as any as MetaHuman;
 
-    contract.methods
+    await contract.methods
       .setBaseURI(`https://ipfs.io/ipfs/${revealURI}/`)
       .send({
         from: walletAddress,
         gas: 1000000,
-      })
-      .then((receipt: TransactionReceipt) => {
-        window.alert(receipt.transactionHash);
-      })
-      .catch((err: any) => {
-        try {
-          var receipt = JSON.parse(
-            err.stack.substring(
-              err.stack.indexOf("{"),
-              err.stack.lastIndexOf("}") + 1
-            )
-          );
-          window.alert(receipt.transactionHash);
-        } catch (error) {}
       });
   }
 

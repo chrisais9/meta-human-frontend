@@ -8,6 +8,10 @@ export const routerItems = [
     title: "Test Mint",
   },
   {
+    href: "/wminttest",
+    title: "Test Whitelist Mint",
+  },
+  {
     href: "/mint",
     title: "Buy",
   },

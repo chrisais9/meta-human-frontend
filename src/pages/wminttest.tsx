@@ -10,13 +10,12 @@ import caver from "@/config/caver";
 import Slider, { Settings } from "react-slick";
 import Image from "next/image";
 import axios from "axios";
-import { MetaHuman } from "types/web3-v1-contracts";
 
 type RLPEncodedTrasactionWithRawTransaction<T> = Partial<T> & {
   rawTransaction: string;
 };
 
-function Mint() {
+function WhitelistMint() {
   const dispatch = useDispatch();
   const walletAddress = useSelector(
     (state: IState) => state.wallet.walletAddress
@@ -54,16 +53,17 @@ function Mint() {
   async function mint() {
     if (window.klaytn) {
       const caver = new Caver(window.klaytn);
-      const contract = caver.contract.create(
-        ABI as AbiItem[],
-        deployedAddress
-      ) as any as MetaHuman;
+      const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
+
+      const merkleProof = "";
 
       const senderTransaction = {
         type: "FEE_DELEGATED_SMART_CONTRACT_EXECUTION",
         from: walletAddress,
         to: deployedAddress,
-        data: contract.methods.mintMetaHuman(mintAmount).encodeABI(),
+        data: contract.methods
+          .mintWhitelistMetaHuman(merkleProof, caver.utils.toBN(mintAmount))
+          .encodeABI(),
         gas: 100000,
         value: caver.utils.toPeb((+mintAmount * +tokenPrice).toString(), "peb"),
       };
@@ -239,4 +239,4 @@ var settings: Settings = {
   cssEase: "linear",
 };
 
-export default Mint;
+export default WhitelistMint;
