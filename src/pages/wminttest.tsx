@@ -10,6 +10,8 @@ import caver from "@/config/caver";
 import Slider, { Settings } from "react-slick";
 import Image from "next/image";
 import axios from "axios";
+import { MetaHuman } from "types/web3-v1-contracts";
+import WhitelistManager from "@/lib/whitelistManager";
 
 type RLPEncodedTrasactionWithRawTransaction<T> = Partial<T> & {
   rawTransaction: string;
@@ -34,6 +36,8 @@ function WhitelistMint() {
   const [mintAmount, setMintAmount] = useState("1");
   const [mintState, setMintState] = useState("민팅 하기 버튼을 눌러주세요");
 
+  const whitelistManager = WhitelistManager.getInstance();
+
   const handleChangeMintAmount = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -50,53 +54,57 @@ function WhitelistMint() {
   }
 
   async function mint() {
-    if (window.klaytn) {
-      const caver = new Caver(window.klaytn);
-      const contract = caver.contract.create(ABI as AbiItem[], deployedAddress);
-
-      const merkleProof = "";
-
-      const senderTransaction = {
-        type: "FEE_DELEGATED_SMART_CONTRACT_EXECUTION",
-        from: walletAddress,
-        to: deployedAddress,
-        data: contract.methods
-          .mintWhitelistMetaHuman(merkleProof, caver.utils.toBN(mintAmount))
-          .encodeABI(),
-        gas: 100000,
-        value: caver.utils.toPeb(
-          (+mintAmount * +tokenWhitelistPrice).toString(),
-          "peb"
-        ),
-      };
-
-      setMintState("Kaikas 지갑에서 승인 버튼을 눌러주세요");
-
-      const { rawTransaction: senderRawTransaction } =
-        (await caver.rpc.klay.signTransaction(
-          senderTransaction
-        )) as RLPEncodedTrasactionWithRawTransaction<RLPEncodedTransaction>;
-
-      try {
-        setMintState("대납 요청중..");
-        const { transaction: feePayerSignedTransaction } = (
-          await axios.post("/api/gas-station/", {
-            senderRawTransaction: senderRawTransaction,
-          })
-        ).data;
-
-        setMintState("대납 승인됨. 블록체인 네트워크에 트랜잭션 전송중...");
-
-        const { transactionHash: txHash } =
-          await caver.rpc.klay.sendRawTransaction(feePayerSignedTransaction);
-
-        setMintState("민팅 완료");
-        notifyMintSuccess(txHash);
-      } catch (error) {
-        notifyMintFail();
-      }
-    } else {
+    if (!window.klaytn) {
       window.alert("카이카스 지갑을 설치해주세요");
+      return;
+    }
+    const caver = new Caver(window.klaytn);
+    const contract = caver.contract.create(
+      ABI as AbiItem[],
+      deployedAddress
+    ) as any as MetaHuman;
+
+    const merkleProof = whitelistManager.getMerkleProof(walletAddress);
+
+    const senderTransaction = {
+      type: "FEE_DELEGATED_SMART_CONTRACT_EXECUTION",
+      from: walletAddress,
+      to: deployedAddress,
+      data: contract.methods
+        .mintWhitelistMetaHuman(merkleProof, caver.utils.toBN(mintAmount))
+        .encodeABI(),
+      gas: 1000000,
+      value: caver.utils.toPeb(
+        (+mintAmount * +tokenWhitelistPrice).toString(),
+        "peb"
+      ),
+    };
+
+    setMintState("Kaikas 지갑에서 승인 버튼을 눌러주세요");
+
+    const { rawTransaction: senderRawTransaction } =
+      (await caver.rpc.klay.signTransaction(
+        senderTransaction
+      )) as RLPEncodedTrasactionWithRawTransaction<RLPEncodedTransaction>;
+
+    setMintState("대납 요청중..");
+    try {
+      const { signedTransaction: feePayerSignedTransaction } = (
+        await axios.post("/api/gas-station/", {
+          type: "whitelist",
+          senderRawTransaction: senderRawTransaction,
+        })
+      ).data;
+
+      setMintState("대납 승인됨. 블록체인 네트워크에 트랜잭션 전송중...");
+
+      const { transactionHash: txHash } =
+        await caver.rpc.klay.sendRawTransaction(feePayerSignedTransaction);
+
+      setMintState("민팅 완료");
+      notifyMintSuccess(txHash);
+    } catch (error) {
+      notifyMintFail();
     }
   }
 
