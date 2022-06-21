@@ -55,23 +55,27 @@ function NavBar({ isShowing }: Props) {
       >
         <div className="mx-auto flex h-full cursor-pointer items-center justify-between">
           <div className="flex dark:hidden">
-            <Link href="/" passHref>
-              <Image
-                src="/assets/icons/mhaf.svg"
-                width={156}
-                height={24}
-                alt="logo"
-              />
+            <Link href="/">
+              <a>
+                <Image
+                  src="/assets/icons/mhaf.svg"
+                  width={156}
+                  height={24}
+                  alt="logo"
+                />
+              </a>
             </Link>
           </div>
           <div className="hidden dark:flex">
-            <Link href="/" passHref>
-              <Image
-                src="/assets/icons/mhaf_white.svg"
-                width={156}
-                height={24}
-                alt="logo"
-              />
+            <Link href="/">
+              <a>
+                <Image
+                  src="/assets/icons/mhaf_white.svg"
+                  width={156}
+                  height={24}
+                  alt="logo"
+                />
+              </a>
             </Link>
           </div>
           <div className="hidden items-center lg:flex">
@@ -87,9 +91,7 @@ function NavBar({ isShowing }: Props) {
                     }
                   `}
                 >
-                  <Link href={href} passHref>
-                    {title}
-                  </Link>
+                  <Link href={href}>{title}</Link>
                 </li>
               ))}
             </ul>
