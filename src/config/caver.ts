@@ -1,9 +1,6 @@
 import Caver from "caver-js";
 
-const BAOBAB_TESTNET_RPC_URL =
-  "wss://public-node-api.klaytnapi.com/v1/baobab/ws";
-
-const rpcURL = BAOBAB_TESTNET_RPC_URL;
+const rpcURL = "wss://public-node-api.klaytnapi.com/v1/baobab/ws";
 
 const caver = new Caver(rpcURL);
 
