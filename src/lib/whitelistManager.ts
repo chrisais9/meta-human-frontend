@@ -4,7 +4,7 @@ import whitelist from "whitelist.json";
 
 class WhitelistManager {
   private static instance: WhitelistManager;
-  merkletree;
+  private merkletree: MerkleTree;
 
   private constructor() {
     const leafNodes = whitelist.address.map((addr) => caver.utils.sha3(addr));
@@ -18,11 +18,11 @@ class WhitelistManager {
     return this.instance || (this.instance = new this());
   }
 
-  getMerkleProof(address: string) {
+  public getMerkleProof(address: string) {
     return this.merkletree.getHexProof(caver.utils.sha3(address)!);
   }
 
-  getMerkleRoot(): string {
+  public getMerkleRoot(): string {
     return this.merkletree.getHexRoot();
   }
 }
